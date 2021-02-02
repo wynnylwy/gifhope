@@ -428,7 +428,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
-                                                              fontSize: 18.0),
+                                                              fontSize: 16.0),
                                                           maxLines: 3,
                                                         ),
                                                         Row(
@@ -444,7 +444,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                           'genre'],
                                                                   style: TextStyle(
                                                                       fontSize:
-                                                                          15.0)),
+                                                                          14.0)),
                                                             ]),
                                                         Row(
                                                             mainAxisAlignment:
@@ -459,7 +459,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                           'quantity'],
                                                                   style: TextStyle(
                                                                       fontSize:
-                                                                          15.0)),
+                                                                          14.0)),
                                                             ]),
                                                         SizedBox(height: 15),
                                                         Row(

@@ -36,23 +36,23 @@ class _MainScreenState extends State<MainScreen> {
   double screenHeight, screenWidth;
   bool _visible = false;
   String curtype = "Recent";
-  String numOfItem = "0";
+  String cartNum = "0";
   int quantity = 1;
   bool _isSeller = false;
   String titlecenter = "Product data is not found";
-  String datalink= "https://yitengsze.com/a_gifhope/php/load_product.php";
+  String datalink = "https://yitengsze.com/a_gifhope/php/load_product.php";
 
   @override
   void initState() {
     super.initState();
     _loadData();
     _loadPurchaseQuantity();
+
     refreshKey = GlobalKey<RefreshIndicatorState>();
 
     if (widget.user.email == "seller@gifhope.com") {
       _isSeller = true;
     }
-
   }
 
   @override
@@ -437,7 +437,6 @@ class _MainScreenState extends State<MainScreen> {
                                                 ),
                                               ),
                                             ),
-
                                             Text(
                                               productdata[index]['name'],
                                               maxLines: 3,
@@ -450,7 +449,6 @@ class _MainScreenState extends State<MainScreen> {
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
-
                                             Row(
                                               children: <Widget>[
                                                 Icon(Icons.tag),
@@ -460,7 +458,6 @@ class _MainScreenState extends State<MainScreen> {
                                                 ),
                                               ],
                                             ),
-
                                             Row(
                                               children: <Widget>[
                                                 Icon(Icons.tag),
@@ -474,7 +471,6 @@ class _MainScreenState extends State<MainScreen> {
                                                 ),
                                               ],
                                             ),
-
                                             Row(
                                               children: <Widget>[
                                                 Icon(MdiIcons.checkDecagram,
@@ -484,7 +480,6 @@ class _MainScreenState extends State<MainScreen> {
                                                         ['quantity']),
                                               ],
                                             ),
-
                                             Row(
                                               children: <Widget>[
                                                 Icon(
@@ -495,7 +490,6 @@ class _MainScreenState extends State<MainScreen> {
                                                     productdata[index]['price'])
                                               ],
                                             ),
-                                           
                                           ],
                                         ),
                                         onTap: () => Navigator.push(
@@ -525,7 +519,7 @@ class _MainScreenState extends State<MainScreen> {
                   Toast.show("Seller Mode", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                   return;
-                } else if (widget.user.quantity.contains("0")) {
+                } else if (widget.user.quantity == "0") {
                   Toast.show("Purchase Empty", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                   return;
@@ -537,21 +531,22 @@ class _MainScreenState extends State<MainScreen> {
                                 user: widget.user,
                               )));
                 }
+
                 _loadData(); //refresh data
                 _loadPurchaseQuantity();
               },
               icon: Icon(Icons.add_shopping_cart),
-              label: Text(numOfItem,
-                  style: TextStyle(fontWeight: FontWeight.bold))),
+              label:
+                  Text(cartNum, style: TextStyle(fontWeight: FontWeight.bold))),
         ));
   }
 
   void _loadData() async {
-    String urlLoadJobs =  datalink;
+    String urlLoadJobs = datalink;
     await http.post(urlLoadJobs, body: {}).then((res) {
       if (res.body.contains("nodata")) {
         print(res.body);
-        numOfItem = "0";
+        cartNum = "0";
         titlecenter = "No product found";
         setState(() {
           productdata = null;
@@ -560,7 +555,7 @@ class _MainScreenState extends State<MainScreen> {
         setState(() {
           var extractdata = json.decode(res.body);
           productdata = extractdata["product"];
-          numOfItem = widget.user.quantity;
+          cartNum = widget.user.quantity;
         });
       }
     }).catchError((err) {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gifhope/mainscreen.dart';
 import 'package:gifhope/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
@@ -23,13 +24,13 @@ class DetailsScreen extends StatefulWidget {
 
 class _DetailsScreenState extends State<DetailsScreen> {
   List productdata;
- // Map index = widget.product.key;
-  
+  // Map index = widget.product.key;
 
   String titlecenter = "Product data is not found";
   int numOfItem = 1;
+  String cartNum = "0";
   String datalink = "https://yitengsze.com/a_gifhope/php/load_product.php";
-  String insertlink ="https://yitengsze.com/a_gifhope/php/insert_purchase.php";
+  String insertlink = "https://yitengsze.com/a_gifhope/php/insert_purchase.php";
 
   @override
   void initState() {
@@ -39,7 +40,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   Widget build(BuildContext context) {
     //int index = this.product[index];
-    
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
@@ -56,12 +57,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   tileMode: TileMode.clamp),
             ),
           ),
-          title: Text('Details Screen',
+          title: Text('Details',
               style: TextStyle(
                   fontFamily: 'Sofia',
                   fontWeight: FontWeight.bold,
                   fontSize: 30.0,
                   color: Colors.white)),
+          leading: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MainScreen(
+                        user: widget.user
+                        )));
+            },
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -70,96 +82,113 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 height: size.height,
                 child: Stack(
                   children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(top: size.height * 0.3),
-                      padding: EdgeInsets.only(top: size.height * 0.12),
-                      decoration: BoxDecoration(
-                        color: Colors.blue[100],
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(top: size.height * 0.3),
+                        padding: EdgeInsets.only(top: size.height * 0.08),
+                        decoration: BoxDecoration(
+                          color: Colors.blue[100],
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40),
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 40, 20, 10),
-                            child: Text(
-                              widget.product["description"],
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(height: 1.8, fontSize: 15),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                              child: Column(
+                                children: <Widget>[
+                                Text(
+                                  "Description",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      height: 2,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                      decorationStyle:
+                                          TextDecorationStyle.double),
+                                ),
+                                SizedBox(height: 14),
+                                Text(
+                                   widget.product["description"],
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(height: 1.8, fontSize: 15),
+                                ),
+                              ]),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 30, 20, 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                buildOutlineButton(
-                                  icon: Icons.remove,
-                                  press: () {
-                                    if (numOfItem > 1) {
-                                      setState(() {
-                                        numOfItem--;
-                                      });
-                                    }
-                                  },
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                  child: Text(
-                                    // if our item is less  then 10 then  it shows 01 02 like that
-                                    numOfItem.toString().padLeft(2, "0"),
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
-                                  ),
-                                ),
-                                buildOutlineButton(
-                                    icon: Icons.add,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(20, 30, 20, 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  buildOutlineButton(
+                                    icon: Icons.remove,
                                     press: () {
-                                      setState(() {
-                                        numOfItem++;
-                                      });
-                                    }),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: SizedBox(
-                                    height: 50,
-                                    child: FlatButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(18)),
-                                      color: Colors.yellow[300],
-                                      onPressed: () {
+                                      if (numOfItem > 1) {
                                         setState(() {
-                                         
-                                         _addToPurchase(numOfItem);
+                                          numOfItem--;
                                         });
-                                        Navigator.of(context).pop(false);
-
-                                      },
-                                      child: Text(
-                                        "Add to purchase".toUpperCase(),
-                                        style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
+                                      }
+                                    },
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 10, 20, 10),
+                                    child: Text(
+                                      // if our item is less  then 10 then  it shows 01 02 like that
+                                      numOfItem.toString().padLeft(2, "0"),
+                                      style:
+                                          Theme.of(context).textTheme.headline6,
+                                    ),
+                                  ),
+                                  buildOutlineButton(
+                                      icon: Icons.add,
+                                      press: () {
+                                        setState(() {
+                                          numOfItem++;
+                                        });
+                                      }),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 50,
+                                      child: FlatButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(18)),
+                                        color: Colors.yellow[300],
+                                        onPressed: () {
+                                          setState(() {
+                                            _addToPurchase(numOfItem,
+                                                widget.product["id"]);
+                                          });
+                                        },
+                                        child: Text(
+                                          "Add to purchase".toUpperCase(),
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     productdata == null
@@ -182,7 +211,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         : Expanded(
                             child: Padding(
                               padding:
-                                  const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                                  const EdgeInsets.fromLTRB(20, 20, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
@@ -230,10 +259,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       ),
                                       SizedBox(width: 10),
                                       Expanded(
-                                        child: Hero(
-                                          tag: "${widget.product["pid"]}",
+                                       
                                           child: CachedNetworkImage(
-                                            fit: BoxFit.fill,
+                                            fit: BoxFit.cover,
                                             imageUrl:
                                                 "http://yitengsze.com/a_gifhope/productimages/${widget.product["id"]}.jpg",
                                             placeholder: (context, url) =>
@@ -242,7 +270,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 (context, url, error) =>
                                                     new Icon(Icons.error),
                                           ),
-                                        ),
+                                      
                                       )
                                     ],
                                   )
@@ -259,7 +287,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   _loadProductData() async {
-    String urlLoadJobs = datalink; 
+    String urlLoadJobs = datalink;
     await http.post(urlLoadJobs, body: {}).then((res) {
       if (res.body.contains("nodata")) {
         print(res.body);
@@ -279,22 +307,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
     });
   }
 
-  _loadPurchaseQuantity() async {
-    String urlLoadJobs =
-        "https://yitengsze.com/a_gifhope/php/load_purchasequantity.php";
-    await http.post(urlLoadJobs, body: {
-      "email": widget.user.email,
-    }).then((res) {
-      print(res.body);
-      if (res.body.contains("nodata")) {
-        print("Now: Purchase is EMPTY");
-      } else {
-        widget.user.quantity = res.body;
-      }
-    }).catchError((err) {
-      print(err);
-    });
-  }
+  // _loadPurchaseQuantity() async {
+  //   String urlLoadJobs =
+  //       "https://yitengsze.com/a_gifhope/php/load_purchasequantity.php";
+  //   await http.post(urlLoadJobs, body: {
+  //     "email": widget.user.email,
+  //   }).then((res) {
+  //     print(res.body);
+  //     if (res.body.contains("nodata")) {
+  //       print("Now: Purchase is EMPTY");
+  //     } else {
+  //       widget.user.quantity = res.body;
+  //     }
+  //   }).catchError((err) {
+  //     print(err);
+  //   });
+  // }
 
   SizedBox buildOutlineButton({IconData icon, Function press}) {
     return SizedBox(
@@ -311,15 +339,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 
-  void _addToPurchase(int index) {
-  
+  void _addToPurchase(int numOfItem, String id) {
     try {
       int cquantity =
-          int.parse(productdata[index]["quantity"]); //current available qty
+          int.parse(widget.product["quantity"]); //current available qty
       print(cquantity);
-      print(productdata[index]["id"]);
+      print(widget.product["id"]);
       print(widget.user.email);
-      // print(productdata[index]["price"]);
+
       if (cquantity > 0) {
         ProgressDialog pr = new ProgressDialog(context,
             type: ProgressDialogType.Normal, isDismissible: false);
@@ -328,23 +355,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
         String urlLoadJobs = insertlink;
         http.post(urlLoadJobs, body: {
           "email": widget.user.email,
-          "proid": productdata[index]['id'],
+          "proid": widget.product["id"],
           "quantity": numOfItem.toString(), //qtty you chose
         }).then((res) {
           print(res.body);
+
           if (res.body.contains("failed")) {
             Toast.show("Fail. Not added to Purchase", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           } else {
-            List respond = res.body.split(",");
-            setState(() {
-              numOfItem = respond[1];
-              widget.user.quantity = numOfItem.toString();
-            });
             Toast.show("Success. Added to Purchase", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
-            _loadPurchaseQuantity();
+            List respond = res.body.split(",");
+            setState(() {
+              numOfItem = respond[1];
+            });
           }
           pr.hide();
         }).catchError((err) {
