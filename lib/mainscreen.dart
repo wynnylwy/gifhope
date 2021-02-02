@@ -1102,6 +1102,10 @@ class _MainScreenState extends State<MainScreen> {
                           MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   LoginScreen()));
+
+                                  //print method 
+                                  //testing 
+                                  //testing 1
                     }),
                 new FlatButton(
                     child: new Text("No",
