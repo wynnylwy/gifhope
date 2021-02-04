@@ -1282,7 +1282,7 @@ class _DonationScreenState extends State<DonationScreen> {
     return null;
   }
 
-  _donationAmount() { //open php 
+  _donationAmount() { //open the php for shopper's donation
     String amount = amountController.text;
 
     final amountFK = amountFormKey.currentState;
