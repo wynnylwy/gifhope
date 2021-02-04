@@ -1289,7 +1289,7 @@ class _DonationScreenState extends State<DonationScreen> {
 
     if (amountFK.validate()) {
       amountFK.save();
-      http.post("https://yitengsze.com/carVroom/php/reset_password.php", body: {
+      http.post("https://yitengsze.com/a_gifhope/php/reset_password.php", body: {
         "amount": amount,
       }).then((res) {
         print(res.body);
