@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'user.dart';
-import 'book.dart';
+import 'order.dart';
 import 'package:gifhope/bookdetailscreen.dart';
 
 class PaymentHistoryScreen extends StatefulWidget {
@@ -201,7 +201,7 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
   }
 
   loadBookDetails(int index) {
-    Book pay = new Book(
+    Order pay = new Order(
       billid: paymentdata[index]['billid'],
       orderid: paymentdata[index]['orderid'],
       total: paymentdata[index]['total'],

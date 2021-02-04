@@ -9,6 +9,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:toast/toast.dart';
 import 'package:gifhope/user.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'product.dart';
 
@@ -28,7 +29,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   String titlecenter = "Product data is not found";
   int numOfItem = 1;
-  String cartNum = "0";
+  double screenHeight, screenWidth;
   String datalink = "https://yitengsze.com/a_gifhope/php/load_product.php";
   String insertlink = "https://yitengsze.com/a_gifhope/php/insert_purchase.php";
 
@@ -39,7 +40,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   Widget build(BuildContext context) {
-    //int index = this.product[index];
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -69,9 +71,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainScreen(
-                        user: widget.user
-                        )));
+                      builder: (context) => MainScreen(user: widget.user)));
             },
           ),
         ),
@@ -84,8 +84,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   children: <Widget>[
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(top: size.height * 0.3),
-                        padding: EdgeInsets.only(top: size.height * 0.08),
+                        margin: EdgeInsets.only(
+                            top: size.height * 0.3), //stack height
+                        padding: EdgeInsets.only(
+                            top: size.height * 0.05), //content height
                         decoration: BoxDecoration(
                           color: Colors.blue[100],
                           borderRadius: BorderRadius.only(
@@ -94,25 +96,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           ),
                         ),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
-                              child: Column(
-                                children: <Widget>[
-                                Text(
-                                  "Description",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      height: 2,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline,
-                                      decorationStyle:
-                                          TextDecorationStyle.double),
-                                ),
+                              child: Column(children: <Widget>[
                                 SizedBox(height: 14),
                                 Text(
-                                   widget.product["description"],
+                                  "Description",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      decorationStyle:
+                                          TextDecorationStyle.double,
+                                      height: 1.8,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  widget.product["description"],
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(height: 1.8, fontSize: 15),
                                 ),
@@ -151,6 +153,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           numOfItem++;
                                         });
                                       }),
+                                  SizedBox(width: 25),
+                                  Icon(MdiIcons.checkDecagram,
+                                      color: Colors.red),
+                                  Text(
+                                    " Qty Available: " +
+                                        widget.product["quantity"],
+                                    style:
+                                        Theme.of(context).textTheme.headline6,
+                                  ),
                                 ],
                               ),
                             ),
@@ -208,10 +219,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             fontWeight: FontWeight.bold),
                                       )),
                                 )))
-                        : Expanded(
+                        : Container(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20, 20, 0, 10),
+                              padding: const EdgeInsets.fromLTRB(20, 20, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
@@ -229,51 +239,62 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(height: 10),
-                                  Row(
-                                    children: <Widget>[
-                                      RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                                text: "Price: ",
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(0.5, 0, 2,
+                                        10), //padding of row price & pic
+                                    child: Row(
+                                      children: <Widget>[
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                  text: "Price: ",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline6
+                                                      .copyWith(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                              TextSpan(
+                                                text:
+                                                    "\RM${widget.product["price"]}",
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline6
+                                                    .headline5
                                                     .copyWith(
                                                         color: Colors.black,
                                                         fontWeight:
-                                                            FontWeight.bold)),
-                                            TextSpan(
-                                              text:
-                                                  "\$${widget.product["price"]}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline4
-                                                  .copyWith(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Expanded(
-                                       
-                                          child: CachedNetworkImage(
-                                            fit: BoxFit.cover,
-                                            imageUrl:
-                                                "http://yitengsze.com/a_gifhope/productimages/${widget.product["id"]}.jpg",
-                                            placeholder: (context, url) =>
-                                                new CircularProgressIndicator(),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    new Icon(Icons.error),
+                                                            FontWeight.bold),
+                                              ),
+                                            ],
                                           ),
-                                      
-                                      )
-                                    ],
-                                  )
+                                        ),
+                                        SizedBox(width: 15),
+                                        Container(
+                                          height: screenWidth / 2.0,
+                                          width: screenWidth / 2.0,
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                2, 5, 0, 0), //padding of pic
+
+                                            child: ClipRect(
+                                              child: CachedNetworkImage(
+                                                fit: BoxFit.cover,
+                                                imageUrl:
+                                                    "http://yitengsze.com/a_gifhope/productimages/${widget.product["id"]}.jpg",
+                                                placeholder: (context, url) =>
+                                                    new CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        new Icon(Icons.error),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -306,23 +327,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
       print(err);
     });
   }
-
-  // _loadPurchaseQuantity() async {
-  //   String urlLoadJobs =
-  //       "https://yitengsze.com/a_gifhope/php/load_purchasequantity.php";
-  //   await http.post(urlLoadJobs, body: {
-  //     "email": widget.user.email,
-  //   }).then((res) {
-  //     print(res.body);
-  //     if (res.body.contains("nodata")) {
-  //       print("Now: Purchase is EMPTY");
-  //     } else {
-  //       widget.user.quantity = res.body;
-  //     }
-  //   }).catchError((err) {
-  //     print(err);
-  //   });
-  // }
 
   SizedBox buildOutlineButton({IconData icon, Function press}) {
     return SizedBox(

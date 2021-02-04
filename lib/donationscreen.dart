@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:gifhope/admincharity.dart';
+import 'package:gifhope/adminproduct.dart';
+import 'package:gifhope/bookdetailscreen.dart';
+import 'package:gifhope/mainscreen.dart';
 import 'package:gifhope/profilescreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
@@ -20,15 +23,15 @@ import 'package:gifhope/user.dart';
 import 'purchasescreen.dart';
 import 'loginscreen.dart';
 
-class CharityAdminMainScreen extends StatefulWidget {
+class DonationScreen extends StatefulWidget {
   final User user;
-  CharityAdminMainScreen({Key key, this.user}) : super(key: key);
+  DonationScreen({Key key, this.user}) : super(key: key);
 
   @override
-  _CharityAdminMainScreenState createState() => _CharityAdminMainScreenState();
+  _DonationScreenState createState() => _DonationScreenState();
 }
 
-class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
+class _DonationScreenState extends State<DonationScreen> {
   GlobalKey<RefreshIndicatorState> refreshKey;
   List charitydata;
   int curnumber = 1;
@@ -36,10 +39,17 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
   bool _visible = false;
   String curtype = "Recent";
   String donatequantity = "0";
-    String numOfItem = "0";
+  String numOfItem = "0";
   int quantity = 1;
-  bool _isShopper = false;
+  bool _isSeller = false;
+  String amount;
   String titlecenter = "Charity data is not found";
+
+  TextEditingController _charityController = new TextEditingController();
+  TextEditingController donationController = new TextEditingController();
+  TextEditingController amountController = new TextEditingController();
+
+  final amountFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -48,15 +58,14 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
     _loadDonationQuantity();
     refreshKey = GlobalKey<RefreshIndicatorState>();
 
-    // if (widget.user.email != "charityadmin@gifhope.com") {
-    //   _isShopper = true;
-    // }
+    if (widget.user.email == "seller@gifhope.com") {
+      _isSeller = true;
+    }
   }
 
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController _charityController = new TextEditingController();
 
     return WillPopScope(
         onWillPop: _onBackPressed,
@@ -67,7 +76,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
                     colors: [
-                       const Color(0xFFFDD835),
+                      const Color(0xFFFDD835),
                       const Color(0xFFFBC02D),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
@@ -334,8 +343,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                   child: Text(
                                     "Search ",
                                     style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black),
+                                        fontSize: 20, color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -408,7 +416,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                             maxLines: 3,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              fontSize: 14,
+                                                fontSize: 14,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
@@ -416,7 +424,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           ),
-
                                           Row(
                                             children: <Widget>[
                                               Icon(Icons.tag),
@@ -431,24 +438,19 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                               ),
                                             ],
                                           ),
-
-                                          
-
-                                           Row(
-                                              children: <Widget>[
-                                                Icon(Icons.volunteer_activism,
-                                                    color: Colors.black),
-                                                Text(" Target: RM "),
-                                                Text(
-                                                    charitydata[index]['target'],
-                                                    style: TextStyle(
+                                          Row(
+                                            children: <Widget>[
+                                              Icon(Icons.volunteer_activism,
+                                                  color: Colors.black),
+                                              Text(" Target: RM "),
+                                              Text(
+                                                charitydata[index]['target'],
+                                                style: TextStyle(
                                                   color: Colors.red,
-                                                ),),
-                                              ],
-                                            ),
-
-                                         
-
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                           MaterialButton(
                                               elevation: 5,
                                               shape: RoundedRectangleBorder(
@@ -472,18 +474,15 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                   ],
                 ),
               )),
-
           floatingActionButton: FloatingActionButton.extended(
-            backgroundColor: Colors.red[700],
+              backgroundColor: Colors.red[700],
               onPressed: () async {
-
-                
-
                 if (widget.user.email.contains("unregistered")) {
                   Toast.show("Please register first", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                   return;
-                } else if (widget.user.email.contains("charityadmin@gifhope.com")) {
+                } else if (widget.user.email
+                    .contains("charityadmin@gifhope.com")) {
                   Toast.show("Admin Mode", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                   return;
@@ -491,9 +490,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                   Toast.show("Donation Empty", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                   return;
-                } 
-                
-                else {
+                } else {
                   // await Navigator.push(
                   //     context,
                   //     MaterialPageRoute(
@@ -503,7 +500,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                 }
                 _loadCharityData(); //refresh data
                 //_loadPurchaseQuantity();
-                
               },
               icon: Icon(Icons.volunteer_activism),
               label: Text(numOfItem,
@@ -596,7 +592,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
   }
 
   Widget mainDrawer(BuildContext context) {
-    
     return Drawer(
       child: ListView(
         children: <Widget>[
@@ -634,19 +629,8 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
             },
           ),
 
-          
-
           ListTile(
-              title:
-                  Text("Charity List", style: TextStyle(color: Colors.black)),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    _loadCharityData(),
-                  }),
-
-          ListTile(
-              title: Text("Manage Charity Info",
+              title: Text("My Profile",
                   style: TextStyle(
                     color: Colors.black,
                   )),
@@ -656,14 +640,45 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => CharityAdminManageScreen(
-                            user: widget.user
-                          ))
-                          )
+                          builder: (BuildContext context) =>
+                              ProfileScreen(user: widget.user)),
+                    )
                   }),
 
           ListTile(
-              title: Text("Collect Donation",
+              title: Text("My Purchase",
+                  style: TextStyle(
+                    color: Colors.black,
+                  )),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () => {
+                    Navigator.pop(context),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              BookingScreen(user: widget.user)),
+                    )
+                  }),
+
+          ListTile(
+              title: Text("Purchase History",
+                  style: TextStyle(
+                    color: Colors.black,
+                  )),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () => {
+                    Navigator.pop(context),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              BookDetailScreen(user: widget.user)),
+                    )
+                  }),
+
+          ListTile(
+              title: Text("Go To Donation List",
                   style: TextStyle(
                     color: Colors.black,
                   )),
@@ -674,85 +689,102 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                   }),
 
           ListTile(
-              title: Text("View Sales Report",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
+              title: Text("Back to Product List",
+                  style: TextStyle(color: Colors.black)),
               trailing: Icon(Icons.arrow_forward),
               onTap: () => {
                     Navigator.pop(context),
-                    //goToPaymentHistory(),
-                  }),
-
-          ListTile(
-              title: Text("View Donation Report",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    //goToPaymentHistory(),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              MainScreen(user: widget.user)),
+                    )
                   }),
 
           ListTile(
               title: Text("Log Out", style: TextStyle(color: Colors.black)),
               trailing: Icon(Icons.arrow_forward),
               onTap: () => {
-                    
                     _logout(),
                   }),
 
-//Admin Menu    Shopper cannot see charity admin's drawer!! 27/1/2021*
-          // Visibility(
-          //   visible: _isSeller,
-          //   child: Column(
-          //     children: <Widget>[
-          //       Divider(
-          //         height: 3,
-          //         color: Colors.black,
-          //       ),
-          //       Center(
-          //         child: Text("Seller Menu",
-          //             style: TextStyle(
-          //               fontSize: 15,
-          //               fontWeight: FontWeight.bold,
-          //             )),
-          //       ),
-          //       ListTile(
-          //         title:
-          //             Text("Manage Prodcut Info", style: TextStyle(fontSize: 16)),
-          //         trailing: Icon(Icons.arrow_forward),
-          //         onTap: () => {
-          //           Navigator.pop(context),
-          //           Navigator.push(
-          //               context,
-          //               MaterialPageRoute(
-          //                   builder: (BuildContext context) =>
-          //                       AdminProduct(user: widget.user))
+          //Admin Menu
+          Visibility(
+            visible: _isSeller,
+            child: Column(
+              children: <Widget>[
+                Divider(
+                  height: 3,
+                  color: Colors.black,
+                ),
+                Center(
+                  child: Text("Seller Menu",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                ListTile(
+                  title: Text("Manage Product Info",
+                      style: TextStyle(fontSize: 16)),
+                  trailing: Icon(Icons.arrow_forward),
+                  onTap: () => {
+                    Navigator.pop(context),
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                AdminProduct(user: widget.user)))
+                  },
+                ),
+                // ListTile(
+                //   title: Text("Sales History", style: TextStyle(fontSize: 16)),
+                //   trailing: Icon(Icons.arrow_forward),
+                //   // onTap: () => {
+                //   //   Navigator.pop(context),
+                //   //   Navigator.push(
+                //   //       context,
+                //   //       MaterialPageRoute(
+                //   //           builder: (BuildContext context) =>
+                //   //               AdminProduct(user: widget.user))
 
-          //                       )
-          //         },
-          //       ),
+                //   //               )
+                //   // },
+                // ),
+                ListTile(
+                  title:
+                      Text("View Sales Report", style: TextStyle(fontSize: 16)),
+                  trailing: Icon(Icons.arrow_forward),
+                  // onTap: () => {
+                  //   Navigator.pop(context),
+                  //   Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (BuildContext context) =>
+                  //               AdminProduct(user: widget.user))
 
-          //       ListTile(
-          //         title:
-          //             Text("View Report", style: TextStyle(fontSize: 16)),
-          //         trailing: Icon(Icons.arrow_forward),
-          //         // onTap: () => {
-          //         //   Navigator.pop(context),
-          //         //   Navigator.push(
-          //         //       context,
-          //         //       MaterialPageRoute(
-          //         //           builder: (BuildContext context) =>
-          //         //               AdminProduct(user: widget.user))
+                  //               )
+                  // },
+                ),
+                ListTile(
+                  title: Text("View Donation Report",
+                      style: TextStyle(fontSize: 16)),
+                  trailing: Icon(Icons.arrow_forward),
+                  // onTap: () => {
+                  //   Navigator.pop(context),
+                  //   Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (BuildContext context) =>
+                  //               AdminProduct(user: widget.user))
 
-          //         //               )
-          //         // },
-          //       ),
-          //     ],
-          //   ),
-          // ),
+                  //               )
+                  // },
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -862,7 +894,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
       print(widget.user.email);
 
       showModalBottomSheet(
-        backgroundColor: Colors.red[100],
+          backgroundColor: Colors.red[100],
           context: context,
           isScrollControlled: true,
           builder: (BuildContext builder) {
@@ -932,7 +964,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                         Padding(
                           padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
                           child: Row(
-                            
                             children: <Widget>[
                               Icon(
                                 Icons.tag,
@@ -946,58 +977,56 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold),
                               ),
-
                               SizedBox(width: 20),
                             ],
                           ),
                         ),
                       ],
                     ),
-
                     Row(
-                      
                       children: [
                         Padding(
                           padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
-                                                  child: Icon(
-                                  Icons.save_alt,
-                                  color: Colors.blue[500],
-                                ),
+                          child: Icon(
+                            Icons.save_alt,
+                            color: Colors.blue[500],
+                          ),
                         ),
-                              Text( "Received: RM " ,
-                              style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),),
-                              Text(
-                                charitydata[index]['received'],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-
-                         SizedBox(width: 20),
-
-
+                        Text(
+                          "Received: RM ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          charitydata[index]['received'],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(width: 20),
                         Icon(
-                                Icons.volunteer_activism,
-                                color: Colors.blue[500],
-                              ),
-                              Text( " Target: RM " ,
-                              style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),),
-                              Text(
-                                charitydata[index]['target'],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                          Icons.volunteer_activism,
+                          color: Colors.blue[500],
+                        ),
+                        Text(
+                          " Target: RM ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          charitydata[index]['target'],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                     Row(
@@ -1095,7 +1124,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                       color: Colors.yellow[400],
                       textColor: Colors.black,
                       onPressed: () {
-                        // _addToBookingsDialog(index);
+                        _addToDonateDialog(index);
                       },
                     ),
                     Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20)),
@@ -1109,6 +1138,90 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
       Toast.show("Show details Failed", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }
+  }
+
+  //donate dialog
+  _addToDonateDialog(int index) {
+    if (widget.user.email.contains("unregistered")) {
+      Toast.show("Please register first", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
+
+    if (widget.user.email.contains("seller@gifhope.com")) {
+      Toast.show("Seller Mode", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
+
+    quantity = 1;
+    showDialog(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: (context, newSetState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              title: new Text("Donate to " + charitydata[index]['name'],
+                  style: TextStyle(
+                      // fontFamily: 'Bellota',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    "Insert donation amount: ",
+                    style: TextStyle(fontSize: 18.0, color: Colors.black),
+                  ),
+
+                  //Row select qtty
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        child: Form(
+                          key: amountFormKey,
+                          child: TextFormField(
+                              controller: donationController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  labelText: 'RM',
+                                  icon: Icon(Icons.attach_money)),
+                              validator: amountValidate,
+                              onSaved: (String rm) {
+                                amount = rm;
+                              }),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                MaterialButton(
+                    child: Text("Yes",
+                        style: TextStyle(
+                          fontSize: 15.0,
+                        )),
+                    onPressed: () {
+                      if (amountFormKey.currentState.validate()) {
+                        amountController.text = donationController.text;
+                        _donationAmount();
+                      }
+                    }),
+                MaterialButton(
+                    child: Text("Cancel",
+                        style: TextStyle(
+                          fontSize: 15.0,
+                        )),
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    }),
+              ],
+            );
+          });
+        }); //Builder + Dialog
   }
 
   void _logout() {
@@ -1149,5 +1262,53 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                     onPressed: () => {Navigator.of(context).pop()})
               ]);
         });
+  }
+
+  String amountValidate(String amount) {
+    if (amount.isEmpty) {
+      return 'Amount is required';
+    }
+
+    if (amount == '0') {
+      return 'Please enter amount more than 0';
+    }
+
+    if (!RegExp(
+            r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+        .hasMatch(amount)) {
+      return 'Invalid number';
+    }
+
+    return null;
+  }
+
+  _donationAmount() { //open php 
+    String amount = amountController.text;
+
+    final amountFK = amountFormKey.currentState;
+
+    if (amountFK.validate()) {
+      amountFK.save();
+      http.post("https://yitengsze.com/carVroom/php/reset_password.php", body: {
+        "amount": amount,
+      }).then((res) {
+        print(res.body);
+
+        if (res.body.contains("success")) {
+          Navigator.of(context).pop();
+          Toast.show("Added to Donation", context,
+              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+          return;
+        }
+      }).catchError((err) {
+        print(err);
+      });
+    } 
+    
+    else {
+      Toast.show("Not added to Donation", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
   }
 }

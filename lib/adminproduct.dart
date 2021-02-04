@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:gifhope/detailsScreen.dart';
-import 'package:gifhope/sellerDetailsScreen.dart';
+import 'package:gifhope/detailsscreen.dart';
+import 'package:gifhope/sellerdetailsscreen.dart';
 import 'package:gifhope/user.dart';
 import 'package:gifhope/editproduct.dart';
 import 'package:gifhope/newproduct.dart';
@@ -16,7 +16,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'bookingscreen.dart';
+import 'purchasescreen.dart';
 import 'reportlist.dart';
 
 class AdminProduct extends StatefulWidget {

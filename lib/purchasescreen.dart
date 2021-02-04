@@ -14,14 +14,14 @@ import 'package:random_string/random_string.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'book.dart';
+import 'order.dart';
 import 'product.dart';
 import 'payment.dart';
 import 'mainscreen.dart';
 
 class BookingScreen extends StatefulWidget {
   final User user;
-  final Book book;
+  final Order book;
   final String id;
   final Product product;
 

@@ -1,7 +1,7 @@
-class Book{
+class Order{
   String total, orderid, billid, datebook; 
 
-  Book
+  Order
   (
     {
       this.total,

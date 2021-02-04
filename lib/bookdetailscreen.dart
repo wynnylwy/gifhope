@@ -7,12 +7,12 @@ import 'package:toast/toast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'book.dart';
+import 'order.dart';
 import 'user.dart';
-import 'bookingscreen.dart';
+import 'purchasescreen.dart';
 
 class BookDetailScreen extends StatefulWidget {
-  final Book book;
+  final Order book;
   final User user;
 
   const BookDetailScreen({Key key, this.book, this.user}) : super(key: key);

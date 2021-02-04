@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:gifhope/donationscreen.dart';
 import 'package:gifhope/paymenthistoryscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:gifhope/user.dart';
@@ -12,10 +13,10 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'detailsScreen.dart';
+import 'detailsscreen.dart';
 import 'loginscreen.dart';
 import 'product.dart';
-import 'bookingscreen.dart';
+import 'purchasescreen.dart';
 import 'profilescreen.dart';
 import 'adminproduct.dart';
 
@@ -653,7 +654,12 @@ class _MainScreenState extends State<MainScreen> {
               trailing: Icon(Icons.arrow_forward),
               onTap: () => {
                     Navigator.pop(context),
-                    //goToPaymentHistory(),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              DonationScreen(user: widget.user)),
+                    )
                   }),
 
           ListTile(
@@ -786,101 +792,6 @@ class _MainScreenState extends State<MainScreen> {
       Toast.show("Show details Failed", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }
-  }
-
-  //booking dialog
-  _addToBookingsDialog(int index) {
-    if (widget.user.email.contains("unregistered")) {
-      Toast.show("Please register first", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-
-    if (widget.user.email.contains("seller@gifhope.com")) {
-      Toast.show("Seller Mode", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-
-    quantity = 1;
-    showDialog(
-        context: context,
-        builder: (context) {
-          return StatefulBuilder(builder: (context, newSetState) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              title: new Text("Purchase for " + productdata[index]['name'],
-                  style: TextStyle(
-                      fontFamily: 'Bellota',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    "Select purchase quantity: ",
-                    style: TextStyle(fontSize: 18.0, color: Colors.black),
-                  ),
-                  //Row select qtty
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      FlatButton(
-                        onPressed: () => {
-                          newSetState(() {
-                            if (quantity > 1) {
-                              quantity--;
-                            }
-                          })
-                        },
-                        child: Icon(MdiIcons.minus, color: Colors.blue[400]),
-                      ),
-                      Text(quantity.toString(),
-                          style: TextStyle(color: Colors.black)),
-                      FlatButton(
-                        onPressed: () => {
-                          newSetState(() {
-                            if (quantity <
-                                (int.parse(productdata[index]['quantity']) -
-                                    2)) {
-                              quantity++;
-                            } else {
-                              Toast.show(
-                                  "Product quantity is not available", context,
-                                  duration: Toast.LENGTH_LONG,
-                                  gravity: Toast.BOTTOM);
-                            }
-                          })
-                        },
-                        child: Icon(MdiIcons.plus, color: Colors.blue[400]),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              actions: <Widget>[
-                MaterialButton(
-                    child: Text("Yes",
-                        style: TextStyle(
-                          fontSize: 15.0,
-                        )),
-                    onPressed: () {
-                      Navigator.of(context).pop(false);
-                      //_addToPurchase(index);
-                    }),
-                MaterialButton(
-                    child: Text("Cancel",
-                        style: TextStyle(
-                          fontSize: 15.0,
-                        )),
-                    onPressed: () {
-                      Navigator.of(context).pop(false);
-                    }),
-              ],
-            );
-          });
-        }); //Builder + Dialog
   }
 
   goToBookings() async {
@@ -1103,9 +1014,6 @@ class _MainScreenState extends State<MainScreen> {
                               builder: (BuildContext context) =>
                                   LoginScreen()));
 
-                                  //print method 
-                                  //testing 
-                                  //testing 1
                     }),
                 new FlatButton(
                     child: new Text("No",
