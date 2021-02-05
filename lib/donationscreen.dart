@@ -39,13 +39,15 @@ class _DonationScreenState extends State<DonationScreen> {
   bool _visible = false;
   String curtype = "Recent";
   String donatequantity = "0";
+
   String numOfItem = "0";
   int quantity = 1;
-  bool _isSeller = false;
+
+  bool _isAdmin = false;
   String amount;
   String titlecenter = "Charity data is not found";
 
-  TextEditingController _charityController = new TextEditingController();
+  TextEditingController searchController = new TextEditingController();
   TextEditingController donationController = new TextEditingController();
   TextEditingController amountController = new TextEditingController();
 
@@ -58,8 +60,8 @@ class _DonationScreenState extends State<DonationScreen> {
     _loadDonationQuantity();
     refreshKey = GlobalKey<RefreshIndicatorState>();
 
-    if (widget.user.email == "seller@gifhope.com") {
-      _isSeller = true;
+    if (widget.user.email == "charityadmin@gifhope.com") {
+      _isAdmin = true;
     }
   }
 
@@ -326,7 +328,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                   child: TextField(
                                     style: TextStyle(color: Colors.black),
                                     autofocus: false,
-                                    controller: _charityController,
+                                    controller: searchController,
                                     decoration: InputDecoration(
                                         icon: Icon(Icons.search),
                                         border: OutlineInputBorder()),
@@ -336,9 +338,8 @@ class _DonationScreenState extends State<DonationScreen> {
                               Flexible(
                                 child: MaterialButton(
                                   color: Colors.yellow[400],
-                                  onPressed: () => {
-                                    _sortItembyName(_charityController.text)
-                                  },
+                                  onPressed: () =>
+                                      {_sortItembyName(searchController.text)},
                                   elevation: 5,
                                   child: Text(
                                     "Search ",
@@ -486,7 +487,7 @@ class _DonationScreenState extends State<DonationScreen> {
                   Toast.show("Admin Mode", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                   return;
-                } else if (widget.user.quantity.contains("0")) {
+                } else if (widget.user.quantity == '0') {
                   Toast.show("Donation Empty", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                   return;
@@ -711,7 +712,7 @@ class _DonationScreenState extends State<DonationScreen> {
 
           //Admin Menu
           Visibility(
-            visible: _isSeller,
+            visible: _isAdmin,
             child: Column(
               children: <Widget>[
                 Divider(
@@ -1175,7 +1176,7 @@ class _DonationScreenState extends State<DonationScreen> {
                     style: TextStyle(fontSize: 18.0, color: Colors.black),
                   ),
 
-                  //Row select qtty
+                  //Row insert amount
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -1207,7 +1208,7 @@ class _DonationScreenState extends State<DonationScreen> {
                     onPressed: () {
                       if (amountFormKey.currentState.validate()) {
                         amountController.text = donationController.text;
-                        _donationAmount();
+                        _addToDonation(index);
                       }
                     }),
                 MaterialButton(
@@ -1265,6 +1266,8 @@ class _DonationScreenState extends State<DonationScreen> {
   }
 
   String amountValidate(String amount) {
+
+    print (amount);
     if (amount.isEmpty) {
       return 'Amount is required';
     }
@@ -1273,42 +1276,53 @@ class _DonationScreenState extends State<DonationScreen> {
       return 'Please enter amount more than 0';
     }
 
-    if (!RegExp(
-            r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-        .hasMatch(amount)) {
-      return 'Invalid number';
-    }
-
     return null;
   }
 
-  _donationAmount() { //open the php for shopper's donation
+  _addToDonation(int index) {
+    
     String amount = amountController.text;
-
     final amountFK = amountFormKey.currentState;
 
-    if (amountFK.validate()) {
-      amountFK.save();
-      http.post("https://yitengsze.com/a_gifhope/php/reset_password.php", body: {
-        "amount": amount,
-      }).then((res) {
-        print(res.body);
+    try {
+      print(amount);
+      print(amountFK);
 
-        if (res.body.contains("success")) {
-          Navigator.of(context).pop();
-          Toast.show("Added to Donation", context,
-              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-          return;
-        }
-      }).catchError((err) {
-        print(err);
-      });
-    } 
-    
-    else {
-      Toast.show("Not added to Donation", context,
+      if (amountFK.validate()) {
+        amountFK.save();
+
+        ProgressDialog pr = new ProgressDialog(context,
+            type: ProgressDialogType.Normal, isDismissible: false);
+        pr.style(message: "Add to Donation...");
+        pr.show();
+
+        String urlLoadJobs =
+            "https://yitengsze.com/a_gifhope/php/insert_donation.php";
+
+        http.post(urlLoadJobs, body: {
+          "email": widget.user.email,
+          "eventid": charitydata[index]['id'],
+          "amount": amount.toString(),
+        }).then((res) {
+          print(res.body);
+
+          if (res.body.contains("success")) {
+            Navigator.of(context).pop();
+            Toast.show("Added to Donation", context,
+                duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+            return;
+          }
+        }).catchError((err) {
+          print(err);
+        });
+      } else {
+        Toast.show("Not added to Donation", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        return;
+      }
+    } catch (e) {
+      Toast.show("Donation Failed", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
     }
   }
 }
