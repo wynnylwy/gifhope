@@ -39,8 +39,6 @@ class _DonationScreenState extends State<DonationScreen> {
   bool _visible = false;
   String curtype = "Recent";
   String donatequantity = "0";
-
-  String numOfItem = "0";
   int quantity = 1;
 
   bool _isAdmin = false;
@@ -500,10 +498,10 @@ class _DonationScreenState extends State<DonationScreen> {
                   //             )));
                 }
                 _loadCharityData(); //refresh data
-                //_loadPurchaseQuantity();
+                _loadCharityDonateAmount();
               },
               icon: Icon(Icons.volunteer_activism),
-              label: Text(numOfItem,
+              label: Text(donatequantity,
                   style: TextStyle(fontWeight: FontWeight.bold))),
         ));
   }
@@ -513,7 +511,7 @@ class _DonationScreenState extends State<DonationScreen> {
     await http.post(urlLoadJobs, body: {}).then((res) {
       if (res.body.contains("nodata")) {
         print(res.body);
-        // donatequantity = "0";
+        donatequantity = "0";
         titlecenter = "No charity found";
         setState(() {
           charitydata = null;
@@ -522,7 +520,7 @@ class _DonationScreenState extends State<DonationScreen> {
         setState(() {
           var extractdata = json.decode(res.body);
           charitydata = extractdata["charity"];
-          // donatequantity = widget.user.quantity;
+          donatequantity = widget.user.donation;
         });
       }
     }).catchError((err) {
@@ -1126,6 +1124,7 @@ class _DonationScreenState extends State<DonationScreen> {
                       textColor: Colors.black,
                       onPressed: () {
                         _addToDonateDialog(index);
+
                       },
                     ),
                     Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20)),
@@ -1209,6 +1208,7 @@ class _DonationScreenState extends State<DonationScreen> {
                       if (amountFormKey.currentState.validate()) {
                         amountController.text = donationController.text;
                         _addToDonation(index);
+                        Navigator.of(context).pop(false);
                       }
                     }),
                 MaterialButton(
@@ -1266,8 +1266,7 @@ class _DonationScreenState extends State<DonationScreen> {
   }
 
   String amountValidate(String amount) {
-
-    print (amount);
+    print(amount);
     if (amount.isEmpty) {
       return 'Amount is required';
     }
@@ -1280,7 +1279,6 @@ class _DonationScreenState extends State<DonationScreen> {
   }
 
   _addToDonation(int index) {
-    
     String amount = amountController.text;
     final amountFK = amountFormKey.currentState;
 
@@ -1324,5 +1322,22 @@ class _DonationScreenState extends State<DonationScreen> {
       Toast.show("Donation Failed", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }
+  }
+
+  void _loadCharityDonateAmount() async {
+    String loadLink = "https://yitengsze.com/a_gifhope/php/load_donationQuantity.php";
+    await http.post(loadLink, body: {
+      "email": widget.user.email,
+    }).then((res) {
+      print(res.body);
+
+      if (res.body.contains("nodata")) {
+        print("Now: Donation is EMPTY");
+      } else {
+        widget.user.donation = res.body;  //did not receive data 
+      }
+    }).catchError((err) {
+      print(err);
+    });
   }
 }
