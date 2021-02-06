@@ -110,7 +110,7 @@ class _DonationScreenState extends State<DonationScreen> {
                               child: Center(
                                 child: Shimmer.fromColors(
                                     baseColor: Colors.black,
-                                      highlightColor: Colors.white,
+                                    highlightColor: Colors.white,
                                     child: Text(
                                       "Loading Your Donation...",
                                       style: TextStyle(
@@ -128,7 +128,7 @@ class _DonationScreenState extends State<DonationScreen> {
                               itemBuilder: (context, index) {
                                 if (index == donationData.length) {
                                   return Container(
-                                    color: Colors.red,
+                                      color: Colors.red,
                                       height: screenHeight / 3.0,
                                       width: screenWidth / 2.5,
                                       child: InkWell(
@@ -229,9 +229,9 @@ class _DonationScreenState extends State<DonationScreen> {
                                           Column(
                                             children: <Widget>[
                                               Container(
-                                                  height: screenWidth / 4.8,
+                                                  height: screenWidth / 4.3,
                                                   width: screenWidth / 4.5,
-                                                  child: ClipOval(
+                                                  child: ClipRect(
                                                       child: CachedNetworkImage(
                                                     fit: BoxFit.scaleDown,
                                                     imageUrl:
@@ -243,6 +243,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                                             error) =>
                                                         new Icon(Icons.error),
                                                   ))),
+                                              SizedBox(height: 10),
                                               Text(donationData[index]['genre'],
                                                   style: TextStyle(
                                                       fontSize: 17.0)),
@@ -254,7 +255,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                               child: SizedBox(
                                                   width: 3,
                                                   child: Container(
-                                                    height: screenWidth / 1.8,
+                                                    height: screenWidth / 2.3,  //charity card's height
                                                     color: Colors.grey,
                                                   ))),
                                           Container(
@@ -264,57 +265,36 @@ class _DonationScreenState extends State<DonationScreen> {
                                                   Flexible(
                                                     child: Column(
                                                       children: <Widget>[
-                                                        Row(children: <Widget>[
-                                                          Text(
-                                                            donationData[index]
-                                                                ['name'],
+                                                        Text(
+                                                          donationData[index]
+                                                              ['name'],
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 17.0),
+                                                          maxLines: 3,
+                                                        ),
+                                                        Align(
+                                                          alignment: Alignment
+                                                              .bottomRight,
+                                                          child: Text(
+                                                            "RM " +
+                                                                donationData[
+                                                                        index]
+                                                                    ['amount'],
                                                             textAlign:
                                                                 TextAlign.start,
                                                             style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontSize: 16.0),
+                                                                fontSize: 17.0),
                                                             maxLines: 3,
                                                           ),
-                                                          Spacer(flex: 2),
-                                                          Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .topRight,
-                                                              child: Row(
-                                                                  children: [
-                                                                    Text(
-                                                                      "RM ",
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .start,
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              16.0),
-                                                                      maxLines:
-                                                                          3,
-                                                                    ),
-                                                                    Text(
-                                                                      donationData[
-                                                                              index]
-                                                                          [
-                                                                          'amount'],
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .start,
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              16.0),
-                                                                      maxLines:
-                                                                          3,
-                                                                    ),
-                                                                  ])),
-                                                        ]),
+                                                        ),
                                                         Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -322,9 +302,10 @@ class _DonationScreenState extends State<DonationScreen> {
                                                             children: <Widget>[
                                                               Text(
                                                                   "Donor: " +
-                                                                      widget
-                                                                          .user
-                                                                          .name,
+                                                                      donationData[
+                                                                              index]
+                                                                          [
+                                                                          'donor'],
                                                                   style: TextStyle(
                                                                       fontSize:
                                                                           14.0)),
@@ -336,34 +317,15 @@ class _DonationScreenState extends State<DonationScreen> {
                                                             children: <Widget>[
                                                               Text(
                                                                   "Email: " +
-                                                                      widget
-                                                                          .user
-                                                                          .email,
+                                                                      donationData[
+                                                                              index]
+                                                                          [
+                                                                          'email'],
                                                                   style: TextStyle(
                                                                       fontSize:
                                                                           14.0)),
                                                             ]),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: <Widget>[
-                                                            Text(
-                                                                "Contact No.: " +
-                                                                    widget.user
-                                                                        .phone,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .black,
-                                                                )),
-                                                          ],
-                                                        ),
+                                                        SizedBox(height: 15),
                                                         Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -409,7 +371,7 @@ class _DonationScreenState extends State<DonationScreen> {
     }).then((res) {
       print(res.body);
       pr.hide();
-      
+
       if (res.body.contains("Donation Empty")) {
         widget.user.donation = "0"; //let the booking num =0
         Navigator.push(
