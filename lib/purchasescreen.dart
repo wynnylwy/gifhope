@@ -21,11 +21,11 @@ import 'mainscreen.dart';
 
 class BookingScreen extends StatefulWidget {
   final User user;
-  final Order book;
+  
   final String id;
   final Product product;
 
-  const BookingScreen({Key key, this.user, this.book, this.id, this.product})
+  const BookingScreen({Key key, this.user, this.id, this.product})
       : super(key: key);
 
   @override
@@ -147,10 +147,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                           elevation: 5,
                                           margin: EdgeInsets.fromLTRB(
                                               10, 10, 10, 10),
-                                          // shape: RoundedRectangleBorder(
-                                          //   borderRadius:
-                                          //       BorderRadius.circular(50.0),
-                                          // ),
+                                          
                                           child: Column(
                                             children: <Widget>[
                                               SizedBox(
@@ -273,10 +270,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                       elevation: 5,
                                       margin:
                                           EdgeInsets.fromLTRB(10, 10, 10, 8),
-                                      // shape: RoundedRectangleBorder(
-                                      //   borderRadius:
-                                      //       BorderRadius.circular(50.0),
-                                      // ),
+                                      
                                       child: Column(
                                         children: <Widget>[
                                           SizedBox(
@@ -329,7 +323,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                             20.0)),
                                                 minWidth: 100,
                                                 height: 50,
-                                                child: Text('Make Payment',
+                                                child: Text('Make Payment'.toUpperCase(),
                                                     style: TextStyle(
                                                       fontSize: 20.0,
                                                     )),
@@ -345,7 +339,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                             20.0)),
                                                 minWidth: 140,
                                                 height: 50,
-                                                child: Text('Cancel',
+                                                child: Text('Cancel'.toUpperCase(),
                                                     style: TextStyle(
                                                       fontSize: 20.0,
                                                     )),

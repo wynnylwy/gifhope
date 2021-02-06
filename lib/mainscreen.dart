@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:gifhope/donationscreen.dart';
+import 'package:gifhope/charityscreen.dart';
 import 'package:gifhope/paymenthistoryscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:gifhope/user.dart';
@@ -658,7 +658,7 @@ class _MainScreenState extends State<MainScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              DonationScreen(user: widget.user)),
+                              CharityScreen(user: widget.user)),
                     )
                   }),
 
