@@ -170,13 +170,12 @@ class _DonationScreenState extends State<DonationScreen> {
                                                             20.0)),
                                                 minWidth: 100,
                                                 height: 50,
-                                                child: Text(
-                                                    'Make Payment',
+                                                child: Text('Make Payment',
                                                     style: TextStyle(
                                                       fontSize: 20.0,
                                                     )),
-                                                color: Colors.blue[500],
-                                                textColor: Colors.white,
+                                                color: Colors.yellow[400],
+                                                textColor: Colors.black,
                                                 elevation: 10,
                                                 onPressed: makePayment,
                                               ),
@@ -187,13 +186,12 @@ class _DonationScreenState extends State<DonationScreen> {
                                                             20.0)),
                                                 minWidth: 140,
                                                 height: 50,
-                                                child:
-                                                    Text('Cancel',
-                                                        style: TextStyle(
-                                                          fontSize: 20.0,
-                                                        )),
-                                                color: Colors.blue[500],
-                                                textColor: Colors.white,
+                                                child: Text('Cancel',
+                                                    style: TextStyle(
+                                                      fontSize: 20.0,
+                                                    )),
+                                                color: Colors.yellow[400],
+                                                textColor: Colors.black,
                                                 elevation: 10,
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
@@ -247,7 +245,8 @@ class _DonationScreenState extends State<DonationScreen> {
                                               child: SizedBox(
                                                   width: 3,
                                                   child: Container(
-                                                    height: screenWidth / 2.3,  //charity card's height
+                                                    height: screenWidth /
+                                                        2.3, //charity card's height
                                                     color: Colors.grey,
                                                   ))),
                                           Container(
@@ -284,7 +283,8 @@ class _DonationScreenState extends State<DonationScreen> {
                                                                     FontWeight
                                                                         .bold,
                                                                 fontSize: 17.0,
-                                                                color: Colors.red),
+                                                                color:
+                                                                    Colors.red),
                                                             maxLines: 3,
                                                           ),
                                                         ),
@@ -333,7 +333,8 @@ class _DonationScreenState extends State<DonationScreen> {
                                                                 child: Icon(
                                                                   MdiIcons
                                                                       .delete,
-                                                                  color: Colors.black,
+                                                                  color: Colors
+                                                                      .black,
                                                                 ),
                                                               ),
                                                             ]),
@@ -351,6 +352,9 @@ class _DonationScreenState extends State<DonationScreen> {
   }
 
   void _loadDonation() {
+    _totalAmount = 0;
+    _totalPayment =0;
+
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
     pr.style(message: "Donation Updating...");
@@ -377,6 +381,7 @@ class _DonationScreenState extends State<DonationScreen> {
         var extractdata = json.decode(res.body);
         donationData = extractdata["donation"];
         for (int i = 0; i < donationData.length; i++) {
+         
           _totalAmount = double.parse(donationData[i]['amount']) + _totalAmount;
         }
 
@@ -395,7 +400,7 @@ class _DonationScreenState extends State<DonationScreen> {
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
-        title: new Text('Delete product?',
+        title: new Text('Delete donation?',
             style: TextStyle(
               fontFamily: 'Bellota',
               fontWeight: FontWeight.bold,
@@ -474,10 +479,9 @@ class _DonationScreenState extends State<DonationScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) => PaymentDonateScreen(
-                            //chg?
                             user: widget.user,
                             val: _totalPayment.toStringAsFixed(2),
-                            orderid: donationid, ////check!
+                            donateid: donationid, ////check!
                           ))).then((result) {
                 Navigator.of(context).pop();
               });
@@ -497,7 +501,7 @@ class _DonationScreenState extends State<DonationScreen> {
       ),
     );
 
-    _loadDonation();
+  
   }
 
   void deleleAll() {
@@ -513,7 +517,10 @@ class _DonationScreenState extends State<DonationScreen> {
                   )),
               actions: <Widget>[
                 MaterialButton(
-                    child: Text('Yes'),
+                    child: Text('Yes',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        )),
                     onPressed: () {
                       Navigator.of(context).pop(false);
                       http.post(
@@ -535,7 +542,10 @@ class _DonationScreenState extends State<DonationScreen> {
                       });
                     }),
                 MaterialButton(
-                    child: Text('No'),
+                    child: Text('No',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        )),
                     onPressed: () {
                       Navigator.of(context).pop(false);
                     }),

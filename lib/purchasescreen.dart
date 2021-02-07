@@ -323,7 +323,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                             20.0)),
                                                 minWidth: 100,
                                                 height: 50,
-                                                child: Text('Make Payment'.toUpperCase(),
+                                                child: Text('Make Payment',
                                                     style: TextStyle(
                                                       fontSize: 20.0,
                                                     )),
@@ -339,7 +339,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                             20.0)),
                                                 minWidth: 140,
                                                 height: 50,
-                                                child: Text('Cancel'.toUpperCase(),
+                                                child: Text('Cancel',
                                                     style: TextStyle(
                                                       fontSize: 20.0,
                                                     )),
@@ -933,8 +933,8 @@ class _BookingScreenState extends State<BookingScreen> {
       Toast.show("Chosen: SELF PICK-UP", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     } else if (_locationDelivery) {
-      print("LOCATION DELIVERY");
-      Toast.show("Chosen: LOCATION DELIVERY", context,
+      print("HOME DELIVERY");
+      Toast.show("Chosen: HOME DELIVERY", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     } else {
       Toast.show("Please select payment option !!", context,

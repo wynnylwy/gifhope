@@ -8,8 +8,9 @@ import 'user.dart';
 
 class PaymentDonateScreen extends StatefulWidget {
   final User user;
-  final String orderid, val;
-  PaymentDonateScreen({this.user, this.orderid, this.val, });
+  final String donateid, val;
+
+  PaymentDonateScreen({this.user, this.donateid, this.val, });
 
   @override
   _PaymentDonateScreen createState() => _PaymentDonateScreen();
@@ -17,14 +18,15 @@ class PaymentDonateScreen extends StatefulWidget {
 
 class _PaymentDonateScreen extends State<PaymentDonateScreen> {
   Completer<WebViewController> _controller = Completer<WebViewController>();
+  
   User user;
-  String orderid, val;
+  String donateid, val;
 
   @override
   void initState() {
     super.initState();
     user = widget.user;
-    orderid = widget.orderid;
+    donateid = widget.donateid;
     val = widget.val;
   }
  
@@ -61,11 +63,11 @@ class _PaymentDonateScreen extends State<PaymentDonateScreen> {
                   Expanded(
                     child: WebView(
                       initialUrl:
-                          'http://yitengsze.com/a_gifhope/php/payment.php?email=' + widget.user.email +
+                          'http://yitengsze.com/a_gifhope/php/paymentDonate.php?email=' + widget.user.email +
                               '&mobile=' + widget.user.phone +
                               '&name=' + widget.user.name +
                               '&amount=' + widget.val +
-                              '&orderid=' + widget.orderid,
+                              '&orderid=' + widget.donateid,
                       javascriptMode: JavascriptMode.unrestricted,
                       onWebViewCreated: (WebViewController webViewController) {
                         _controller.complete(webViewController);
@@ -93,7 +95,7 @@ class _PaymentDonateScreen extends State<PaymentDonateScreen> {
                     textColor: Colors.white,
                     elevation: 10,
                     onPressed: () => {
-                      share (context, user, orderid, val),
+                      share (context, user, donateid, val),
                 },
               ),
             ],
@@ -103,14 +105,12 @@ class _PaymentDonateScreen extends State<PaymentDonateScreen> {
     );
   }
 
-  Future <void> share (BuildContext context, User user, String orderid, String val) async
+  Future <void> share (BuildContext context, User user, String donateid, String val) async
   {
     final RenderBox box = context.findRenderObject();
-    final String text1 = " You've done your payment successfully!";
-    final String text2 = " Here's your receipt \n Name: ${widget.user.name} \n Contact: ${widget.user.phone} \n Email: ${widget.user.email} \n Order id: ${widget.orderid} \n Amount: RM ${widget.val} \n THANK YOU! ";
-    final String text3A = " Your sales have been deducted for 20%";
-    final String text3A1 = " as the donation to the charith events eld in Gifhope mobile application";
-    final String text3B = " Here's your receipt \n Name: ${widget.user.name} \n Contact: ${widget.user.phone} \n Email: ${widget.user.email} \n Order id: ${widget.orderid} \n Amount: RM ${widget.val} \n THANK YOU! ";
+    
+    final String text1 = " Appreciation Notice";
+    final String text2 = " Your sales have been deducted for 20% as the donation to the charity events held in Gifhope mobile application. \n\n Here's your receipt \n Name: ${widget.user.name} \n Contact: ${widget.user.phone} \n Email: ${widget.user.email} \n Order id: ${widget.donateid} \n Amount: RM ${widget.val} \n THANK YOU! ";
 
     await Share.share (
       text2, 

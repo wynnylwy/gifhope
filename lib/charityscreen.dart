@@ -920,7 +920,11 @@ class _CharityScreenState extends State<CharityScreen> {
                                 color: Colors.white,
                                 onPressed: () {
                                   setState(() {
-                                    Navigator.pop(context);
+
+                                   
+                                    _loadCharityData();
+                                    _loadDonationQuantity();
+                                     Navigator.pop(context);
                                   });
                                 },
                               ),

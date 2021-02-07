@@ -108,10 +108,7 @@ class _PaymentScreen extends State<PaymentScreen> {
     final RenderBox box = context.findRenderObject();
     final String text1 = " You've done your payment successfully!";
     final String text2 = " Here's your receipt \n Name: ${widget.user.name} \n Contact: ${widget.user.phone} \n Email: ${widget.user.email} \n Order id: ${widget.orderid} \n Amount: RM ${widget.val} \n THANK YOU! ";
-    final String text3A = " Your sales have been deducted for 20%";
-    final String text3A1 = " as the donation to the charith events eld in Gifhope mobile application";
-    final String text3B = " Here's your receipt \n Name: ${widget.user.name} \n Contact: ${widget.user.phone} \n Email: ${widget.user.email} \n Order id: ${widget.orderid} \n Amount: RM ${widget.val} \n THANK YOU! ";
-
+    
     await Share.share (
       text2, 
       subject: text1,
