@@ -19,6 +19,7 @@ import 'charity.dart';
 import 'order.dart';
 import 'payment.dart';
 import 'mainscreen.dart';
+import 'paymentdonate.dart';
 
 class DonationScreen extends StatefulWidget {
   final User user;
@@ -76,6 +77,7 @@ class _DonationScreenState extends State<DonationScreen> {
                   color: Colors.black)),
           leading: new IconButton(
               icon: new Icon(Icons.arrow_back),
+              color: Colors.black,
               onPressed: () {
                 Navigator.push(
                     context,
@@ -87,6 +89,7 @@ class _DonationScreenState extends State<DonationScreen> {
           actions: <Widget>[
             IconButton(
                 icon: Icon(MdiIcons.deleteEmpty),
+                color: Colors.black,
                 onPressed: () {
                   deleleAll();
                 }),
@@ -124,20 +127,9 @@ class _DonationScreenState extends State<DonationScreen> {
                           child: ListView.builder(
                               itemCount: donationData == null
                                   ? 1
-                                  : donationData.length + 2,
+                                  : donationData.length + 1,
                               itemBuilder: (context, index) {
                                 if (index == donationData.length) {
-                                  return Container(
-                                      color: Colors.red,
-                                      height: screenHeight / 3.0,
-                                      width: screenWidth / 2.5,
-                                      child: InkWell(
-                                        onLongPress: () => {print("Delete")},
-                                        // >>>>>>                            //location card
-                                      ));
-                                }
-
-                                if (index == donationData.length + 1) {
                                   return Container(
                                     height: screenHeight / 3.2,
                                     child: Card(
@@ -153,7 +145,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                               style: TextStyle(
                                                   fontSize: 20.0,
                                                   fontWeight: FontWeight.bold)),
-                                          SizedBox(height: 10),
+                                          SizedBox(height: 60),
                                           Text(
                                               "TOTAL AMOUNT RM: " +
                                                       _totalPayment
@@ -162,9 +154,10 @@ class _DonationScreenState extends State<DonationScreen> {
                                               style: TextStyle(
                                                 fontSize: 20.0,
                                                 fontWeight: FontWeight.bold,
+                                                color: Colors.red,
                                               )),
                                           SizedBox(
-                                            height: 28,
+                                            height: 35,
                                           ),
                                           Row(
                                             mainAxisAlignment:
@@ -178,8 +171,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                                 minWidth: 100,
                                                 height: 50,
                                                 child: Text(
-                                                    'Make Payment'
-                                                        .toUpperCase(),
+                                                    'Make Payment',
                                                     style: TextStyle(
                                                       fontSize: 20.0,
                                                     )),
@@ -196,7 +188,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                                 minWidth: 140,
                                                 height: 50,
                                                 child:
-                                                    Text('Cancel'.toUpperCase(),
+                                                    Text('Cancel',
                                                         style: TextStyle(
                                                           fontSize: 20.0,
                                                         )),
@@ -291,7 +283,8 @@ class _DonationScreenState extends State<DonationScreen> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontSize: 17.0),
+                                                                fontSize: 17.0,
+                                                                color: Colors.red),
                                                             maxLines: 3,
                                                           ),
                                                         ),
@@ -340,9 +333,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                                                 child: Icon(
                                                                   MdiIcons
                                                                       .delete,
-                                                                  color: Colors
-                                                                          .blue[
-                                                                      400],
+                                                                  color: Colors.black,
                                                                 ),
                                                               ),
                                                             ]),
@@ -471,7 +462,7 @@ class _DonationScreenState extends State<DonationScreen> {
                 )),
             onPressed: () {
               var now = new DateTime.now(); //current time
-              var dateFormat = new DateFormat('dd-MM-yyyy hh:mm a');
+              var dateFormat = new DateFormat('MMM d, yyyy hh:mm a');
               String donationid = widget.user.email.substring(0, 5) +
                   "-" +
                   dateFormat.format(now) +
@@ -482,7 +473,7 @@ class _DonationScreenState extends State<DonationScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => PaymentScreen(
+                      builder: (BuildContext context) => PaymentDonateScreen(
                             //chg?
                             user: widget.user,
                             val: _totalPayment.toStringAsFixed(2),

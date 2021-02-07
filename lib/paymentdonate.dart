@@ -6,16 +6,16 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import 'user.dart';
 
-class PaymentScreen extends StatefulWidget {
+class PaymentDonateScreen extends StatefulWidget {
   final User user;
   final String orderid, val;
-  PaymentScreen({this.user, this.orderid, this.val, });
+  PaymentDonateScreen({this.user, this.orderid, this.val, });
 
   @override
-  _PaymentScreen createState() => _PaymentScreen();
+  _PaymentDonateScreen createState() => _PaymentDonateScreen();
 }
 
-class _PaymentScreen extends State<PaymentScreen> {
+class _PaymentDonateScreen extends State<PaymentDonateScreen> {
   Completer<WebViewController> _controller = Completer<WebViewController>();
   User user;
   String orderid, val;
