@@ -8,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:toast/toast.dart';
 import 'package:gifhope/user.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'product.dart';
 
@@ -25,6 +26,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
   List productdata;
   String titlecenter = "Product data is not found";
   int numOfItem = 1;
+  double screenHeight, screenWidth;
 
   @override
   void initState() {
@@ -33,6 +35,9 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
   }
 
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
@@ -49,7 +54,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                   tileMode: TileMode.clamp),
             ),
           ),
-          title: Text('Details Screen',
+          title: Text('Details',
               style: TextStyle(
                   fontFamily: 'Sofia',
                   fontWeight: FontWeight.bold,
@@ -63,112 +68,91 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                 height: size.height,
                 child: Stack(
                   children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(top: size.height * 0.3),
-                      padding: EdgeInsets.only(top: size.height * 0.12),
-                      decoration: BoxDecoration(
-                        color: Colors.blue[100],
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
-                        ),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 40, 20, 10),
-                            child: Text(
-                              widget.product["description"],
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(height: 1.8, fontSize: 15),
-                            ),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                            top: size.height * 0.3), //stack height
+                        padding: EdgeInsets.only(
+                            top: size.height * 0.05), //content height
+                        decoration: BoxDecoration(
+                          color: Colors.blue[100],
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 30, 20, 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                buildOutlineButton(
-                                  icon: Icons.remove,
-                                  press: () {
-                                    if (numOfItem > 1) {
-                                      setState(() {
-                                        numOfItem--;
-                                      });
-                                    }
-                                  },
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                              child: Column(children: <Widget>[
+                                SizedBox(height: 14),
+                                Text(
+                                  "Description",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      decorationStyle:
+                                          TextDecorationStyle.double,
+                                      height: 1.8,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                  child: Text(
-                                    // if our item is less  then 10 then  it shows 01 02 like that
-                                    numOfItem.toString().padLeft(2, "0"),
+                                Text(
+                                  widget.product["description"],
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(height: 1.8, fontSize: 15),
+                                ),
+                              ]),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(20, 30, 20, 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  buildOutlineButton(
+                                    icon: Icons.remove,
+                                    press: () {
+                                      if (numOfItem > 1) {
+                                        setState(() {
+                                          numOfItem--;
+                                        });
+                                      }
+                                    },
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 10, 20, 10),
+                                    child: Text(
+                                      // if our item is less  then 10 then  it shows 01 02 like that
+                                      numOfItem.toString().padLeft(2, "0"),
+                                      style:
+                                          Theme.of(context).textTheme.headline6,
+                                    ),
+                                  ),
+                                  buildOutlineButton(
+                                      icon: Icons.add,
+                                      press: () {
+                                        setState(() {
+                                          numOfItem++;
+                                        });
+                                      }),
+                                  SizedBox(width: 25),
+                                  Icon(MdiIcons.checkDecagram,
+                                      color: Colors.red),
+                                  Text(
+                                    " Qty Available: " +
+                                        widget.product["quantity"],
                                     style:
                                         Theme.of(context).textTheme.headline6,
                                   ),
-                                ),
-                                buildOutlineButton(
-                                    icon: Icons.add,
-                                    press: () {
-                                      setState(() {
-                                        numOfItem++;
-                                      });
-                                    }),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                            child: Row(
-                              children: <Widget>[
-                                // Container(
-                                //   margin: EdgeInsets.only(right: 20),
-                                //   height: 50,
-                                //   width: 58,
-                                //   decoration: BoxDecoration(
-                                //     borderRadius: BorderRadius.circular(18),
-                                //     border: Border.all(
-                                //       color: Colors.black,
-                                //     ),
-                                //   ),
-                                //   child: IconButton(
-                                //     icon: Icon(Icons.add_shopping_cart),
-                                //     onPressed: () {
-
-                                //     },
-                                //   ),
-                                // ),
-
-
-                                Expanded(
-                                  child: SizedBox(
-                                    height: 50,
-                                    child: FlatButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(18)),
-                                      color: Colors.yellow[300],
-                                      onPressed: () {
-                                        Navigator.of(context).pop(false);
-
-                                        // _addToPurchase(numOfItem);
-                                      },
-                                      child: Text(
-                                        "Manage Product Info".toUpperCase(),
-                                        style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     productdata == null
@@ -188,10 +172,9 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                                             fontWeight: FontWeight.bold),
                                       )),
                                 )))
-                        : Expanded(
+                        : Container(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                              padding: const EdgeInsets.fromLTRB(20, 20, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
@@ -209,52 +192,62 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                                             fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(height: 10),
-                                  Row(
-                                    children: <Widget>[
-                                      RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                                text: "Price: ",
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(0.5, 0, 2,
+                                        10), //padding of row price & pic
+                                    child: Row(
+                                      children: <Widget>[
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                  text: "Price: ",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline6
+                                                      .copyWith(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                              TextSpan(
+                                                text:
+                                                    "\RM${widget.product["price"]}",
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline6
+                                                    .headline5
                                                     .copyWith(
                                                         color: Colors.black,
                                                         fontWeight:
-                                                            FontWeight.bold)),
-                                            TextSpan(
-                                              text:
-                                                  "\$${widget.product["price"]}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline4
-                                                  .copyWith(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Expanded(
-                                        child: Hero(
-                                          tag: "${widget.product["pid"]}",
-                                          child: CachedNetworkImage(
-                                            fit: BoxFit.fill,
-                                            imageUrl:
-                                                "http://yitengsze.com/a_gifhope/productimages/${widget.product["id"]}.jpg",
-                                            placeholder: (context, url) =>
-                                                new CircularProgressIndicator(),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    new Icon(Icons.error),
+                                                            FontWeight.bold),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      )
-                                    ],
-                                  )
+                                        SizedBox(width: 15),
+                                        Container(
+                                          height: screenWidth / 2.0,
+                                          width: screenWidth / 2.0,
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                2, 5, 0, 0), //padding of pic
+
+                                            child: ClipRect(
+                                              child: CachedNetworkImage(
+                                                fit: BoxFit.cover,
+                                                imageUrl:
+                                                    "http://yitengsze.com/a_gifhope/productimages/${widget.product["id"]}.jpg",
+                                                placeholder: (context, url) =>
+                                                    new CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        new Icon(Icons.error),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -301,65 +294,5 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
         child: Icon(icon),
       ),
     );
-  }
-
-  void _addToPurchase(int index) {
-    if (widget.user.email.contains("unregistered")) {
-      Toast.show("Please register first", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-    if (widget.user.email.contains("seller@gifhope.com")) {
-      Toast.show("Seller mode", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-    try {
-      int cquantity =
-          int.parse(productdata[index]["quantity"]); //current available qty
-      print(cquantity);
-      print(productdata[index]["id"]);
-      print(widget.user.email);
-      print(productdata[index]["price"]);
-      if (cquantity > 0) {
-        ProgressDialog pr = new ProgressDialog(context,
-            type: ProgressDialogType.Normal, isDismissible: false);
-        pr.style(message: "Purchasing...");
-        pr.show();
-        String urlLoadJobs =
-            "https://yitengsze.com/a_gifhope/php/insert_purchase.php";
-        http.post(urlLoadJobs, body: {
-          "email": widget.user.email,
-          "proid": productdata[index]['id'],
-          "quantity": numOfItem.toString(), //qtty you chose
-        }).then((res) {
-          print(res.body);
-          if (res.body.contains("failed")) {
-            Toast.show("Fail. Not added to Purchase", context,
-                duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-          } else {
-            List respond = res.body.split(",");
-            setState(() {
-              numOfItem = respond[1];
-              widget.user.quantity = numOfItem.toString();
-            });
-            Toast.show("Success. Added to Purchase", context,
-                duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-          }
-          pr.hide();
-        }).catchError((err) {
-          print(err);
-          pr.hide();
-        });
-
-        pr.hide();
-      } else {
-        Toast.show("Out of stock", context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      }
-    } catch (e) {
-      Toast.show("Purchase Failed", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-    }
   }
 }

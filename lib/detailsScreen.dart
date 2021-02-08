@@ -30,8 +30,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
   String titlecenter = "Product data is not found";
   int numOfItem = 1;
   double screenHeight, screenWidth;
-  String datalink = "https://yitengsze.com/a_gifhope/php/load_product.php";
-  String insertlink = "https://yitengsze.com/a_gifhope/php/insert_purchase.php";
 
   @override
   void initState() {
@@ -308,7 +306,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   _loadProductData() async {
-    String urlLoadJobs = datalink;
+    String urlLoadJobs = "https://yitengsze.com/a_gifhope/php/load_product.php";
     await http.post(urlLoadJobs, body: {}).then((res) {
       if (res.body.contains("nodata")) {
         print(res.body);
@@ -356,7 +354,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             type: ProgressDialogType.Normal, isDismissible: false);
         pr.style(message: "Purchasing...");
         pr.show();
-        String urlLoadJobs = insertlink;
+        String urlLoadJobs = "https://yitengsze.com/a_gifhope/php/insert_purchase.php";
         http.post(urlLoadJobs, body: {
           "email": widget.user.email,
           "proid": widget.product["id"],

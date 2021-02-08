@@ -146,10 +146,15 @@ class _AdminProductState extends State<AdminProduct> {
                                       child: Column(
                                         children: <Widget>[
                                           Icon(
-                                            MdiIcons.car,
+                                            MdiIcons.genderFemale,
                                             size: 35.0,
                                             color: Colors.black,
                                           ),
+                                          Icon(
+                                              MdiIcons.hanger,
+                                              size: 35.0,
+                                              color: Colors.black,
+                                            ),
                                           Text(
                                             "Women Clothing",
                                             style:
@@ -171,10 +176,15 @@ class _AdminProductState extends State<AdminProduct> {
                                       child: Column(
                                         children: <Widget>[
                                           Icon(
-                                            MdiIcons.carHatchback,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
+                                              MdiIcons.genderMale,
+                                              size: 35.0,
+                                              color: Colors.black,
+                                            ),
+                                            Icon(
+                                              MdiIcons.hanger,
+                                              size: 35.0,
+                                              color: Colors.black,
+                                            ),
                                           Text(
                                             "Men Clothing",
                                             style:
@@ -197,10 +207,15 @@ class _AdminProductState extends State<AdminProduct> {
                                       child: Column(
                                         children: <Widget>[
                                           Icon(
-                                            MdiIcons.caravan,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
+                                              MdiIcons.genderFemale,
+                                              size: 35.0,
+                                              color: Colors.black,
+                                            ),
+                                            Icon(
+                                              MdiIcons.walk,
+                                              size: 35.0,
+                                              color: Colors.black,
+                                            ),
                                           Text(
                                             "Women Shoes",
                                             style:
@@ -223,10 +238,15 @@ class _AdminProductState extends State<AdminProduct> {
                                       child: Column(
                                         children: <Widget>[
                                           Icon(
-                                            MdiIcons.carSports,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
+                                              MdiIcons.genderMale,
+                                              size: 35.0,
+                                              color: Colors.black,
+                                            ),
+                                            Icon(
+                                              MdiIcons.walk,
+                                              size: 35.0,
+                                              color: Colors.black,
+                                            ),
                                           Text(
                                             "Men Shoes",
                                             style:
@@ -250,7 +270,7 @@ class _AdminProductState extends State<AdminProduct> {
                                       child: Column(
                                         children: <Widget>[
                                           Icon(
-                                            MdiIcons.carConvertible,
+                                            MdiIcons.shopping,
                                             size: 35.0,
                                             color: Colors.black,
                                           ),
@@ -275,7 +295,7 @@ class _AdminProductState extends State<AdminProduct> {
                                       child: Column(
                                         children: <Widget>[
                                           Icon(
-                                            MdiIcons.carConvertible,
+                                            MdiIcons.bookOpen,
                                             size: 35.0,
                                             color: Colors.black,
                                           ),
@@ -329,7 +349,10 @@ class _AdminProductState extends State<AdminProduct> {
                                   elevation: 5,
                                   child: Text(
                                     "Search ",
-                                    style: TextStyle(color: Colors.black),
+                                   style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -377,7 +400,7 @@ class _AdminProductState extends State<AdminProduct> {
                                     child: Padding(
                                       padding: EdgeInsets.all(5),
                                       child: GestureDetector(
-                                                                              child: Column(
+                                        child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: <Widget>[
@@ -487,19 +510,19 @@ class _AdminProductState extends State<AdminProduct> {
             child: Icon(Icons.add_to_drive),
             label: "New Product Info",
             labelBackgroundColor: Colors.blue[200],
-            onTap: createNewProduct,
+            onTap: createNewProduct,  
           ),
           SpeedDialChild(
             child: Icon(Icons.request_page),
             label: "View Sales Report",
             labelBackgroundColor: Colors.blue[200],
-            onTap: createNewProduct,
+            onTap: createNewProduct,  //chg
           ),
           SpeedDialChild(
             child: Icon(MdiIcons.scriptText),
             label: "View Donation Report",
             labelBackgroundColor: Colors.blue[200],
-            onTap: report,
+            onTap: report, //chg
           ),
         ],
       ),
@@ -519,19 +542,6 @@ class _AdminProductState extends State<AdminProduct> {
     });
   }
 
-  goToBookings() {
-    if (widget.user.email.contains("unregistered")) {
-      Toast.show("Please register to use this function", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  PurchaseScreen(user: widget.user)));
-    }
-  }
 
   Future<Null> refreshList() async {
     await Future.delayed(Duration(seconds: 2));
@@ -633,26 +643,26 @@ class _AdminProductState extends State<AdminProduct> {
     _tapPosition = details.globalPosition;
   }
 
-  void _viewDetails(int index) {
-    if (widget.user.email.contains("unregistered")) {
-      Toast.show("Please register first", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-    if (widget.user.email.contains("admin@gifhope.com")) {
-      Toast.show("Admin mode", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-    try {
-      print(productdata[index]["id"]);
-      print(widget.user.email);
+  // void _viewDetails(int index) {
+  //   if (widget.user.email.contains("unregistered")) {
+  //     Toast.show("Please register first", context,
+  //         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+  //     return;
+  //   }
+  //   if (widget.user.email.contains("admin@gifhope.com")) {
+  //     Toast.show("Admin mode", context,
+  //         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+  //     return;
+  //   }
+  //   try {
+  //     print(productdata[index]["id"]);
+  //     print(widget.user.email);
 
-    } catch (e) {
-      Toast.show("Show details Failed", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-    }
-  }
+  //   } catch (e) {
+  //     Toast.show("Show details Failed", context,
+  //         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+  //   }
+  // }
 
   _showPopUpMenu(int index) async {
     final RenderBox overlay = Overlay.of(context).context.findRenderObject();
@@ -660,26 +670,25 @@ class _AdminProductState extends State<AdminProduct> {
     await showMenu(
       context: context,
       position: RelativeRect.fromRect(
-          _tapPosition &
-              Size(40, 40), // smaller rect, pop up after touch on touch's area
+          _tapPosition & Size(40, 40), // smaller rect, pop up after touch on touch's area
           Offset.zero & overlay.size), // Bigger rect, the entire screen
       items: [
         PopupMenuItem(
             child: GestureDetector(
           child: Text("Update Product Info"),
-          onTap: () => {Navigator.of(context).pop(), _onCarDetail(index)},
+          onTap: () => {Navigator.of(context).pop(), _onProductDetail(index)},
         )),
         PopupMenuItem(
             child: GestureDetector(
           child: Text("Delete Product Info"),
-          onTap: () => {Navigator.of(context).pop(), _deleteCarDialog(index)},
+          onTap: () => {Navigator.of(context).pop(), _deleteProductDialog(index)},
         )),
       ],
       elevation: 8.0,
     );
   }
 
-  Future<void> _onCarDetail(int index) async {
+  Future<void> _onProductDetail(int index) async {
     print(productdata[index]['name']);
     Product cars = new Product(
         pid: productdata[index]['id'],
@@ -699,7 +708,7 @@ class _AdminProductState extends State<AdminProduct> {
     _loadData();
   }
 
-  void _deleteCarDialog(int index) {
+  void _deleteProductDialog(int index) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -717,7 +726,7 @@ class _AdminProductState extends State<AdminProduct> {
               new FlatButton(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    _deleteCar(index);
+                    _deleteProduct(index);
                   },
                   child: new Text(
                     "Yes",
@@ -741,12 +750,12 @@ class _AdminProductState extends State<AdminProduct> {
         });
   }
 
-  void _deleteCar(int index) {
+  void _deleteProduct(int index) {
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Deleting car...");
+    pr.style(message: "Deleting product...");
     pr.show();
-    http.post("https://yitengsze.com/carVroom/php/delete_cars.php", body: {  //chg!
+    http.post("https://yitengsze.com/a_gifhope/php/delete_product.php", body: { 
       "proid": productdata[index]['id'],
     }).then((res) {
       print(res.body);
@@ -773,6 +782,8 @@ class _AdminProductState extends State<AdminProduct> {
     _loadData();
   }
 
+
+  //report
   Future<void> report() async {
     await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => ReportList()));
