@@ -20,10 +20,10 @@ class _NewProductState extends State<NewProduct> {
   String pathAsset = "assets/images/camera.jpg";
   String _scanBarCode = "Click here to scan";
   var _tapPosition;
+   TextEditingController idEditingController = new TextEditingController();
   TextEditingController carnameEditingController = new TextEditingController();
   TextEditingController priceEditingController = new TextEditingController();
   TextEditingController qtyEditingController = new TextEditingController();
-  //TextEditingController typeEditingController = new TextEditingController();
   TextEditingController specEditingController = new TextEditingController();
   TextEditingController seatsEditingController = new TextEditingController();
   TextEditingController doorsEditingController = new TextEditingController();
@@ -31,8 +31,8 @@ class _NewProductState extends State<NewProduct> {
   TextEditingController aircondEditingController = new TextEditingController();
   TextEditingController airbagEditingController = new TextEditingController();
   TextEditingController luggageEditingController = new TextEditingController();
-  TextEditingController descriptionEditingController =
-      new TextEditingController();
+  TextEditingController descriptionEditingController = new TextEditingController();
+
   final focus0 = FocusNode();
   final focus1 = FocusNode();
   final focus2 = FocusNode();
@@ -95,7 +95,7 @@ class _NewProductState extends State<NewProduct> {
                 tileMode: TileMode.clamp),
           ),
         ),
-        title: Text('New Car',
+        title: Text('New Product',
             style: TextStyle(
                 fontFamily: 'Sofia',
                 fontWeight: FontWeight.bold,
@@ -103,15 +103,15 @@ class _NewProductState extends State<NewProduct> {
                 color: Colors.white)),
       ),
       body: Center(
-        child: Container(
-          //pic container
+        child: Container(  //pic container
+          
           alignment: Alignment.topCenter,
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 SizedBox(height: 10),
                 GestureDetector(
-                  onTap: () => {_choose()},
+                  onTap: () => {_choose()}, //open camera
                   child: Container(
                     height: screenHeight / 3,
                     width: screenWidth / 1.8,
@@ -131,10 +131,12 @@ class _NewProductState extends State<NewProduct> {
                   ),
                 ),
                 SizedBox(height: 6),
-                Text("Click the above image to take picture of your car",
-                    style: TextStyle(fontSize: 10.0, color: Colors.black)),
-                Container(
-                  //table container
+                Text("Click the camera to take product picture",
+                    style: TextStyle(
+                      fontSize: 10.0, 
+                      color: Colors.black)),
+
+                Container(   //table container
                   width: screenWidth / 1.2,
                   child: Card(
                     elevation: 6,
@@ -151,7 +153,7 @@ class _NewProductState extends State<NewProduct> {
                                     child: Container(
                                       alignment: Alignment.centerLeft,
                                       height: 30,
-                                      child: Text("Car ID:",
+                                      child: Text("Product ID:",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                           )),
@@ -161,7 +163,7 @@ class _NewProductState extends State<NewProduct> {
                                     child: Container(
                                       alignment: Alignment.centerLeft,
                                       height: 30,
-                                      child: GestureDetector(
+                                      child: GestureDetector(   //textform field + chg focus node!
                                         onTap: _showPopUpMenu,
                                         onTapDown: _storePosition,
                                         child: Text(_scanBarCode),
@@ -176,7 +178,7 @@ class _NewProductState extends State<NewProduct> {
                                     child: Container(
                                       alignment: Alignment.centerLeft,
                                       height: 30,
-                                      child: Text("Car Name:",
+                                      child: Text("Product Name:",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                           )),
@@ -249,6 +251,43 @@ class _NewProductState extends State<NewProduct> {
                                   ),
                                 ],
                               ),
+
+                              TableRow(
+                                children: [
+                                  TableCell(
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      height: 30,
+                                      child: Text("Genre:",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      height: 30,
+                                      child: DropdownButton(
+                                        hint: Text('Genre'),
+                                        items: listType.map((selectedType) {
+                                          return DropdownMenuItem(
+                                              child: new Text(selectedType),
+                                              value: selectedType);
+                                        }).toList(),
+                                        value: selectedType,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            selectedType = newValue;
+                                            print(selectedType);
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+
                               TableRow(
                                 children: [
                                   TableCell(
@@ -289,274 +328,7 @@ class _NewProductState extends State<NewProduct> {
                                   ),
                                 ],
                               ),
-                              TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: Text("Type:",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: DropdownButton(
-                                        hint: Text('Type'),
-                                        items: listType.map((selectedType) {
-                                          return DropdownMenuItem(
-                                              child: new Text(selectedType),
-                                              value: selectedType);
-                                        }).toList(),
-                                        value: selectedType,
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            selectedType = newValue;
-                                            print(selectedType);
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: Text("Specification:",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: DropdownButton(
-                                        hint: Text('Specification'),
-                                        items: listSpec
-                                            .map((selectedSpecification) {
-                                          return DropdownMenuItem(
-                                              child: new Text(
-                                                  selectedSpecification),
-                                              value: selectedSpecification);
-                                        }).toList(),
-                                        value: selectedSpecification,
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            selectedSpecification = newValue;
-                                            print(selectedSpecification);
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: Text("Seats:",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: TextFormField(
-                                        controller: seatsEditingController,
-                                        keyboardType: TextInputType.number,
-                                        focusNode: focus2, //past focus
-                                        textInputAction: TextInputAction.next,
-                                        onFieldSubmitted: (v) {
-                                          FocusScope.of(context)
-                                              .requestFocus(focus3);
-                                        },
-                                        decoration: new InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.all(6),
-                                          fillColor: Colors.blue[400],
-                                          border: new OutlineInputBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(6),
-                                            borderSide: new BorderSide(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: Text("Doors:",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: TextFormField(
-                                        controller: doorsEditingController,
-                                        keyboardType: TextInputType.number,
-                                        focusNode: focus3, //past focus
-                                        textInputAction: TextInputAction.next,
-                                        onFieldSubmitted: (v) {
-                                          FocusScope.of(context)
-                                              .requestFocus(focus4);
-                                        },
-                                        decoration: new InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.all(6),
-                                          fillColor: Colors.blue[400],
-                                          border: new OutlineInputBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(6),
-                                            borderSide: new BorderSide(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: Text("Air-cond:",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: DropdownButton(
-                                        hint: Text('Air-cond'),
-                                        items:
-                                            listAircond.map((selectedAircond) {
-                                          return DropdownMenuItem(
-                                              child: new Text(selectedAircond),
-                                              value: selectedAircond);
-                                        }).toList(),
-                                        value: selectedAircond,
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            selectedAircond = newValue;
-                                            print(selectedAircond);
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: Text("Air-bag:",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: TextFormField(
-                                        controller: airbagEditingController,
-                                        keyboardType: TextInputType.number,
-                                        focusNode: focus4, //past focus
-                                        textInputAction: TextInputAction.next,
-                                        onFieldSubmitted: (v) {
-                                          FocusScope.of(context)
-                                              .requestFocus(focus5);
-                                        },
-                                        decoration: new InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.all(6),
-                                          fillColor: Colors.blue[400],
-                                          border: new OutlineInputBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(6),
-                                            borderSide: new BorderSide(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: Text("Luggage:",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: TextFormField(
-                                        controller: luggageEditingController,
-                                        keyboardType: TextInputType.number,
-                                        focusNode: focus5, //past focus
-                                        textInputAction: TextInputAction.next,
-                                        onFieldSubmitted: (v) {
-                                          FocusScope.of(context)
-                                              .requestFocus(focus6);
-                                        },
-                                        decoration: new InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.all(6),
-                                          fillColor: Colors.blue[400],
-                                          border: new OutlineInputBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(6),
-                                            borderSide: new BorderSide(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              
                               TableRow(
                                 children: [
                                   TableCell(
@@ -598,41 +370,7 @@ class _NewProductState extends State<NewProduct> {
                                   ),
                                 ],
                               ),
-                              TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: Text("Brand:",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: DropdownButton(
-                                        hint: Text('Brand'),
-                                        items: listBrand.map((selectedBrand) {
-                                          return DropdownMenuItem(
-                                              child: new Text(selectedBrand),
-                                              value: selectedBrand);
-                                        }).toList(),
-                                        value: selectedBrand,
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            selectedBrand = newValue;
-                                            print(selectedBrand);
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              
                             ],
                           ),
                           SizedBox(height: 3),
@@ -645,7 +383,7 @@ class _NewProductState extends State<NewProduct> {
                                 minWidth: screenWidth / 3.0,
                                 height: 40,
                                 child: Text(
-                                  'Add New Car',
+                                  'Add',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 17,
@@ -722,7 +460,7 @@ class _NewProductState extends State<NewProduct> {
         androidUiSettings: AndroidUiSettings(
           toolbarTitle: 'Cropper',
           toolbarColor: Colors.blue[600],
-          toolbarWidgetColor: Colors.black,
+          toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
         ),
@@ -876,12 +614,18 @@ class _NewProductState extends State<NewProduct> {
       return;
     }
     if (_image == null) {
-      Toast.show("Please take car seat", context,
+      Toast.show("Please take product picture", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
+
+    if (idEditingController.text.length < 3) {
+      Toast.show("Please enter product ID", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
     if (carnameEditingController.text.length < 3) {
-      Toast.show("Please enter car name", context,
+      Toast.show("Please enter product name", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -895,16 +639,7 @@ class _NewProductState extends State<NewProduct> {
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
-    if (seatsEditingController.text.length < 1) {
-      Toast.show("Please enter seats", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-    if (doorsEditingController.text.length < 1) {
-      Toast.show("Please enter doors", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
+   
 
     showDialog(
       context: context,
@@ -912,7 +647,7 @@ class _NewProductState extends State<NewProduct> {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          title: Text("Add new car? " ,
+          title: Text("Add new product? " ,
                   style: TextStyle(
                     fontFamily: 'Bellota',
                     fontSize: 22.0,
@@ -959,19 +694,19 @@ class _NewProductState extends State<NewProduct> {
 
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Adding new car...");
+    pr.style(message: "Adding new product...");
     pr.show();
     String base64Image = base64Encode(_image.readAsBytesSync());
 
     if (_image != null) {
       base64Image = base64Encode(_image.readAsBytesSync());
-      http.post("https://yitengsze.com/carVroom/php/insert_cars.php", body: {
+      http.post("https://yitengsze.com/a_gifhope/php/insert_product.php", body: {
         "carid": _scanBarCode,
         "carname": carnameEditingController.text,
         "price": price.toStringAsFixed(2),
         "quantity": qtyEditingController.text,
         "type": selectedType,
-        "specification": selectedSpecification,
+        "specification": selectedSpecification,    //chg!
         "seats": seatsEditingController.text,
         "doors": doorsEditingController.text,
         "aircond": selectedAircond,
@@ -998,7 +733,7 @@ class _NewProductState extends State<NewProduct> {
         pr.hide();
       });
     } else {
-      http.post("https://yitengsze.com/carVroom/php/insert_cars.php", body: {
+      http.post("https://yitengsze.com/a_gifhope/php/insert_product.php", body: {
         "carid": _scanBarCode,
         "carname": carnameEditingController.text,
         "price": price.toStringAsFixed(2),
@@ -1017,7 +752,7 @@ class _NewProductState extends State<NewProduct> {
         pr.hide();
 
         if (res.body.contains("success")) {
-          Toast.show("Update success, please check through screen/ search bar.",
+          Toast.show("Update success. Please check through screen/ search bar.",
               context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           Navigator.of(context).pop();

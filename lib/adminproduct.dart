@@ -510,19 +510,19 @@ class _AdminProductState extends State<AdminProduct> {
             child: Icon(Icons.add_to_drive),
             label: "New Product Info",
             labelBackgroundColor: Colors.blue[200],
-            onTap: createNewProduct,  
+            onTap: _createNewProduct,  
           ),
           SpeedDialChild(
             child: Icon(Icons.request_page),
             label: "View Sales Report",
             labelBackgroundColor: Colors.blue[200],
-            onTap: createNewProduct,  //chg
+            onTap: _createNewProduct,  //chg **
           ),
           SpeedDialChild(
             child: Icon(MdiIcons.scriptText),
             label: "View Donation Report",
             labelBackgroundColor: Colors.blue[200],
-            onTap: report, //chg
+            onTap: report, //chg **
           ),
         ],
       ),
@@ -776,7 +776,7 @@ class _AdminProductState extends State<AdminProduct> {
     _loadData();
   }
 
-  Future<void> createNewProduct() async {
+  Future<void> _createNewProduct() async {
     await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => NewProduct()));
     _loadData();
