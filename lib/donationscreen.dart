@@ -327,7 +327,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                                               FlatButton(
                                                                 onPressed: () =>
                                                                     {
-                                                                  _deleteBookings(
+                                                                  _deleteDonation(
                                                                       index)
                                                                 },
                                                                 child: Icon(
@@ -396,7 +396,7 @@ class _DonationScreenState extends State<DonationScreen> {
     pr.hide();
   }
 
-  _deleteBookings(int index) {
+  _deleteDonation(int index) {
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(

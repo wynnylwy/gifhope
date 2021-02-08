@@ -19,20 +19,20 @@ import 'product.dart';
 import 'payment.dart';
 import 'mainscreen.dart';
 
-class BookingScreen extends StatefulWidget {
+class PurchaseScreen extends StatefulWidget {
   final User user;
   
   final String id;
   final Product product;
 
-  const BookingScreen({Key key, this.user, this.id, this.product})
+  const PurchaseScreen({Key key, this.user, this.id, this.product})
       : super(key: key);
 
   @override
-  _BookingScreenState createState() => _BookingScreenState();
+  _PurchaseScreenState createState() => _PurchaseScreenState();
 }
 
-class _BookingScreenState extends State<BookingScreen> {
+class _PurchaseScreenState extends State<PurchaseScreen> {
   List purchaseData;
   double screenHeight, screenWidth;
   bool _selfPickup = true;
@@ -55,7 +55,7 @@ class _BookingScreenState extends State<BookingScreen> {
   void initState() {
     super.initState();
     _getLocation(); //get current location
-    _loadBookings();
+    _loadPurchase();
   }
 
   @override
@@ -510,7 +510,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                           children: <Widget>[
                                                             FlatButton(
                                                               onPressed: () => {
-                                                                _updateBookings(
+                                                                _updatePurchase(
                                                                     index,
                                                                     "add")
                                                               },
@@ -533,7 +533,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                 )),
                                                             FlatButton(
                                                               onPressed: () => {
-                                                                _updateBookings(
+                                                                _updatePurchase(
                                                                     index,
                                                                     "remove")
                                                               },
@@ -553,7 +553,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                               FlatButton(
                                                                 onPressed: () =>
                                                                     {
-                                                                  _deleteBookings(
+                                                                  _deletePurchase(
                                                                       index)
                                                                 },
                                                                 child: Icon(
@@ -578,7 +578,7 @@ class _BookingScreenState extends State<BookingScreen> {
             )));
   }
 
-  void _loadBookings() {
+  void _loadPurchase() {
     _totalPayment = 0.0;
     _rentalFees = 0.0;
 
@@ -623,7 +623,7 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 
   //Button + / -
-  _updateBookings(int index, String op) {
+  _updatePurchase(int index, String op) {
     int curquantity = int.parse(purchaseData[index]['quantity']);
     int quantity = int.parse(purchaseData[index]['cquantity']);
     if (op.contains("add")) {
@@ -638,7 +638,7 @@ class _BookingScreenState extends State<BookingScreen> {
     if (op.contains("remove")) {
       quantity--;
       if (quantity == 0) {
-        _deleteBookings(index);
+        _deletePurchase(index);
         return;
       }
     }
@@ -653,7 +653,7 @@ class _BookingScreenState extends State<BookingScreen> {
       if (res.body.contains("success")) {
         Toast.show("Purchase updating...", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-        _loadBookings();
+        _loadPurchase();
       } else {
         Toast.show("Purchase failed", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -663,7 +663,7 @@ class _BookingScreenState extends State<BookingScreen> {
     });
   }
 
-  _deleteBookings(int index) {
+  _deletePurchase(int index) {
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
@@ -689,7 +689,7 @@ class _BookingScreenState extends State<BookingScreen> {
                     }).then((res) {
                   print(res.body);
                   if (res.body.contains("success")) {
-                    _loadBookings();
+                    _loadPurchase();
                   } else {
                     Toast.show("Failed", context,
                         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -962,7 +962,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 )),
             onPressed: () {
               var now = new DateTime.now(); //current time
-              var dateFormat = new DateFormat('dd-MM-yyyy hh:mm a');
+              var dateFormat = new DateFormat('MMM d, yyyy hh:mm a');
               String orderid = widget.user.email.substring(0, 5) +
                   "-" +
                   dateFormat.format(now) +
@@ -996,7 +996,7 @@ class _BookingScreenState extends State<BookingScreen> {
       ),
     );
 
-    _loadBookings();
+    _loadPurchase();
   }
 
   void deleleAll() {
@@ -1023,7 +1023,7 @@ class _BookingScreenState extends State<BookingScreen> {
                         print(res.body);
 
                         if (res.body.contains("success")) {
-                          _loadBookings();
+                          _loadPurchase();
                         } else {
                           Toast.show("Failed", context,
                               duration: Toast.LENGTH_LONG,

@@ -472,7 +472,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => BookingScreen(
+                    builder: (BuildContext context) => PurchaseScreen(
                           user: widget.user,
                           id: purchasedetails[index]['id'],
                         )));
@@ -496,7 +496,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => BookingScreen(
+            builder: (BuildContext context) => PurchaseScreen(
                   user: widget.user,
                   id: purchasedetails[index]['id'],
                 )));

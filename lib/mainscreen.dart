@@ -528,7 +528,7 @@ class _MainScreenState extends State<MainScreen> {
                   await Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => BookingScreen(
+                          builder: (BuildContext context) => PurchaseScreen(
                                 user: widget.user,
                               )));
                 }
@@ -812,7 +812,7 @@ class _MainScreenState extends State<MainScreen> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) =>
-                  BookingScreen(user: widget.user)));
+                  PurchaseScreen(user: widget.user)));
       _loadData();
       _loadPurchaseQuantity();
     }

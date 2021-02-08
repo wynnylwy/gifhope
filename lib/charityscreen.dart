@@ -659,7 +659,7 @@ class _CharityScreenState extends State<CharityScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              BookingScreen(user: widget.user)),
+                              PurchaseScreen(user: widget.user)),
                     )
                   }),
 
