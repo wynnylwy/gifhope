@@ -594,7 +594,7 @@ class _BookingScreenState extends State<BookingScreen> {
       print(res.body);
       pr.hide();
       if (res.body.contains("Purchase Empty")) {
-        widget.user.quantity = "0"; //let the booking num =0
+        widget.user.quantity = "0"; //let the purchase num =0
         Navigator.push(
             context,
             MaterialPageRoute(

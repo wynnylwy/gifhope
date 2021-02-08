@@ -368,7 +368,7 @@ class _DonationScreenState extends State<DonationScreen> {
       pr.hide();
 
       if (res.body.contains("Donation Empty")) {
-        widget.user.donation = "0"; //let the booking num =0
+        widget.user.donation = "0"; //let the donate num =0
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -500,6 +500,8 @@ class _DonationScreenState extends State<DonationScreen> {
         ],
       ),
     );
+
+    _loadDonation();
 
   
   }
