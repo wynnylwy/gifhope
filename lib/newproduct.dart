@@ -21,7 +21,7 @@ class _NewProductState extends State<NewProduct> {
   String _scanBarCode = "Click here to scan";
   var _tapPosition;
    TextEditingController idEditingController = new TextEditingController();
-  TextEditingController carnameEditingController = new TextEditingController();
+  TextEditingController nameEditingController = new TextEditingController();
   TextEditingController priceEditingController = new TextEditingController();
   TextEditingController qtyEditingController = new TextEditingController();
   TextEditingController specEditingController = new TextEditingController();
@@ -33,46 +33,32 @@ class _NewProductState extends State<NewProduct> {
   TextEditingController luggageEditingController = new TextEditingController();
   TextEditingController descriptionEditingController = new TextEditingController();
 
-  final focus0 = FocusNode();
-  final focus1 = FocusNode();
-  final focus2 = FocusNode();
-  final focus3 = FocusNode();
-  final focus4 = FocusNode();
-  final focus5 = FocusNode();
-  final focus6 = FocusNode();
-  final focus7 = FocusNode();
-  final focus8 = FocusNode();
-  String selectedType;
-  String selectedSpecification;
-  String selectedAircond;
-  String selectedBrand;
+  FocusNode _idFocusNode = FocusNode();
+  FocusNode _nameFocusNode = FocusNode();
+  FocusNode _priceFocusNode = FocusNode();
+  FocusNode _genreFocusNode = FocusNode();
+  FocusNode _quantityFocusNode = FocusNode();
+  FocusNode _descriptionFocusNode = FocusNode();
+ 
+  String selectedGenre;
 
-  List<String> listType = [
-    "Sedan",
-    "Hatchback",
-    "MPV",
-    "SUV",
-    "Convertible",
-  ];
+  static const rowSpacer=TableRow(
+                  children: [
+                      SizedBox(
+                      height: 8,
+                      ),
+                      SizedBox(
+                      height: 8,
+                      )
+                ]);
 
-  List<String> listSpec = [
-    "Manual",
-    "Automatic",
-  ];
-
-  List<String> listAircond = [
-    "Yes",
-    "No",
-  ];
-
-  List<String> listBrand = [
-    "Honda",
-    "Perodua",
-    "Toyota",
-    "Mazda",
-    "Proton",
-    "Mercedes-Benz",
-    "Other",
+  List<String> listGenre = [
+    "Women Clothing",
+    "Men Clothing",
+    "Women Shoe",
+    "Men Shoe",
+    "Bag & Wallet",
+    "Book & Stationery"
   ];
 
   @override
@@ -133,11 +119,11 @@ class _NewProductState extends State<NewProduct> {
                 SizedBox(height: 6),
                 Text("Click the camera to take product picture",
                     style: TextStyle(
-                      fontSize: 10.0, 
+                      fontSize: 14.0, 
                       color: Colors.black)),
 
                 Container(   //table container
-                  width: screenWidth / 1.2,
+                  width: screenWidth / 1.1,
                   child: Card(
                     elevation: 6,
                     child: Padding(
@@ -145,56 +131,95 @@ class _NewProductState extends State<NewProduct> {
                       child: Column(
                         children: <Widget>[
                           Table(
-                            defaultColumnWidth: FlexColumnWidth(1.0),
+                            defaultColumnWidth: FlexColumnWidth(5.0),
                             children: [
                               TableRow(
                                 children: [
                                   TableCell(
                                     child: Container(
                                       alignment: Alignment.centerLeft,
-                                      height: 30,
+                                      height: 40,
                                       child: Text("Product ID:",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
+                                            fontSize: 17,
                                           )),
                                     ),
                                   ),
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: GestureDetector(   //textform field + chg focus node!
-                                        onTap: _showPopUpMenu,
-                                        onTapDown: _storePosition,
-                                        child: Text(_scanBarCode),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 30,
-                                      child: Text("Product Name:",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                  ),
+
                                   TableCell(
                                     child: Container(
                                       alignment: Alignment.centerLeft,
                                       height: 30,
                                       child: TextFormField(
-                                        controller: carnameEditingController,
+                                        focusNode: _idFocusNode, //current focus
+                                        autofocus: true,
+                                        controller: idEditingController,
+                                        keyboardType: TextInputType.number,
+                                        textInputAction: TextInputAction.next,
+                                        onFieldSubmitted: (_) {
+                                          fieldFocusChange(context, _idFocusNode, _nameFocusNode);
+                                        },
+                                        decoration: new InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.all(6),
+                                          fillColor: Colors.blue[400],
+                                          border: new OutlineInputBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(6),
+                                            borderSide: new BorderSide(),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+
+                                  //* Scan barcocde, QR code, add ID manually
+                                  // TableCell(
+                                  //   child: Container(
+                                  //     alignment: Alignment.centerLeft,
+                                  //     height: 30,
+                                  //     child: GestureDetector(   //textform field + chg focus node!
+                                  //       onTap: _showPopUpMenu,
+                                  //       onTapDown: _storePosition,
+                                  //       child: Text(_scanBarCode),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  
+                                ],
+                                
+                              ),
+
+                              rowSpacer, 
+
+                                
+                              TableRow(
+                                children: [
+                                  TableCell(
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      height: 40,
+                                      child: Text("Product Name:",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 17,
+                                          )),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      height: 40,
+                                      child: TextFormField(
+                                        focusNode: _nameFocusNode, //current focus
+                                        autofocus: true,
+                                        controller: nameEditingController,
                                         keyboardType: TextInputType.text,
                                         textInputAction: TextInputAction.next,
-                                        onFieldSubmitted: (v) {
-                                          FocusScope.of(context)
-                                              .requestFocus(focus0);
+                                        onFieldSubmitted: (_) {
+                                          fieldFocusChange(context, _nameFocusNode, _priceFocusNode);
                                         },
                                         decoration: new InputDecoration(
                                           contentPadding:
@@ -211,6 +236,10 @@ class _NewProductState extends State<NewProduct> {
                                   ),
                                 ],
                               ),
+
+                              rowSpacer, 
+                              rowSpacer, 
+
                               TableRow(
                                 children: [
                                   TableCell(
@@ -220,6 +249,7 @@ class _NewProductState extends State<NewProduct> {
                                       child: Text("Price (RM):",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
+                                            fontSize: 17,
                                           )),
                                     ),
                                   ),
@@ -228,13 +258,13 @@ class _NewProductState extends State<NewProduct> {
                                       alignment: Alignment.centerLeft,
                                       height: 30,
                                       child: TextFormField(
+                                        focusNode: _priceFocusNode, //current focus
+                                        autofocus: true,
                                         controller: priceEditingController,
-                                        keyboardType: TextInputType.text,
-                                        focusNode: focus0, //past focus
+                                        keyboardType: TextInputType.text,                                        
                                         textInputAction: TextInputAction.next,
-                                        onFieldSubmitted: (v) {
-                                          FocusScope.of(context).requestFocus(
-                                              focus1); //current focus 1
+                                        onFieldSubmitted: (_) {
+                                         fieldFocusChange(context, _priceFocusNode, _genreFocusNode);
                                         },
                                         decoration: new InputDecoration(
                                           contentPadding:
@@ -252,34 +282,37 @@ class _NewProductState extends State<NewProduct> {
                                 ],
                               ),
 
+                              rowSpacer, 
+
                               TableRow(
                                 children: [
                                   TableCell(
                                     child: Container(
                                       alignment: Alignment.centerLeft,
-                                      height: 30,
+                                      height: 50,
                                       child: Text("Genre:",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
+                                            fontSize: 17,
                                           )),
                                     ),
                                   ),
                                   TableCell(
                                     child: Container(
                                       alignment: Alignment.centerLeft,
-                                      height: 30,
+                                      height: 50,
                                       child: DropdownButton(
                                         hint: Text('Genre'),
-                                        items: listType.map((selectedType) {
+                                        items: listGenre.map((selectedGenre) {
                                           return DropdownMenuItem(
-                                              child: new Text(selectedType),
-                                              value: selectedType);
+                                              child: new Text(selectedGenre),
+                                              value: selectedGenre);
                                         }).toList(),
-                                        value: selectedType,
+                                        value: selectedGenre,
                                         onChanged: (newValue) {
                                           setState(() {
-                                            selectedType = newValue;
-                                            print(selectedType);
+                                            selectedGenre = newValue;
+                                            print(selectedGenre);
                                           });
                                         },
                                       ),
@@ -288,7 +321,7 @@ class _NewProductState extends State<NewProduct> {
                                 ],
                               ),
 
-                              TableRow(
+                             TableRow(
                                 children: [
                                   TableCell(
                                     child: Container(
@@ -297,21 +330,23 @@ class _NewProductState extends State<NewProduct> {
                                       child: Text("Quantity:",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
+                                            fontSize: 17,
                                           )),
                                     ),
                                   ),
+
                                   TableCell(
                                     child: Container(
                                       alignment: Alignment.centerLeft,
                                       height: 30,
                                       child: TextFormField(
+                                        focusNode: _quantityFocusNode, //current focus
+                                        autofocus: true,
                                         controller: qtyEditingController,
                                         keyboardType: TextInputType.number,
-                                        focusNode: focus1,
                                         textInputAction: TextInputAction.next,
-                                        onFieldSubmitted: (v) {
-                                          FocusScope.of(context)
-                                              .requestFocus(focus2);
+                                        onFieldSubmitted: (_) {
+                                          fieldFocusChange(context, _quantityFocusNode, _descriptionFocusNode);
                                         },
                                         decoration: new InputDecoration(
                                           contentPadding:
@@ -338,6 +373,7 @@ class _NewProductState extends State<NewProduct> {
                                       child: Text("Description:",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
+                                            fontSize: 17,
                                           )),
                                     ),
                                   ),
@@ -346,14 +382,13 @@ class _NewProductState extends State<NewProduct> {
                                       alignment: Alignment.centerLeft,
                                       height: 120,
                                       child: TextFormField(
-                                        controller:
-                                            descriptionEditingController,
+                                        focusNode: _descriptionFocusNode,
+                                        autofocus: true,
+                                        controller: descriptionEditingController,
                                         keyboardType: TextInputType.text,
-                                        focusNode: focus6,
                                         textInputAction: TextInputAction.next,
                                         onFieldSubmitted: (v) {
-                                          FocusScope.of(context)
-                                              .requestFocus(focus7);
+                                          fieldFocusChange(context, _descriptionFocusNode, _descriptionFocusNode);
                                         },
                                         decoration: new InputDecoration(
                                           contentPadding:
@@ -624,7 +659,7 @@ class _NewProductState extends State<NewProduct> {
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
-    if (carnameEditingController.text.length < 3) {
+    if (nameEditingController.text.length < 3) {
       Toast.show("Please enter product name", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
@@ -654,7 +689,7 @@ class _NewProductState extends State<NewProduct> {
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   )),
-          content: new Text("Name: " + carnameEditingController.text, 
+          content: new Text("Name: " + nameEditingController.text, 
                         style: TextStyle(color: Colors.black)),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
@@ -701,19 +736,12 @@ class _NewProductState extends State<NewProduct> {
     if (_image != null) {
       base64Image = base64Encode(_image.readAsBytesSync());
       http.post("https://yitengsze.com/a_gifhope/php/insert_product.php", body: {
-        "carid": _scanBarCode,
-        "carname": carnameEditingController.text,
+        "pid": idEditingController.text,
+        "name": nameEditingController.text,
         "price": price.toStringAsFixed(2),
+        "genre": selectedGenre,
         "quantity": qtyEditingController.text,
-        "type": selectedType,
-        "specification": selectedSpecification,    //chg!
-        "seats": seatsEditingController.text,
-        "doors": doorsEditingController.text,
-        "aircond": selectedAircond,
-        "airbag": airbagEditingController.text,
-        "luggage": luggageEditingController.text,
         "description": descriptionEditingController.text,
-        "brand": selectedBrand,
         "encoded_string": base64Image,
       }).then((res) {
         print(res.body);
@@ -734,19 +762,12 @@ class _NewProductState extends State<NewProduct> {
       });
     } else {
       http.post("https://yitengsze.com/a_gifhope/php/insert_product.php", body: {
-        "carid": _scanBarCode,
-        "carname": carnameEditingController.text,
+        "pid": idEditingController.text,
+        "name": nameEditingController.text,
         "price": price.toStringAsFixed(2),
+        "genre": selectedGenre,
         "quantity": qtyEditingController.text,
-        "type": selectedType,
-        "specification": selectedSpecification,
-        "seats": seatsEditingController.text,
-        "doors": doorsEditingController.text,
-        "aircond": selectedAircond,
-        "airbag": airbagEditingController.text,
-        "luggage": luggageEditingController.text,
         "description": descriptionEditingController.text,
-        "brand": selectedBrand,
       }).then((res) {
         print(res.body);
         pr.hide();
@@ -766,4 +787,10 @@ class _NewProductState extends State<NewProduct> {
       });
     }
   }
+
+  void fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
+  currentFocus.unfocus();
+  FocusScope.of(context).requestFocus(nextFocus);
+}
+
 }
