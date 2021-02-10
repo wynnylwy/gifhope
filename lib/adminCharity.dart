@@ -17,6 +17,8 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:gifhope/user.dart';
 
 import 'loginscreen.dart';
+import 'newcharity.dart';
+import 'newproduct.dart';
 
 class CharityAdminManageScreen extends StatefulWidget {
   final User user;
@@ -478,7 +480,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                 child: Icon(Icons.add_to_drive),
                 label: "New Charity Info",
                 labelBackgroundColor: Colors.red[300],
-                //onTap: createNewProduct,
+                onTap: _createNewCharity,
               ),
               SpeedDialChild(
                 child: Icon(Icons.request_page),
@@ -1077,26 +1079,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                           textAlign: TextAlign.justify,
                           style: TextStyle(fontSize: 16, color: Colors.black)),
                     ),
-                    MaterialButton(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      minWidth: 150,
-                      height: 40,
-                      child: Text(
-                        "Manage Charity Info".toUpperCase(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17,
-                        ),
-                      ),
-                      color: Colors.red[400],
-                      textColor: Colors.white,
-                      onPressed: () {
-                        // _addToBookingsDialog(index);
-                      },
-                    ),
+                    
                     Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20)),
                   ],
                 ),
@@ -1148,4 +1131,12 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
               ]);
         });
   }
+
+  Future<void> _createNewCharity() async {
+    await Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => NewCharity()));
+    _loadCharityData();
+  }
+
+
 }
