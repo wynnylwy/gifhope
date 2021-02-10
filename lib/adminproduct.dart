@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gifhope/detailsscreen.dart';
 import 'package:gifhope/sellerdetailsscreen.dart';
 import 'package:gifhope/user.dart';
-import 'package:gifhope/editproduct.dart';
+import 'package:gifhope/updateproduct.dart';
 import 'package:gifhope/newproduct.dart';
 import 'package:gifhope/product.dart';
 import 'package:http/http.dart' as http;
@@ -16,8 +16,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'purchasescreen.dart';
+
 import 'reportlist.dart';
+import 'updateproduct.dart';
 
 class AdminProduct extends StatefulWidget {
   final User user;
@@ -690,20 +691,21 @@ class _AdminProductState extends State<AdminProduct> {
 
   Future<void> _onProductDetail(int index) async {
     print(productdata[index]['name']);
-    Product cars = new Product(
+    Product productInfo = new Product(
         pid: productdata[index]['id'],
         name: productdata[index]['name'],
         price: productdata[index]['price'],
         genre: productdata[index]['genre'],
+        quantity: productdata[index]['quantity'],
         description: productdata[index]['description'],
         date: productdata[index]['date']);
 
     await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => EditProduct(
+            builder: (BuildContext context) => UpdateProduct(
                   user: widget.user,
-                  product: cars,
+                  product: productInfo,
                 )));
     _loadData();
   }

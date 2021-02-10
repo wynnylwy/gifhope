@@ -271,7 +271,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         SizedBox(width: 15),
                                         Container(
                                           height: screenWidth / 2.0,
-                                          width: screenWidth / 2.0,
+                                          width: screenWidth / 2.2,
                                           child: Padding(
                                             padding: EdgeInsets.fromLTRB(
                                                 2, 5, 0, 0), //padding of pic
