@@ -23,7 +23,10 @@ class _NewCharityState extends State<NewCharity> {
   // var _tapPosition;
 
   DateTime selectedStartDate = DateTime.now();
-   DateTime selectedEndDate = DateTime.now();
+  DateTime selectedEndDate = DateTime.now();
+  DateTime selectedStartTime = DateTime.now();
+  DateTime selectedEndTime = DateTime.now();
+  
   final DateFormat dateFormat = DateFormat('dd-MM-yyyy hh:mm a');
 
   TextEditingController idEditingController = new TextEditingController();
@@ -286,7 +289,7 @@ class _NewCharityState extends State<NewCharity> {
                                                 width: 70,
                                                 child: RaisedButton(
                                                   child: Text(
-                                                    'D:M:Y',
+                                                    'D:M:Y',   //startDate
                                                     style:
                                                         TextStyle(fontSize: 12),
                                                   ),
@@ -301,9 +304,6 @@ class _NewCharityState extends State<NewCharity> {
                                                         selectedStartDate.day,
                                                         selectedStartDate.month,
                                                         selectedStartDate.year,
-                                                        selectedStartDate.hour,
-                                                        selectedStartDate.minute,
-                                                        selectedStartDate.second,
                                                       );
                                                     });
                                                   },
@@ -314,7 +314,7 @@ class _NewCharityState extends State<NewCharity> {
                                                 width: 70,
                                                 child: RaisedButton(
                                                   child: Text(
-                                                    'D:M:Y',
+                                                    'D:M:Y',  //endDate
                                                     style:
                                                         TextStyle(fontSize: 12),
                                                   ),
@@ -329,9 +329,6 @@ class _NewCharityState extends State<NewCharity> {
                                                         selectedEndDate.day,
                                                         selectedEndDate.month,
                                                         selectedEndDate.year,
-                                                        selectedEndDate.hour,
-                                                        selectedEndDate.minute,
-                                                        selectedEndDate.second,
                                                       );
                                                     });
                                                   },
@@ -395,7 +392,7 @@ class _NewCharityState extends State<NewCharity> {
                                                 width: 70,
                                                 child: RaisedButton(
                                                   child: Text(
-                                                    'h:m:s',
+                                                    'h:m:s',   //startTime
                                                     style:
                                                         TextStyle(fontSize: 14),
                                                   ),
@@ -404,6 +401,13 @@ class _NewCharityState extends State<NewCharity> {
 
                                                     if (selectedStartTime ==null) return;
                                                     print(selectedStartTime);
+
+                                                    setState((){
+                                                      this.selectedStartTime = DateTime(
+                                                        selectedStartTime.hour,
+                                                        selectedStartTime.minute,
+                                                      );
+                                                    });
                                                   },
                                                 ),
                                               ),
@@ -421,6 +425,13 @@ class _NewCharityState extends State<NewCharity> {
 
                                                     if (selectedEndTime ==null) return;
                                                     print(selectedEndTime);
+
+                                                    setState((){
+                                                      this.selectedEndTime = DateTime(
+                                                        selectedEndTime.hour,
+                                                        selectedEndTime.minute,
+                                                      );
+                                                    });
                                                   },
                                                 ),
                                               ),
