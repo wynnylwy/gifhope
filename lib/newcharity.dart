@@ -22,20 +22,24 @@ class _NewCharityState extends State<NewCharity> {
   // String _scanBarCode = "Click here to scan";
   // var _tapPosition;
 
-  DateTime selectedStartDate = DateTime.now();
-  DateTime selectedEndDate = DateTime.now();
-  DateTime selectedStartTime = DateTime.now();
-  DateTime selectedEndTime = DateTime.now();
-  
-  final DateFormat dateFormat = DateFormat('dd-MM-yyyy hh:mm a');
+  String startDate = "D:M:Y";
+  String endDate = "D:M:Y";
+  String startTime = "h:m:s";
+  String endTime = "h:m:s";
+  DateTime chosenStartDate = DateTime.now();
+  DateTime chosenEndDate = DateTime.now();
+  DateTime chosenStartTime = DateTime.now();
+  DateTime chosenEndTime = DateTime.now();
+
+  final DateFormat dateFormat = DateFormat('dd-MM-yyyy'); 
+  final DateFormat timeFormat = DateFormat('HH:mm:ss'); 
 
   TextEditingController idEditingController = new TextEditingController();
   TextEditingController nameEditingController = new TextEditingController();
   TextEditingController receivedEditingController = new TextEditingController();
   TextEditingController targetEditingController = new TextEditingController();
   TextEditingController qtyEditingController = new TextEditingController();
-  TextEditingController descriptionEditingController =
-      new TextEditingController();
+  TextEditingController descriptionEditingController = new TextEditingController();
   TextEditingController contactEditingController = new TextEditingController();
 
   FocusNode _idFocusNode = FocusNode();
@@ -283,28 +287,34 @@ class _NewCharityState extends State<NewCharity> {
                                               )
                                             ],
                                           ),
+                                          SizedBox(height: 5),
                                           Row(
                                             children: [
                                               SizedBox(
                                                 width: 70,
+                                                height: 45,
                                                 child: RaisedButton(
+                                                  color: Colors.blue[100],
                                                   child: Text(
-                                                    'D:M:Y',   //startDate
+                                                    startDate,
                                                     style:
-                                                        TextStyle(fontSize: 12),
+                                                        TextStyle(fontSize: 14),
                                                   ),
                                                   onPressed: () async {
-                                                    final selectedStartDate = await _selectDate(context);
+                                                    final selectedStartDate =await _selectDate(context);
 
                                                     if (selectedStartDate ==null) return;
                                                     print(selectedStartDate);
 
-                                                    setState((){
-                                                      this.selectedStartDate = DateTime(
+                                                    setState(() {
+                                                      chosenStartDate =
+                                                          DateTime(
                                                         selectedStartDate.day,
                                                         selectedStartDate.month,
                                                         selectedStartDate.year,
                                                       );
+
+                                                      startDate = dateFormat.format(selectedStartDate);
                                                     });
                                                   },
                                                 ),
@@ -312,24 +322,34 @@ class _NewCharityState extends State<NewCharity> {
                                               SizedBox(width: 10),
                                               SizedBox(
                                                 width: 70,
+                                                height: 45,
                                                 child: RaisedButton(
+                                                  color: Colors.blue[100],
                                                   child: Text(
-                                                    'D:M:Y',  //endDate
+                                                    endDate,
                                                     style:
-                                                        TextStyle(fontSize: 12),
+                                                        TextStyle(fontSize: 14),
                                                   ),
                                                   onPressed: () async {
-                                                    final selectedEndDate = await _selectDate(context);
+                                                    final selectedEndDate =
+                                                        await _selectDate(
+                                                            context);
 
-                                                    if (selectedEndDate ==null) return;
+                                                    if (selectedEndDate == null)
+                                                      return;
                                                     print(selectedEndDate);
 
-                                                    setState((){
-                                                      this.selectedEndDate = DateTime(
+                                                    setState(() {
+                                                      chosenEndDate =
+                                                          DateTime(
                                                         selectedEndDate.day,
                                                         selectedEndDate.month,
                                                         selectedEndDate.year,
                                                       );
+
+                                                      endDate =
+                                                          dateFormat.format(
+                                                              selectedEndDate);
                                                     });
                                                   },
                                                 ),
@@ -358,7 +378,7 @@ class _NewCharityState extends State<NewCharity> {
                                   TableCell(
                                     child: Container(
                                       alignment: Alignment.centerLeft,
-                                      height: 60,
+                                      height: 80,
                                       child: Column(
                                         children: [
                                           Row(
@@ -368,7 +388,6 @@ class _NewCharityState extends State<NewCharity> {
                                                 style: TextStyle(
                                                     decoration: TextDecoration
                                                         .underline,
-                                                    height: 0.5,
                                                     fontSize: 14,
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -379,34 +398,38 @@ class _NewCharityState extends State<NewCharity> {
                                                 style: TextStyle(
                                                     decoration: TextDecoration
                                                         .underline,
-                                                    height: 0.5,
                                                     fontSize: 14,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               )
                                             ],
                                           ),
+                                          SizedBox(height: 5),
                                           Row(
                                             children: [
                                               SizedBox(
                                                 width: 70,
+                                                height: 45,
                                                 child: RaisedButton(
+                                                  color: Colors.blue[100],
                                                   child: Text(
-                                                    'h:m:s',   //startTime
+                                                    startTime, //startTime
                                                     style:
                                                         TextStyle(fontSize: 14),
                                                   ),
                                                   onPressed: () async {
                                                     final selectedStartTime = await _selectTime(context);
 
-                                                    if (selectedStartTime ==null) return;
+                                                    if (selectedStartTime == null) return;
                                                     print(selectedStartTime);
 
-                                                    setState((){
-                                                      this.selectedStartTime = DateTime(
+                                                    setState(() {
+                                                      chosenStartTime =DateTime(
                                                         selectedStartTime.hour,
                                                         selectedStartTime.minute,
                                                       );
+
+                                                      startTime = formatStartTimeOfDay(selectedStartTime);
                                                     });
                                                   },
                                                 ),
@@ -414,23 +437,28 @@ class _NewCharityState extends State<NewCharity> {
                                               SizedBox(width: 10),
                                               SizedBox(
                                                 width: 70,
+                                                height: 45,
                                                 child: RaisedButton(
+                                                  color: Colors.blue[100],
                                                   child: Text(
-                                                    'h:m:s',
+                                                    endTime,
                                                     style:
                                                         TextStyle(fontSize: 14),
                                                   ),
                                                   onPressed: () async {
                                                     final selectedEndTime = await _selectTime(context);
 
-                                                    if (selectedEndTime ==null) return;
+                                                    if (selectedEndTime == null)
+                                                      return;
                                                     print(selectedEndTime);
 
-                                                    setState((){
-                                                      this.selectedEndTime = DateTime(
+                                                    setState(() {
+                                                      chosenEndTime =DateTime(
                                                         selectedEndTime.hour,
                                                         selectedEndTime.minute,
                                                       );
+
+                                                      endTime = formatStartTimeOfDay(selectedEndTime);
                                                     });
                                                   },
                                                 ),
@@ -1060,23 +1088,34 @@ class _NewCharityState extends State<NewCharity> {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
-  Future<DateTime> _selectDate (BuildContext context) =>
-    showDatePicker(
-        context: context,
-        initialDate: DateTime.now().add(Duration(seconds: 60)),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2050)
-   );
-  
+  Future<DateTime> _selectDate(BuildContext context) => showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(Duration(seconds: 60)),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2050));
 
-  Future<TimeOfDay> _selectTime (BuildContext context) {
+  Future<TimeOfDay> _selectTime(BuildContext context) {
     final now = DateTime.now();
 
-    return showTimePicker (
+    return showTimePicker(
       context: context,
       initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
     );
   }
 
+  String formatStartTimeOfDay(TimeOfDay selectedStartTime) {
+    final now = new DateTime.now();
+    final selectedST = DateTime(now.day, now.month, now.year,
+        selectedStartTime.hour, selectedStartTime.minute);
+    print(selectedST);
+    return timeFormat.format(selectedST);
+  }
 
+  String formatEndTimeOfDay(TimeOfDay selectedEndTime) {
+    final now = new DateTime.now();
+    final selectedET = DateTime(now.day, now.month, now.year,
+        selectedEndTime.hour, selectedEndTime.minute);
+    print(selectedET);
+    return timeFormat.format(selectedET);
+  }
 }
