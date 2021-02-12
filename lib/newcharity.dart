@@ -8,6 +8,7 @@ import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:intl/intl.dart';
 
 class NewCharity extends StatefulWidget {
   @override
@@ -20,6 +21,10 @@ class _NewCharityState extends State<NewCharity> {
   String pathAsset = "assets/images/camera.jpg";
   // String _scanBarCode = "Click here to scan";
   // var _tapPosition;
+
+  DateTime selectedStartDate = DateTime.now();
+   DateTime selectedEndDate = DateTime.now();
+  final DateFormat dateFormat = DateFormat('dd-MM-yyyy hh:mm a');
 
   TextEditingController idEditingController = new TextEditingController();
   TextEditingController nameEditingController = new TextEditingController();
@@ -275,7 +280,6 @@ class _NewCharityState extends State<NewCharity> {
                                               )
                                             ],
                                           ),
-                                         
                                           Row(
                                             children: [
                                               SizedBox(
@@ -287,10 +291,21 @@ class _NewCharityState extends State<NewCharity> {
                                                         TextStyle(fontSize: 12),
                                                   ),
                                                   onPressed: () async {
-                                                    final selectedDate =
-                                                        await selectDate(
-                                                            context);
-                                                    print(selectedDate);
+                                                    final selectedStartDate = await _selectDate(context);
+
+                                                    if (selectedStartDate ==null) return;
+                                                    print(selectedStartDate);
+
+                                                    setState((){
+                                                      this.selectedStartDate = DateTime(
+                                                        selectedStartDate.day,
+                                                        selectedStartDate.month,
+                                                        selectedStartDate.year,
+                                                        selectedStartDate.hour,
+                                                        selectedStartDate.minute,
+                                                        selectedStartDate.second,
+                                                      );
+                                                    });
                                                   },
                                                 ),
                                               ),
@@ -304,10 +319,21 @@ class _NewCharityState extends State<NewCharity> {
                                                         TextStyle(fontSize: 12),
                                                   ),
                                                   onPressed: () async {
-                                                    final selectedDate =
-                                                        await selectDate(
-                                                            context);
-                                                    print(selectedDate);
+                                                    final selectedEndDate = await _selectDate(context);
+
+                                                    if (selectedEndDate ==null) return;
+                                                    print(selectedEndDate);
+
+                                                    setState((){
+                                                      this.selectedEndDate = DateTime(
+                                                        selectedEndDate.day,
+                                                        selectedEndDate.month,
+                                                        selectedEndDate.year,
+                                                        selectedEndDate.hour,
+                                                        selectedEndDate.minute,
+                                                        selectedEndDate.second,
+                                                      );
+                                                    });
                                                   },
                                                 ),
                                               ),
@@ -363,8 +389,6 @@ class _NewCharityState extends State<NewCharity> {
                                               )
                                             ],
                                           ),
-
-                                       
                                           Row(
                                             children: [
                                               SizedBox(
@@ -376,10 +400,10 @@ class _NewCharityState extends State<NewCharity> {
                                                         TextStyle(fontSize: 14),
                                                   ),
                                                   onPressed: () async {
-                                                    final selectedDate =
-                                                        await selectDate(
-                                                            context);
-                                                    print(selectedDate);
+                                                    final selectedStartTime = await _selectTime(context);
+
+                                                    if (selectedStartTime ==null) return;
+                                                    print(selectedStartTime);
                                                   },
                                                 ),
                                               ),
@@ -388,15 +412,15 @@ class _NewCharityState extends State<NewCharity> {
                                                 width: 70,
                                                 child: RaisedButton(
                                                   child: Text(
-                                                   'h:m:s',
+                                                    'h:m:s',
                                                     style:
                                                         TextStyle(fontSize: 14),
                                                   ),
                                                   onPressed: () async {
-                                                    final selectedDate =
-                                                        await selectDate(
-                                                            context);
-                                                    print(selectedDate);
+                                                    final selectedEndTime = await _selectTime(context);
+
+                                                    if (selectedEndTime ==null) return;
+                                                    print(selectedEndTime);
                                                   },
                                                 ),
                                               ),
@@ -1025,11 +1049,23 @@ class _NewCharityState extends State<NewCharity> {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
-  selectDate(BuildContext context) {
+  Future<DateTime> _selectDate (BuildContext context) =>
     showDatePicker(
         context: context,
         initialDate: DateTime.now().add(Duration(seconds: 60)),
         firstDate: DateTime.now(),
-        lastDate: DateTime(2050));
+        lastDate: DateTime(2050)
+   );
+  
+
+  Future<TimeOfDay> _selectTime (BuildContext context) {
+    final now = DateTime.now();
+
+    return showTimePicker (
+      context: context,
+      initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
+    );
   }
+
+
 }
