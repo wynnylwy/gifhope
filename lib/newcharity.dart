@@ -1020,8 +1020,8 @@ class _NewCharityState extends State<NewCharity> {
   addNewEvent() {
     double received = double.parse(receivedEditingController.text);
     double target = double.parse(targetEditingController.text);
-    String combinedStart = startDate + ' ' + startTime;
-    String combinedEnd = endDate + ' ' + endTime;
+    String startDatetime = startDate + ' ' + startTime;
+    String endDatetime = endDate + ' ' + endTime;
 
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
@@ -1035,8 +1035,8 @@ class _NewCharityState extends State<NewCharity> {
           body: {
             "eid": idEditingController.text,
             "name": nameEditingController.text,
-            "combinedStart": combinedStart,
-            "combinedEnd": combinedEnd,
+            "start_datetime": startDatetime,
+            "end_datetime": endDatetime,
             "genre": selectedGenre,
             "received": received.toStringAsFixed(2),
             "target": target.toStringAsFixed(2),

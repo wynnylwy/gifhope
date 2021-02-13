@@ -16,6 +16,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:gifhope/user.dart';
 
+import 'charity.dart';
 import 'loginscreen.dart';
 import 'newcharity.dart';
 import 'newproduct.dart';
@@ -25,7 +26,8 @@ class CharityAdminManageScreen extends StatefulWidget {
   CharityAdminManageScreen({Key key, this.user}) : super(key: key);
 
   @override
-  _CharityAdminManageScreenState createState() => _CharityAdminManageScreenState();
+  _CharityAdminManageScreenState createState() =>
+      _CharityAdminManageScreenState();
 }
 
 class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
@@ -39,6 +41,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
   int quantity = 1;
   bool _isShopper = false;
   String titlecenter = "Charity data is not found";
+  var _tapPosition;
 
   @override
   void initState() {
@@ -66,7 +69,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
                     colors: [
-                     const Color(0xFFFF7043),
+                      const Color(0xFFFF7043),
                       const Color(0xFFFF8A65),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
@@ -332,10 +335,8 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                                   elevation: 5,
                                   child: Text(
                                     "Search ",
-                                    
                                     style: TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.black),
+                                        fontSize: 25, color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -376,95 +377,103 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                                   (screenWidth / screenHeight) / 0.9,
                               children:
                                   List.generate(charitydata.length, (index) {
-                                return Card(
-                                    elevation: 10,
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 10, 5),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Container(
-                                            height: screenWidth / 2.5,
-                                            width: screenWidth / 2.5,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              child: CachedNetworkImage(
-                                                fit: BoxFit.fill,
-                                                imageUrl:
-                                                    "http://yitengsze.com/a_gifhope/charityimages/${charitydata[index]['id']}.jpg",
-                                                placeholder: (context, url) =>
-                                                    new CircularProgressIndicator(),
-                                                errorWidget:
-                                                    (context, url, error) =>
+                                return Container(
+                                  child: InkWell(
+                                    onTap: () => _showPopUpMenu(index),
+                                    onTapDown: _storePosition,
+                                    child: Card(
+                                        elevation: 10,
+                                        child: Padding(
+                                          padding: EdgeInsets.fromLTRB(
+                                              10, 10, 10, 5),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Container(
+                                                height: screenWidth / 2.5,
+                                                width: screenWidth / 2.5,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  child: CachedNetworkImage(
+                                                    fit: BoxFit.fill,
+                                                    imageUrl:
+                                                        "http://yitengsze.com/a_gifhope/charityimages/${charitydata[index]['id']}.jpg",
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        new CircularProgressIndicator(),
+                                                    errorWidget: (context, url,
+                                                            error) =>
                                                         new Icon(Icons.error),
-                                              ),
-                                            ),
-                                          ),
-                                          Text(
-                                            charitydata[index]['name'],
-                                            maxLines: 3,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            "-----------------------------",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-
-                                          Row(
-                                            children: <Widget>[
-                                              Icon(Icons.tag),
-                                              Text(
-                                                " Genre: ",
-                                              ),
-                                              Text(
-                                                charitydata[index]['genre'],
-                                                style: TextStyle(
-                                                  color: Colors.red,
+                                                  ),
                                                 ),
                                               ),
-                                            ],
-                                          ),
-
-                                          Row(
-                                            children: <Widget>[
-                                              Icon(Icons.volunteer_activism),
                                               Text(
-                                                " Target: RM  ",
-                                              ),
-                                              Text(
-                                                charitydata[index]['target'],
+                                                charitydata[index]['name'],
+                                                maxLines: 3,
+                                                textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                  color: Colors.red,
-                                                ),
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
+                                              Text(
+                                                "-----------------------------",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Row(
+                                                children: <Widget>[
+                                                  Icon(Icons.tag),
+                                                  Text(
+                                                    " Genre: ",
+                                                  ),
+                                                  Text(
+                                                    charitydata[index]['genre'],
+                                                    style: TextStyle(
+                                                      color: Colors.red,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: <Widget>[
+                                                  Icon(
+                                                      Icons.volunteer_activism),
+                                                  Text(
+                                                    " Target: RM  ",
+                                                  ),
+                                                  Text(
+                                                    charitydata[index]
+                                                        ['target'],
+                                                    style: TextStyle(
+                                                      color: Colors.red,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              MaterialButton(
+                                                  elevation: 5,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  minWidth: 120,
+                                                  height: 40,
+                                                  child: Text('View Details'),
+                                                  color: Colors.red[400],
+                                                  textColor: Colors.white,
+                                                  onPressed: () {
+                                                    _viewDetails(index);
+                                                  }),
                                             ],
                                           ),
-
-                                        
-                                          MaterialButton(
-                                              elevation: 5,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              minWidth: 120,
-                                              height: 40,
-                                              child: Text('View Details'),
-                                              color: Colors.red[400],
-                                              textColor: Colors.white,
-                                              onPressed: () {
-                                                _viewDetails(index);
-                                              }),
-                                        ],
-                                      ),
-                                    ));
+                                        )),
+                                  ),
+                                );
                               }),
                             ),
                           ),
@@ -486,21 +495,21 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                 child: Icon(Icons.request_page),
                 backgroundColor: Colors.red[300],
                 label: "View Sales Report",
-                labelBackgroundColor:  Colors.red[300],
+                labelBackgroundColor: Colors.red[300],
                 //onTap: createNewProduct,
               ),
               SpeedDialChild(
                 child: Icon(MdiIcons.scriptText),
                 backgroundColor: Colors.red[300],
                 label: "View Donation Report",
-                labelBackgroundColor:  Colors.red[300],
+                labelBackgroundColor: Colors.red[300],
                 //onTap: report,
               ),
               SpeedDialChild(
                 child: Icon(Icons.volunteer_activism),
                 backgroundColor: Colors.red[300],
                 label: "Collect Donation",
-                labelBackgroundColor:  Colors.red[300],
+                labelBackgroundColor: Colors.red[300],
                 //onTap: report,
               ),
             ],
@@ -594,7 +603,6 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
 
   Widget mainDrawer(BuildContext context) {
     return Drawer(
-      
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
@@ -603,7 +611,6 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
             accountEmail: Text(widget.user.email,
                 style: TextStyle(fontSize: 18.0, color: Colors.white)),
             otherAccountsPictures: <Widget>[
-
               Align(
                 alignment: Alignment.topRight,
                 child: Text(widget.user.credit,
@@ -632,8 +639,6 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
             },
           ),
 
-          
-
           ListTile(
               title:
                   Text("Charity List", style: TextStyle(color: Colors.black)),
@@ -641,12 +646,10 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
               onTap: () => {
                     Navigator.pop(context),
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => CharityAdminMainScreen(
-                            user: widget.user
-                          ))
-                          )
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                CharityAdminMainScreen(user: widget.user)))
                   }),
 
           ListTile(
@@ -704,7 +707,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                     _logout(),
                   }),
 
-//Admin Menu    Shopper cannot see charity admin's drawer!! 27/1/2021*
+          //Admin Menu    Shopper cannot see charity admin's drawer!! 27/1/2021*
           // Visibility(
           //   visible: _isSeller,
           //   child: Column(
@@ -863,7 +866,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
       print(widget.user.email);
 
       showModalBottomSheet(
-        backgroundColor: Colors.red[100],
+          backgroundColor: Colors.red[100],
           context: context,
           isScrollControlled: true,
           builder: (BuildContext builder) {
@@ -933,7 +936,6 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                         Padding(
                           padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
                           child: Row(
-                            
                             children: <Widget>[
                               Icon(
                                 Icons.tag,
@@ -947,58 +949,56 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold),
                               ),
-
                               SizedBox(width: 20),
                             ],
                           ),
                         ),
                       ],
                     ),
-
                     Row(
-                      
                       children: [
                         Padding(
                           padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
-                                                  child: Icon(
-                                  Icons.save_alt,
-                                  color: Colors.blue[500],
-                                ),
+                          child: Icon(
+                            Icons.save_alt,
+                            color: Colors.blue[500],
+                          ),
                         ),
-                              Text( "Received: RM " ,
-                              style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),),
-                              Text(
-                                charitydata[index]['received'],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-
-                         SizedBox(width: 20),
-
-
+                        Text(
+                          "Received: RM ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          charitydata[index]['received'],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(width: 20),
                         Icon(
-                                Icons.volunteer_activism,
-                                color: Colors.blue[500],
-                              ),
-                              Text( " Target: RM " ,
-                              style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),),
-                              Text(
-                                charitydata[index]['target'],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                          Icons.volunteer_activism,
+                          color: Colors.blue[500],
+                        ),
+                        Text(
+                          " Target: RM ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          charitydata[index]['target'],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                     Row(
@@ -1079,7 +1079,6 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                           textAlign: TextAlign.justify,
                           style: TextStyle(fontSize: 16, color: Colors.black)),
                     ),
-                    
                     Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20)),
                   ],
                 ),
@@ -1092,6 +1091,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }
   }
+
   void _logout() {
     print(widget.user.name);
     showDialog(
@@ -1138,5 +1138,120 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
     _loadCharityData();
   }
 
+  void _storePosition(TapDownDetails details) {
+     _tapPosition = details.globalPosition;
+  }
 
+  _showPopUpMenu(int index) async {
+    final RenderBox overlay = Overlay.of(context).context.findRenderObject();
+
+    await showMenu(
+      context: context,
+      position: RelativeRect.fromRect(
+          _tapPosition & Size(40, 40), // smaller rect, pop up after touch on touch's area
+          Offset.zero & overlay.size), // Bigger rect, the entire screen
+      items: [
+        PopupMenuItem(
+            child: GestureDetector(
+          child: Text("Update Event Info"),
+          onTap: () => {Navigator.of(context).pop(), _onEventDetail(index)},
+        )),
+        PopupMenuItem(
+            child: GestureDetector(
+          child: Text("Delete Event Info"),
+          onTap: () => {Navigator.of(context).pop(), _deleteEventDialog(index)},
+        )),
+      ],
+      elevation: 8.0,
+    );
+  }
+
+  Future<void> _onEventDetail(int index) async {
+    print(charitydata[index]['name']);
+    Charity charityInfo = new Charity(
+        eid: charitydata[index]['id'],
+        name: charitydata[index]['name'],
+        genre: charitydata[index]['genre'],
+        received: charitydata[index]['received'],
+        target: charitydata[index]['target'],
+        description: charitydata[index]['description'],
+        contact: charitydata[index]['contact']);
+
+    // await Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (BuildContext context) => UpdateCharity(
+    //               user: widget.user,
+    //               charity: charityInfo,
+    //             )));
+    _loadCharityData();
+  }
+
+  void _deleteEventDialog(int index) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            title: new Text("Delete Event ID: " + charitydata[index]['id']),
+            content: new Text(
+              "Are you sure? ",
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    _deleteEvent(index);
+                  },
+                  child: new Text(
+                    "Yes",
+                    style: TextStyle(
+                      fontSize: 17,
+                    ),
+                  )),
+              new FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: new Text(
+                  "No",
+                  style: TextStyle(
+                    fontSize: 17,
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  void _deleteEvent(int index) {
+    ProgressDialog pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false);
+    pr.style(message: "Deleting event...");
+    pr.show();
+    http.post("https://yitengsze.com/a_gifhope/php/delete_charity.php", body: { 
+      "eid": charitydata[index]['id'],
+    }).then((res) {
+      print(res.body);
+      pr.hide();
+
+      if (res.body.contains("success")) {
+        Toast.show("Delete successfully", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        _loadCharityData(); //refresh data
+      } else {
+        Toast.show("Delete failed", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      }
+    }).catchError((err) {
+      print(err);
+      pr.hide();
+    });
+    _loadCharityData();
+  }
 }
