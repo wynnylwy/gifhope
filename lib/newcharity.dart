@@ -26,12 +26,13 @@ class _NewCharityState extends State<NewCharity> {
   String endDate = "D:M:Y";
   String startTime = "h:m:s";
   String endTime = "h:m:s";
+  String combinedStart, combinedEnd;
   DateTime chosenStartDate = DateTime.now();
   DateTime chosenEndDate = DateTime.now();
   DateTime chosenStartTime = DateTime.now();
   DateTime chosenEndTime = DateTime.now();
 
-  final DateFormat dateFormat = DateFormat('dd-MM-yyyy'); 
+  final DateFormat dateFormat = DateFormat('yyyy-dd-MM'); 
   final DateFormat timeFormat = DateFormat('HH:mm:ss'); 
 
   TextEditingController idEditingController = new TextEditingController();
@@ -459,6 +460,7 @@ class _NewCharityState extends State<NewCharity> {
                                                       );
 
                                                       endTime = formatStartTimeOfDay(selectedEndTime);
+                                                    
                                                     });
                                                   },
                                                 ),
@@ -713,7 +715,7 @@ class _NewCharityState extends State<NewCharity> {
                                 color: Colors.yellow[200],
                                 textColor: Colors.black,
                                 elevation: 10,
-                                onPressed: _addNewProdDialog,
+                                onPressed: _addNewEventDialog,
                               ),
                               MaterialButton(
                                 shape: RoundedRectangleBorder(
@@ -928,36 +930,36 @@ class _NewCharityState extends State<NewCharity> {
   //       });
   // }
 
-  void _addNewProdDialog() {
+  void _addNewEventDialog() {
     // if (_scanBarCode.contains("Click here to scan")) {
     //   Toast.show("Please scan car ID", context,
     //       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     //   return;
     // }
     if (_image == null) {
-      Toast.show("Please take product picture", context,
+      Toast.show("Please take event picture", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
 
     if (idEditingController.text.length < 3) {
-      Toast.show("Please enter product ID", context,
+      Toast.show("Please enter event ID", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
     if (nameEditingController.text.length < 3) {
-      Toast.show("Please enter product name", context,
+      Toast.show("Please enter event name", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
 
     if (receivedEditingController.text.length < 1) {
-      Toast.show("Please enter received", context,
+      Toast.show("Please enter received amount", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
     if (targetEditingController.text.length < 1) {
-      Toast.show("Please enter target", context,
+      Toast.show("Please enter target amount", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -973,7 +975,7 @@ class _NewCharityState extends State<NewCharity> {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          title: Text("Add new product? ",
+          title: Text("Add new event? ",
               style: TextStyle(
                 fontFamily: 'Bellota',
                 fontSize: 22.0,
@@ -992,9 +994,9 @@ class _NewCharityState extends State<NewCharity> {
                   color: Colors.black,
                 ),
               ),
-              onPressed: () {
+              onPressed: () { 
                 Navigator.of(context).pop();
-                addNewProd();
+                addNewEvent();
               },
             ),
             new FlatButton(
@@ -1015,26 +1017,31 @@ class _NewCharityState extends State<NewCharity> {
     );
   }
 
-  addNewProd() {
+  addNewEvent() {
     double received = double.parse(receivedEditingController.text);
     double target = double.parse(targetEditingController.text);
+    String combinedStart = startDate + ' ' + startTime;
+    String combinedEnd = endDate + ' ' + endTime;
 
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Adding new product...");
+    pr.style(message: "Adding new event ...");
     pr.show();
     String base64Image = base64Encode(_image.readAsBytesSync());
 
     if (_image != null) {
       base64Image = base64Encode(_image.readAsBytesSync());
-      http.post("https://yitengsze.com/a_gifhope/php/insert_product.php",
+      http.post("https://yitengsze.com/a_gifhope/php/insert_charity.php",
           body: {
-            "pid": idEditingController.text,
+            "eid": idEditingController.text,
             "name": nameEditingController.text,
-            // "price": price.toStringAsFixed(2),
+            "combinedStart": combinedStart,
+            "combinedEnd": combinedEnd,
             "genre": selectedGenre,
-            "quantity": qtyEditingController.text,
+            "received": received.toStringAsFixed(2),
+            "target": target.toStringAsFixed(2),
             "description": descriptionEditingController.text,
+            "contact": contactEditingController.text,
             "encoded_string": base64Image,
           }).then((res) {
         print(res.body);
@@ -1054,14 +1061,17 @@ class _NewCharityState extends State<NewCharity> {
         pr.hide();
       });
     } else {
-      http.post("https://yitengsze.com/a_gifhope/php/insert_product.php",
+      http.post("https://yitengsze.com/a_gifhope/php/insert_charity.php",
           body: {
-            "pid": idEditingController.text,
+            "eid": idEditingController.text,
             "name": nameEditingController.text,
-            // "price": price.toStringAsFixed(2),
+            "combinedStart": combinedStart,
+            "combinedEnd": combinedEnd,
             "genre": selectedGenre,
-            "quantity": qtyEditingController.text,
+            "received": received.toStringAsFixed(2),
+            "target": target.toStringAsFixed(2),
             "description": descriptionEditingController.text,
+            "contact": contactEditingController.text,
           }).then((res) {
         print(res.body);
         pr.hide();
