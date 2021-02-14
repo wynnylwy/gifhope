@@ -473,7 +473,7 @@ class _UpdateProductState extends State<UpdateProduct> {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          title: Text("Update Product ID " + widget.product.pid,
+          title: Text("Update Product ID: " + widget.product.pid,
                   style: TextStyle(
                     fontFamily: 'Bellota',
                     fontSize: 22.0,
@@ -489,7 +489,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                   )),
               onPressed: () {
                 Navigator.of(context).pop();
-                updateCar();
+                updateProduct();
               },
             ),
             new FlatButton(
@@ -507,7 +507,7 @@ class _UpdateProductState extends State<UpdateProduct> {
     );
   }
 
-  void updateCar()async{
+  void updateProduct()async{
     if (nameEditingController.text.length < 3) {
       Toast.show("Please enter car name", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -549,7 +549,7 @@ class _UpdateProductState extends State<UpdateProduct> {
         "name": nameEditingController.text,
         "price": price.toStringAsFixed(2),
         "quantity": qtyEditingController.text,
-        "type": selectedGenre,
+        "genre": selectedGenre,
         "description": descriptionEditingController.text,
         "encoded_string": base64Image,
       }).then((res) {
@@ -581,7 +581,7 @@ class _UpdateProductState extends State<UpdateProduct> {
         "name": nameEditingController.text,
         "price": price.toStringAsFixed(2),
         "quantity": qtyEditingController.text,
-        "type": selectedGenre,
+        "genre": selectedGenre,
         "description": descriptionEditingController.text,
       }).then((res) {
         print(res.body);

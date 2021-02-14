@@ -20,6 +20,7 @@ import 'charity.dart';
 import 'loginscreen.dart';
 import 'newcharity.dart';
 import 'newproduct.dart';
+import 'updatecharity.dart';
 
 class CharityAdminManageScreen extends StatefulWidget {
   final User user;
@@ -1167,7 +1168,10 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
   }
 
   Future<void> _onEventDetail(int index) async {
+    print(charitydata[index]['id']);
     print(charitydata[index]['name']);
+    
+
     Charity charityInfo = new Charity(
         eid: charitydata[index]['id'],
         name: charitydata[index]['name'],
@@ -1177,13 +1181,13 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
         description: charitydata[index]['description'],
         contact: charitydata[index]['contact']);
 
-    // await Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (BuildContext context) => UpdateCharity(
-    //               user: widget.user,
-    //               charity: charityInfo,
-    //             )));
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => UpdateCharity(
+                  user: widget.user,
+                  charity: charityInfo,
+                )));
     _loadCharityData();
   }
 

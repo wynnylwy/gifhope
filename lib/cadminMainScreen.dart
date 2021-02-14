@@ -477,8 +477,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
             backgroundColor: Colors.red[700],
               onPressed: () async {
 
-                
-
                 if (widget.user.email.contains("unregistered")) {
                   Toast.show("Please register first", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
