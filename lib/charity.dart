@@ -1,13 +1,11 @@
 class Charity 
 {
-  String eid, name, startDate, endDate, startTime,endTime, genre, received, target, description, contact;
+  String eid, name, startDateTime, endDateTime, genre, received, target, description, contact;
   Charity({
     this.eid,
     this.name,
-    this.startDate,
-    this.endDate,
-    this.startTime,
-    this.endTime,
+    this.startDateTime,
+    this.endDateTime,
     this.genre,
     this.received,
     this.target,

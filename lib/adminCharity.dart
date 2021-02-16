@@ -40,7 +40,6 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
   String curtype = "Recent";
   String donatequantity = "0";
   int quantity = 1;
-  bool _isShopper = false;
   String titlecenter = "Charity data is not found";
   var _tapPosition;
 
@@ -1170,11 +1169,13 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
   Future<void> _onEventDetail(int index) async {
     print(charitydata[index]['id']);
     print(charitydata[index]['name']);
-    
+     
 
     Charity charityInfo = new Charity(
         eid: charitydata[index]['id'],
         name: charitydata[index]['name'],
+        startDateTime: charitydata[index]['start_datetime'],
+        endDateTime: charitydata[index]['end_datetime'],
         genre: charitydata[index]['genre'],
         received: charitydata[index]['received'],
         target: charitydata[index]['target'],
