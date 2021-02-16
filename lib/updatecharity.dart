@@ -829,6 +829,8 @@ class _UpdateCharityState extends State<UpdateCharity> {
 
     double received = double.parse(receivedEditingController.text);
     double target = double.parse(targetEditingController.text);
+    String startDatetime = startDate + ' ' + startTime;
+    String endDatetime = endDate + ' ' + endTime;
 
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
@@ -840,11 +842,13 @@ class _UpdateCharityState extends State<UpdateCharity> {
     if (_image != null) {
       base64Image = base64Encode(_image.readAsBytesSync());
 
-      http.post("https://yitengsze.com/a_gifhope/php/update_event.php", body: {
+      http.post("https://yitengsze.com/a_gifhope/php/update_charity.php", body: {
         "eid": widget.charity.eid,
         "name": nameEditingController.text,
+        "start_datetime": startDatetime,
+        "end_datetime": endDatetime,
         "received": received.toStringAsFixed(2),
-        "target": target.toStringAsFixed(2), //left startdate & end!
+        "target": target.toStringAsFixed(2), 
         "genre": selectedGenre,
         "description": descriptionEditingController.text,
         "contact": contactEditingController.text,
@@ -869,16 +873,18 @@ class _UpdateCharityState extends State<UpdateCharity> {
 
       await DefaultCacheManager().removeFile(
           'http://yitengsze.com/a_gifhope/charityimages/${widget.charity.eid}.jpg');
-    } else {
-      http.post("https://yitengsze.com/a_gifhope/php/update_product.php",
-          body: {
-            "eid": widget.charity.eid,
-            "name": nameEditingController.text,
-            "received": received.toStringAsFixed(2),
-            "target": target.toStringAsFixed(2),
-            "genre": selectedGenre,
-            "description": descriptionEditingController.text,
-            "contact": contactEditingController.text,
+    } 
+    else {
+      http.post("https://yitengsze.com/a_gifhope/php/update_charity.php", body: {
+        "eid": widget.charity.eid,
+        "name": nameEditingController.text,
+        "start_datetime": startDatetime,
+        "end_datetime": endDatetime,
+        "received": received.toStringAsFixed(2),
+        "target": target.toStringAsFixed(2), 
+        "genre": selectedGenre,
+        "description": descriptionEditingController.text,
+        "contact": contactEditingController.text,
           }).then((res) {
         print(res.body);
         pr.hide();
