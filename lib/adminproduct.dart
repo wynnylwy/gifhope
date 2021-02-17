@@ -16,7 +16,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:shimmer/shimmer.dart';
 
-
 import 'reportlist.dart';
 import 'updateproduct.dart';
 
@@ -40,7 +39,6 @@ class _AdminProductState extends State<AdminProduct> {
   int quantity = 1;
   var _tapPosition;
   String titlecenter = "Product data is not found";
-  
 
   @override
   void initState() {
@@ -104,264 +102,253 @@ class _AdminProductState extends State<AdminProduct> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Visibility(
-                      visible: _visible,
-                      child: Card(
-                        elevation: 10,
-                        child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
+                  visible: _visible,
+                  child: Card(
+                    elevation: 10,
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: <Widget>[
+                            Column(
                               children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Recent"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.update,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Recent",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
+                                FlatButton(
+                                  onPressed: () => _sortItem("Recent"),
+                                  color: Colors.yellow[200],
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Icon(
+                                        MdiIcons.update,
+                                        size: 35.0,
+                                        color: Colors.black,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () =>
-                                          _sortItem("Women Clothing"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.genderFemale,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Icon(
-                                              MdiIcons.hanger,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                          Text(
-                                            "Women Clothing",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
+                                      Text(
+                                        "Recent",
+                                        style: TextStyle(color: Colors.black),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () =>
-                                          _sortItem("Men Clothing"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                              MdiIcons.genderMale,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                            Icon(
-                                              MdiIcons.hanger,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                          Text(
-                                            "Men Clothing",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Women Shoes"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                              MdiIcons.genderFemale,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                            Icon(
-                                              MdiIcons.walk,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                          Text(
-                                            "Women Shoes",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Men Shoes"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                              MdiIcons.genderMale,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                            Icon(
-                                              MdiIcons.walk,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                          Text(
-                                            "Men Shoes",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () =>
-                                          _sortItem("Bag & Wallet"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.shopping,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Bag & Wallet",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () =>
-                                          _sortItem("Book & Stationery"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.bookOpen,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Book & Stationery",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 3),
                               ],
                             ),
-                          ),
+                            SizedBox(width: 3),
+                            Column(
+                              children: <Widget>[
+                                FlatButton(
+                                  onPressed: () => _sortItem("Women Clothing"),
+                                  color: Colors.yellow[200],
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Icon(
+                                        MdiIcons.genderFemale,
+                                        size: 35.0,
+                                        color: Colors.black,
+                                      ),
+                                      Icon(
+                                        MdiIcons.hanger,
+                                        size: 35.0,
+                                        color: Colors.black,
+                                      ),
+                                      Text(
+                                        "Women Clothing",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 3),
+                            Column(
+                              children: <Widget>[
+                                FlatButton(
+                                  onPressed: () => _sortItem("Men Clothing"),
+                                  color: Colors.yellow[200],
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Icon(
+                                        MdiIcons.genderMale,
+                                        size: 35.0,
+                                        color: Colors.black,
+                                      ),
+                                      Icon(
+                                        MdiIcons.hanger,
+                                        size: 35.0,
+                                        color: Colors.black,
+                                      ),
+                                      Text(
+                                        "Men Clothing",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Column(
+                              children: <Widget>[
+                                FlatButton(
+                                  onPressed: () => _sortItem("Women Shoes"),
+                                  color: Colors.yellow[200],
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Icon(
+                                        MdiIcons.genderFemale,
+                                        size: 35.0,
+                                        color: Colors.black,
+                                      ),
+                                      Icon(
+                                        MdiIcons.walk,
+                                        size: 35.0,
+                                        color: Colors.black,
+                                      ),
+                                      Text(
+                                        "Women Shoes",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Column(
+                              children: <Widget>[
+                                FlatButton(
+                                  onPressed: () => _sortItem("Men Shoes"),
+                                  color: Colors.yellow[200],
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Icon(
+                                        MdiIcons.genderMale,
+                                        size: 35.0,
+                                        color: Colors.black,
+                                      ),
+                                      Icon(
+                                        MdiIcons.walk,
+                                        size: 35.0,
+                                        color: Colors.black,
+                                      ),
+                                      Text(
+                                        "Men Shoes",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Column(
+                              children: <Widget>[
+                                FlatButton(
+                                  onPressed: () => _sortItem("Bag & Wallet"),
+                                  color: Colors.yellow[200],
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Icon(
+                                        MdiIcons.shopping,
+                                        size: 35.0,
+                                        color: Colors.black,
+                                      ),
+                                      Text(
+                                        "Bag & Wallet",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 3),
+                            Column(
+                              children: <Widget>[
+                                FlatButton(
+                                  onPressed: () =>
+                                      _sortItem("Book & Stationery"),
+                                  color: Colors.yellow[200],
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Icon(
+                                        MdiIcons.bookOpen,
+                                        size: 35.0,
+                                        color: Colors.black,
+                                      ),
+                                      Text(
+                                        "Book & Stationery",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 3),
+                          ],
                         ),
                       ),
                     ),
+                  ),
+                ),
 
                 Visibility(
-                      visible: _visible,
-                      child: Card(
-                        elevation: 5,
-                        child: Container(
-                          height: screenHeight / 12,
-                          margin: EdgeInsets.fromLTRB(20, 2, 20, 2),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Flexible(
-                                child: Container(
-                                  height: 30,
-                                  child: TextField(
-                                    style: TextStyle(color: Colors.black),
-                                    autofocus: false,
-                                    controller: _productController,
-                                    decoration: InputDecoration(
-                                        icon: Icon(Icons.search),
-                                        border: OutlineInputBorder()),
-                                  ),
-                                ),
+                  visible: _visible,
+                  child: Card(
+                    elevation: 5,
+                    child: Container(
+                      height: screenHeight / 12,
+                      margin: EdgeInsets.fromLTRB(20, 2, 20, 2),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Flexible(
+                            child: Container(
+                              height: 30,
+                              child: TextField(
+                                style: TextStyle(color: Colors.black),
+                                autofocus: false,
+                                controller: _productController,
+                                decoration: InputDecoration(
+                                    icon: Icon(Icons.search),
+                                    border: OutlineInputBorder()),
                               ),
-                              Flexible(
-                                child: MaterialButton(
-                                  color: Colors.yellow[200],
-                                  onPressed: () => {
-                                    _sortItembyName(_productController.text)
-                                  },
-                                  elevation: 5,
-                                  child: Text(
-                                    "Search ",
-                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
+                          Flexible(
+                            child: MaterialButton(
+                              color: Colors.yellow[200],
+                              onPressed: () =>
+                                  {_sortItembyName(_productController.text)},
+                              elevation: 5,
+                              child: Text(
+                                "Search ",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                  ),
+                ),
                 Text(
                   curtype,
                   style: TextStyle(
@@ -422,29 +409,27 @@ class _AdminProductState extends State<AdminProduct> {
                                               ),
                                             ),
                                             Text(
-                                                productdata[index]['name'],
-                                                maxLines: 3,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold),
-                                              ),
-                                              Text(
-                                                "-----------------------------",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold),
-                                              ),
-
-                                              Row(
-                                                children: <Widget>[
-                                                  Icon(Icons.tag),
-                                                  Text(
-                                                    " Genre: ",
-                                                    maxLines: 3,
-                                                  ),
-                                                ],
-                                              ),
-
-                                               Row(
+                                              productdata[index]['name'],
+                                              maxLines: 3,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "-----------------------------",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Row(
+                                              children: <Widget>[
+                                                Icon(Icons.tag),
+                                                Text(
+                                                  " Genre: ",
+                                                  maxLines: 3,
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
                                               children: <Widget>[
                                                 Icon(Icons.tag),
                                                 Text(
@@ -458,42 +443,35 @@ class _AdminProductState extends State<AdminProduct> {
                                               ],
                                             ),
                                             Row(
-                                                children: <Widget>[
-                                                  Icon(MdiIcons.checkDecagram,
-                                                      color: Colors.blue),
-                                                  Text(" Qty available: " +
-                                                      productdata[index]
-                                                          ['quantity']),
-                                                ],
-                                              ),
-                                            
-                                            
+                                              children: <Widget>[
+                                                Icon(MdiIcons.checkDecagram,
+                                                    color: Colors.blue),
+                                                Text(" Qty available: " +
+                                                    productdata[index]
+                                                        ['quantity']),
+                                              ],
+                                            ),
                                             Row(
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.attach_money,
-                                                    color: Colors.black,
-                                                  ),
-                                                  Text(" Price: RM " +
-                                                      productdata[index]['price'])
-                                                ],
-                                              ),
-
-                                              
-
-                                            
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.attach_money,
+                                                  color: Colors.black,
+                                                ),
+                                                Text(" Price: RM " +
+                                                    productdata[index]['price'])
+                                              ],
+                                            ),
                                           ],
                                         ),
-
                                         onTap: () => Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SellerDetailsScreen(
-                                                  product: productdata[index],
-                                                  user: widget.user,
-                                                ),
-                                              )),
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SellerDetailsScreen(
+                                                product: productdata[index],
+                                                user: widget.user,
+                                              ),
+                                            )),
                                       ),
                                     )),
                               ),
@@ -511,13 +489,13 @@ class _AdminProductState extends State<AdminProduct> {
             child: Icon(Icons.add_to_drive),
             label: "New Product Info",
             labelBackgroundColor: Colors.blue[200],
-            onTap: _createNewProduct,  
+            onTap: _createNewProduct,
           ),
           SpeedDialChild(
             child: Icon(Icons.request_page),
             label: "View Sales Report",
             labelBackgroundColor: Colors.blue[200],
-            onTap: _createNewProduct,  //chg **
+            onTap: _createNewProduct, //chg **
           ),
           SpeedDialChild(
             child: Icon(MdiIcons.scriptText),
@@ -542,7 +520,6 @@ class _AdminProductState extends State<AdminProduct> {
       print(err);
     });
   }
-
 
   Future<Null> refreshList() async {
     await Future.delayed(Duration(seconds: 2));
@@ -671,7 +648,8 @@ class _AdminProductState extends State<AdminProduct> {
     await showMenu(
       context: context,
       position: RelativeRect.fromRect(
-          _tapPosition & Size(40, 40), // smaller rect, pop up after touch on touch's area
+          _tapPosition &
+              Size(40, 40), // smaller rect, pop up after touch on touch's area
           Offset.zero & overlay.size), // Bigger rect, the entire screen
       items: [
         PopupMenuItem(
@@ -682,7 +660,8 @@ class _AdminProductState extends State<AdminProduct> {
         PopupMenuItem(
             child: GestureDetector(
           child: Text("Delete Product Info"),
-          onTap: () => {Navigator.of(context).pop(), _deleteProductDialog(index)},
+          onTap: () =>
+              {Navigator.of(context).pop(), _deleteProductDialog(index)},
         )),
       ],
       elevation: 8.0,
@@ -757,7 +736,7 @@ class _AdminProductState extends State<AdminProduct> {
         type: ProgressDialogType.Normal, isDismissible: false);
     pr.style(message: "Deleting product...");
     pr.show();
-    http.post("https://yitengsze.com/a_gifhope/php/delete_product.php", body: { 
+    http.post("https://yitengsze.com/a_gifhope/php/delete_product.php", body: {
       "proid": productdata[index]['id'],
     }).then((res) {
       print(res.body);
@@ -783,7 +762,6 @@ class _AdminProductState extends State<AdminProduct> {
         MaterialPageRoute(builder: (BuildContext context) => NewProduct()));
     _loadData();
   }
-
 
   //report
   Future<void> report() async {

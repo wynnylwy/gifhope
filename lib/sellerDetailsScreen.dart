@@ -202,20 +202,16 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                                             children: [
                                               TextSpan(
                                                   text: "Price: ",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline6
-                                                      .copyWith(
+                                                  style: TextStyle(
+                                                    fontSize: 14,
                                                           color: Colors.black,
                                                           fontWeight:
                                                               FontWeight.bold)),
                                               TextSpan(
                                                 text:
                                                     "\RM${widget.product["price"]}",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline5
-                                                    .copyWith(
+                                                style: TextStyle(
+                                                  fontSize: 23,
                                                         color: Colors.black,
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -225,11 +221,11 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                                         ),
                                         SizedBox(width: 15),
                                         Container(
-                                          height: screenWidth / 2.0,
+                                          height: screenWidth / 1.9,
                                           width: screenWidth / 2.0,
                                           child: Padding(
                                             padding: EdgeInsets.fromLTRB(
-                                                2, 5, 0, 0), //padding of pic
+                                                10, 5, 0, 5), //padding of pic
 
                                             child: ClipRect(
                                               child: CachedNetworkImage(

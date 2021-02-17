@@ -238,7 +238,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
                                   SizedBox(height: 10),
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 2, 10), //padding of row price & pic
+                                    padding: EdgeInsets.fromLTRB(0, 0, 2,
+                                        10), //padding of row price & pic
                                     child: Row(
                                       children: <Widget>[
                                         RichText(
@@ -246,34 +247,30 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             children: [
                                               TextSpan(
                                                   text: "Price: ",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline6
-                                                      .copyWith(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold)),
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
                                               TextSpan(
                                                 text:
                                                     "\RM${widget.product["price"]}",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline5
-                                                    .copyWith(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                style: TextStyle(
+                                                    fontSize: 23,
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ],
                                           ),
                                         ),
                                         SizedBox(width: 15),
                                         Container(
-                                          height: screenWidth / 2.0,
-                                          width: screenWidth / 2.2,
+                                          height: screenWidth / 1.9,
+                                          width: screenWidth / 2.0,
                                           child: Padding(
                                             padding: EdgeInsets.fromLTRB(
-                                                2, 5, 0, 0), //padding of pic
+                                                10, 5, 0, 5), //padding of pic
 
                                             child: ClipRect(
                                               child: CachedNetworkImage(
@@ -353,7 +350,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
             type: ProgressDialogType.Normal, isDismissible: false);
         pr.style(message: "Purchasing...");
         pr.show();
-        String urlLoadJobs = "https://yitengsze.com/a_gifhope/php/insert_purchase.php";
+        String urlLoadJobs =
+            "https://yitengsze.com/a_gifhope/php/insert_purchase.php";
         http.post(urlLoadJobs, body: {
           "email": widget.user.email,
           "proid": widget.product["id"],
