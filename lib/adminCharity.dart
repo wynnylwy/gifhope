@@ -336,7 +336,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                                   child: Text(
                                     "Search ",
                                     style: TextStyle(
-                                        fontSize: 25, color: Colors.black),
+                                        fontSize: 20, color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -374,7 +374,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                             child: GridView.count(
                               crossAxisCount: 2,
                               childAspectRatio:
-                                  (screenWidth / screenHeight) / 0.9,
+                                  (screenWidth / screenHeight) / 1.0,
                               children:
                                   List.generate(charitydata.length, (index) {
                                 return Container(
@@ -454,6 +454,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                                                   ),
                                                 ],
                                               ),
+                                              SizedBox(height:8),
                                               MaterialButton(
                                                   elevation: 5,
                                                   shape: RoundedRectangleBorder(
@@ -934,7 +935,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                     Row(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
+                          padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -958,7 +959,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                     Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
+                          padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
                           child: Icon(
                             Icons.save_alt,
                             color: Colors.blue[500],
@@ -968,7 +969,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                           "Received: RM ",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 18.0,
+                              fontSize: 16.5,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
@@ -976,7 +977,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.red,
-                              fontSize: 18.0,
+                              fontSize: 16.5,
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(width: 20),
@@ -988,7 +989,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                           " Target: RM ",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 18.0,
+                              fontSize: 16.5,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
@@ -996,7 +997,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.red,
-                              fontSize: 18.0,
+                              fontSize: 16.5,
                               fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -1005,7 +1006,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
+                          padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -1034,7 +1035,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
+                          padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
                           child: Row(
                             children: <Widget>[
                               Icon(

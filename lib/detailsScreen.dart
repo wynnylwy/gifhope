@@ -219,7 +219,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 )))
                         : Container(
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 20, 0, 10),
+                              padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
@@ -238,8 +238,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
                                   SizedBox(height: 10),
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(0.5, 0, 2,
-                                        10), //padding of row price & pic
+                                    padding: EdgeInsets.fromLTRB(0, 0, 2, 10), //padding of row price & pic
                                     child: Row(
                                       children: <Widget>[
                                         RichText(

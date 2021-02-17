@@ -36,7 +36,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
   bool _visible = false;
   String curtype = "Recent";
   String donatequantity = "0";
-    String numOfItem = "0";
+  String numOfItem = "0";
   int quantity = 1;
   bool _isShopper = false;
   String titlecenter = "Charity data is not found";
@@ -67,7 +67,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
                     colors: [
-                       const Color(0xFFFDD835),
+                      const Color(0xFFFDD835),
                       const Color(0xFFFBC02D),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
@@ -334,8 +334,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                   child: Text(
                                     "Search ",
                                     style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black),
+                                        fontSize: 20, color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -373,7 +372,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                             child: GridView.count(
                               crossAxisCount: 2,
                               childAspectRatio:
-                                  (screenWidth / screenHeight) / 0.9,
+                                  (screenWidth / screenHeight) / 1.0,
                               children:
                                   List.generate(charitydata.length, (index) {
                                 return Card(
@@ -408,7 +407,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                             maxLines: 3,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              fontSize: 14,
+                                                fontSize: 14,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
@@ -416,7 +415,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           ),
-
                                           Row(
                                             children: <Widget>[
                                               Icon(Icons.tag),
@@ -431,24 +429,20 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                               ),
                                             ],
                                           ),
-
-                                          
-
-                                           Row(
-                                              children: <Widget>[
-                                                Icon(Icons.volunteer_activism,
-                                                    color: Colors.black),
-                                                Text(" Target: RM "),
-                                                Text(
-                                                    charitydata[index]['target'],
-                                                    style: TextStyle(
+                                          Row(
+                                            children: <Widget>[
+                                              Icon(Icons.volunteer_activism,
+                                                  color: Colors.black),
+                                              Text(" Target: RM "),
+                                              Text(
+                                                charitydata[index]['target'],
+                                                style: TextStyle(
                                                   color: Colors.red,
-                                                ),),
-                                              ],
-                                            ),
-
-                                         
-
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 8),
                                           MaterialButton(
                                               elevation: 5,
                                               shape: RoundedRectangleBorder(
@@ -472,16 +466,15 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                   ],
                 ),
               )),
-
           floatingActionButton: FloatingActionButton.extended(
-            backgroundColor: Colors.red[700],
+              backgroundColor: Colors.red[700],
               onPressed: () async {
-
                 if (widget.user.email.contains("unregistered")) {
                   Toast.show("Please register first", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                   return;
-                } else if (widget.user.email.contains("charityadmin@gifhope.com")) {
+                } else if (widget.user.email
+                    .contains("charityadmin@gifhope.com")) {
                   Toast.show("Admin Mode", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                   return;
@@ -489,9 +482,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                   Toast.show("Donation Empty", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                   return;
-                } 
-                
-                else {
+                } else {
                   // await Navigator.push(
                   //     context,
                   //     MaterialPageRoute(
@@ -501,7 +492,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                 }
                 _loadCharityData(); //refresh data
                 //_loadPurchaseQuantity();
-                
               },
               icon: Icon(Icons.volunteer_activism),
               label: Text(numOfItem,
@@ -594,7 +584,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
   }
 
   Widget mainDrawer(BuildContext context) {
-    
     return Drawer(
       child: ListView(
         children: <Widget>[
@@ -632,8 +621,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
             },
           ),
 
-          
-
           ListTile(
               title:
                   Text("Charity List", style: TextStyle(color: Colors.black)),
@@ -652,12 +639,10 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
               onTap: () => {
                     Navigator.pop(context),
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => CharityAdminManageScreen(
-                            user: widget.user
-                          ))
-                          )
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                CharityAdminManageScreen(user: widget.user)))
                   }),
 
           ListTile(
@@ -697,7 +682,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
               title: Text("Log Out", style: TextStyle(color: Colors.black)),
               trailing: Icon(Icons.arrow_forward),
               onTap: () => {
-                    
                     _logout(),
                   }),
 
@@ -860,7 +844,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
       print(widget.user.email);
 
       showModalBottomSheet(
-        backgroundColor: Colors.red[100],
+          backgroundColor: Colors.red[100],
           context: context,
           isScrollControlled: true,
           builder: (BuildContext builder) {
@@ -928,9 +912,8 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                     Row(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
+                          padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
                           child: Row(
-                            
                             children: <Widget>[
                               Icon(
                                 Icons.tag,
@@ -944,65 +927,63 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold),
                               ),
-
                               SizedBox(width: 20),
                             ],
                           ),
                         ),
                       ],
                     ),
-
                     Row(
-                      
                       children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
-                                                  child: Icon(
-                                  Icons.save_alt,
-                                  color: Colors.blue[500],
-                                ),
+                          padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
+                          child: Icon(
+                            Icons.save_alt,
+                            color: Colors.blue[500],
+                          ),
                         ),
-                              Text( "Received: RM " ,
-                              style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),),
-                              Text(
-                                charitydata[index]['received'],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-
-                         SizedBox(width: 20),
-
-
+                        Text(
+                          "Received: RM ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.5,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          charitydata[index]['received'],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 16.5,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(width: 20),
                         Icon(
-                                Icons.volunteer_activism,
-                                color: Colors.blue[500],
-                              ),
-                              Text( " Target: RM " ,
-                              style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),),
-                              Text(
-                                charitydata[index]['target'],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                          Icons.volunteer_activism,
+                          color: Colors.blue[500],
+                        ),
+                        Text(
+                          " Target: RM ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.5,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          charitydata[index]['target'],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 16.5,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
+                          padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -1031,7 +1012,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
+                          padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
                           child: Row(
                             children: <Widget>[
                               Icon(
