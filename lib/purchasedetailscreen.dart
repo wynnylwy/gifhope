@@ -11,17 +11,17 @@ import 'order.dart';
 import 'user.dart';
 import 'purchasescreen.dart';
 
-class BookDetailScreen extends StatefulWidget {
+class PurchaseDetailScreen extends StatefulWidget {
   final Order book;
   final User user;
 
-  const BookDetailScreen({Key key, this.book, this.user}) : super(key: key);
+  const PurchaseDetailScreen({Key key, this.book, this.user}) : super(key: key);
 
   @override
-  _BookDetailScreenState createState() => _BookDetailScreenState();
+  _PurchaseDetailScreenState createState() => _PurchaseDetailScreenState();
 }
 
-class _BookDetailScreenState extends State<BookDetailScreen> {
+class _PurchaseDetailScreenState extends State<PurchaseDetailScreen> {
   List purchasedetails;
   String titlecenter = "Loading purchase details...";
   double screenHeight, screenWidth;

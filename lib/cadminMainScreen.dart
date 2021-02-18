@@ -47,10 +47,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
     _loadCharityData();
     _loadDonationQuantity();
     refreshKey = GlobalKey<RefreshIndicatorState>();
-
-    // if (widget.user.email != "charityadmin@gifhope.com") {
-    //   _isShopper = true;
-    // }
   }
 
   Widget build(BuildContext context) {
@@ -1074,7 +1070,13 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                       color: Colors.yellow[400],
                       textColor: Colors.black,
                       onPressed: () {
-                        // _addToBookingsDialog(index);
+                        if (widget.user.email.contains("charityadmin@gifhope.com")) 
+                        {
+                          Toast.show("Admin mode, can't view", context,
+                              duration: Toast.LENGTH_LONG,
+                              gravity: Toast.BOTTOM);
+                          return;
+                        }
                       },
                     ),
                     Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20)),

@@ -7,7 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:gifhope/admincharity.dart';
 import 'package:gifhope/adminproduct.dart';
-import 'package:gifhope/bookdetailscreen.dart';
+import 'package:gifhope/purchasedetailscreen.dart';
 
 import 'package:gifhope/mainscreen.dart';
 import 'package:gifhope/profilescreen.dart';
@@ -24,6 +24,7 @@ import 'package:gifhope/user.dart';
 
 import 'donationscreen.dart';
 import 'loginscreen.dart';
+import 'purchasehistoryscreen.dart';
 
 class CharityScreen extends StatefulWidget {
   final User user;
@@ -675,7 +676,7 @@ class _CharityScreenState extends State<CharityScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              BookDetailScreen(user: widget.user)),
+                              PurchaseHistoryScreen(user: widget.user)),
                     )
                   }),
 

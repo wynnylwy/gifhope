@@ -6,18 +6,18 @@ import 'package:shimmer/shimmer.dart';
 
 import 'user.dart';
 import 'order.dart';
-import 'package:gifhope/bookdetailscreen.dart';
+import 'package:gifhope/purchasedetailscreen.dart';
 
-class PaymentHistoryScreen extends StatefulWidget {
+class PurchaseHistoryScreen extends StatefulWidget {
   final User user;
 
-  const PaymentHistoryScreen({Key key, this.user}) : super(key: key);
+  const PurchaseHistoryScreen({Key key, this.user}) : super(key: key);
 
   @override
-  _PaymentHistoryScreenState createState() => _PaymentHistoryScreenState();
+  _PurchaseHistoryScreenState createState() => _PurchaseHistoryScreenState();
 }
 
-class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
+class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
   List paymentdata;
   List bookdetails;
 
@@ -211,7 +211,7 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => BookDetailScreen(
+            builder: (BuildContext context) => PurchaseDetailScreen(
                   user: widget.user,
                   book: pay,
                 )));
