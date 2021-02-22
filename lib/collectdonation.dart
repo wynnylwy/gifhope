@@ -190,7 +190,12 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                             ),
                                                           ),
                                                           SizedBox(height: 20),
-                                                          Column(
+
+                                                          Container(  //put it in setState
+                                                            height: screenHeight/ 10,
+                                                            width: screenWidth,
+                                                            color: Colors.yellow,
+                                                            child: Column(
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
                                                                     .end,
@@ -224,6 +229,9 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                               ),
                                                             ],
                                                           ),
+                                                          
+                                                          ),
+                                                          
                                                           Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
