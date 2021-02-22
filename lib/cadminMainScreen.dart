@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:gifhope/admincharity.dart';
+import 'package:gifhope/collectdonation.dart';
 import 'package:gifhope/profilescreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
@@ -649,7 +650,11 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
               trailing: Icon(Icons.arrow_forward),
               onTap: () => {
                     Navigator.pop(context),
-                    //goToPaymentHistory(),
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                CollectDonationScreen()))
                   }),
 
           ListTile(
@@ -1070,9 +1075,9 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                       color: Colors.yellow[400],
                       textColor: Colors.black,
                       onPressed: () {
-                        if (widget.user.email.contains("charityadmin@gifhope.com")) 
-                        {
-                          Toast.show("Admin mode, can't view", context,
+                        if (widget.user.email
+                            .contains("charityadmin@gifhope.com")) {
+                          Toast.show("Admin mode", context,
                               duration: Toast.LENGTH_LONG,
                               gravity: Toast.BOTTOM);
                           return;

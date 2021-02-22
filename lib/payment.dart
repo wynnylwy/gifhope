@@ -114,5 +114,6 @@ class _PaymentScreen extends State<PaymentScreen> {
       subject: text1,
       sharePositionOrigin: box.localToGlobal (Offset.zero) & box.size,
     );
+    
   }
 }

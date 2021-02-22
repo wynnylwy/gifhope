@@ -544,7 +544,8 @@ class _MainScreenState extends State<MainScreen> {
 
   void _loadData() async {
     String urlLoadJobs = datalink;
-    await http.post(urlLoadJobs, body: {}).then((res) {
+    await http.post(urlLoadJobs, body: {}).then((res) 
+    {
       if (res.body.contains("nodata")) {
         print(res.body);
         cartNum = "0";

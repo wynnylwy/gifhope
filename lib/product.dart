@@ -1,6 +1,6 @@
 class Product 
 {
-  String pid, name, price, genre, quantity, description, date;
+  String pid, name, price, genre, quantity, description, sellerid, date;
   Product({
     this.pid,
     this.name,
@@ -8,6 +8,7 @@ class Product
     this.genre,
     this.quantity,
     this.description,
+    this.sellerid,
     this.date,
   });
 }

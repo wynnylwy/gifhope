@@ -49,10 +49,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
     _loadCharityData();
     _loadDonationQuantity();
     refreshKey = GlobalKey<RefreshIndicatorState>();
-
-    // if (widget.user.email != "charityadmin@gifhope.com") {
-    //   _isShopper = true;
-    // }
+    
   }
 
   Widget build(BuildContext context) {

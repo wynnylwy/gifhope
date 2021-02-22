@@ -356,6 +356,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           "email": widget.user.email,
           "proid": widget.product["id"],
           "quantity": numOfItem.toString(), //qtty you chose
+          "genre": widget.product["genre"],
         }).then((res) {
           print(res.body);
 
