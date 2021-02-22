@@ -82,134 +82,212 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                   )))
                 : Expanded(
                     child: ListView.builder(
-                        itemCount: salesdetails == null ? 0 : salesdetails.length,
+                        itemCount:
+                            salesdetails == null ? 0 : salesdetails.length,
                         itemBuilder: (context, index) {
                           return Container(
-                            color: Colors.red,
-                            height: screenHeight / 3.8,   //height between card
-                            width: screenWidth / 2.0,
+                            //color: Colors.red,
+                            height: screenHeight / 2.4, //height between card
+                            width: screenWidth / 2.5,
                             child: Column(
                               children: <Widget>[
                                 Card(
                                     elevation: 10,
-                                    margin: EdgeInsets.fromLTRB(
-                                              10, 10, 10, 10),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(50.0),
-                                          ),
+                                    margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                    ),
                                     child: Padding(
-                                        padding: EdgeInsets.fromLTRB(
-                                              28, 10, 10, 10),
-                                        child: Row(
-                                          children: <Widget>[
-                                          
-                                          
-                                          Container(
-                                              width: screenWidth / 1.2,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Flexible(
-                                                    child: Column(
-                                                      children: <Widget>[
-                                                        Align(
-                                                          alignment: Alignment.centerLeft,
-                                                          child: Text(
-                                                            salesdetails[index]
-                                                                ['sellerid'],
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 18),
-                                                            maxLines: 3,
+                                        padding:
+                                            EdgeInsets.fromLTRB(28, 10, 10, 10),
+                                        child: Row(children: <Widget>[
+                                          Flexible(
+                                            fit: FlexFit.tight,
+                                            child: Container(
+                                               // color: Colors.yellow,
+                                                width: screenWidth / 3,
+                                                height: screenHeight / 3,
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Flexible(
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                "Seller ID: ",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        16),
+                                                              ),
+                                                              Text(
+                                                                salesdetails[
+                                                                        index][
+                                                                    'sellerid'],
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16),
+                                                              ),
+                                                            ],
                                                           ),
-                                                        ),
-                                                        SizedBox(height: 15),
-                                                        
-                                                          
-                                                         
-                                                         // Spacer(flex: 2),
-
-                                                          Icon(MdiIcons.currencyUsd),
-                                                          Text(
-                                                              "RM " +
-                                                                  salesdetails[
-                                                                          index]
-                                                                      ['totsales'],
+                                                          SizedBox(height: 3),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                "Genre: ",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        16),
+                                                              ),
+                                                              Text(
+                                                                salesdetails[
+                                                                        index]
+                                                                    ['genre'],
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(height: 15),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                "Total sales: RM ",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        16),
+                                                              ),
+                                                              Text(
+                                                                salesdetails[
+                                                                        index][
+                                                                    'totsales'],
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        25),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(height: 2),
+                                                          Align(
+                                                            alignment: Alignment
+                                                                .centerLeft,
+                                                            child: Text(
+                                                              "(before collect donation)",
                                                               style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      16.0)),
-                                                      
-                                                        SizedBox(height: 5),
-                                                        
-                                                        
-                                                        SizedBox(height: 20),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: <Widget>[
-                                                            MaterialButton(
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20.0)),
-                                                              minWidth: 100,
-                                                              height: 35,
-                                                              child: Text(
-                                                                  'Buy again',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        18.0,
-                                                                  )),
-                                                              color: Colors
-                                                                  .blue[500],
-                                                              textColor:
-                                                                  Colors.white,
-                                                              elevation: 10,
-                                                              onPressed: () => {
-                                                               // buyAgain(index)
-                                                              },
+                                                                  color: Colors
+                                                                      .red,
+                                                                  fontSize: 14),
                                                             ),
-                                                            MaterialButton(
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20.0)),
-                                                              minWidth: 100,
-                                                              height: 40,
-                                                              child: Text(
-                                                                  'Back',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        18.0,
-                                                                  )),
-                                                              color: Colors
-                                                                  .blue[500],
-                                                              textColor:
-                                                                  Colors.white,
-                                                              elevation: 10,
-                                                              onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              )),
+                                                          ),
+                                                          SizedBox(height: 20),
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .end,
+                                                            children: [
+                                                              Align(
+                                                                alignment: Alignment
+                                                                    .centerRight,
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(
+                                                                        "Total Donation: ",
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                16.0)),
+                                                                    Text(
+                                                                        "(20%)",
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                16.0)),
+                                                                    Text(
+                                                                        "RM " +
+                                                                            salesdetails[index][
+                                                                                'totsales'],
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Colors.red,
+                                                                            fontSize: 25.0)),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
+                                                            children: <Widget>[
+                                                              MaterialButton(
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            20.0)),
+                                                                minWidth: 100,
+                                                                height: 40,
+                                                                child: Text(
+                                                                    'Calculate Donation',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          18.0,
+                                                                    )),
+                                                                color: Colors
+                                                                    .blue[500],
+                                                                textColor:
+                                                                    Colors
+                                                                        .white,
+                                                                elevation: 10,
+                                                                onPressed: () =>
+                                                                    {
+                                                                  // buyAgain(index)
+                                                                },
+                                                              ),
+                                                              MaterialButton(
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            20.0)),
+                                                                minWidth: 100,
+                                                                height: 40,
+                                                                child: Text(
+                                                                    'Back',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          18.0,
+                                                                    )),
+                                                                color: Colors
+                                                                    .blue[500],
+                                                                textColor:
+                                                                    Colors
+                                                                        .white,
+                                                                elevation: 10,
+                                                                onPressed: () {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                },
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                )),
+                                          ),
                                         ])))
                               ],
                             ),
