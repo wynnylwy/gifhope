@@ -28,8 +28,12 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
   double screenHeight, screenWidth;
   int quantity = 1;
   String purchasequantity = "0";
+  String beforeText= "(before collect donation)";
+  String afterText = "(after collect donation)";
   bool isTransparent = true;
   bool calcDonationText = true;
+  bool collectDonationText =true;
+  bool sendDonationReceiptText = true;
 
   void initState() {
     super.initState();
@@ -184,7 +188,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                             alignment: Alignment
                                                                 .centerLeft,
                                                             child: Text(
-                                                              "(before collect donation)",
+                                                              beforeText,
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .red,
@@ -193,10 +197,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                           ),
                                                           SizedBox(height: 20),
                                                           Opacity(
-                                                            opacity:
-                                                                isTransparent
-                                                                    ? 0
-                                                                    : 1,
+                                                            opacity: isTransparent ? 0: 1 ,
                                                             child: Container(
                                                               //put it in setState
                                                               height:
@@ -250,17 +251,27 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                             20.0)),
                                                                 minWidth: 100,
                                                                 height: 40,
-                                                                child: calcDonationText
+                                                                child: (calcDonationText) 
                                                                     ? Text('Calculate Donation',
                                                                         style: TextStyle(
                                                                           fontSize:
                                                                               18.0,
                                                                         ))
-                                                                    : Text('Collect Donation',
+                                                                    : (collectDonationText)
+                                                                       ?  Text('Collect Donation', 
                                                                         style: TextStyle(
                                                                           fontSize:
                                                                               18.0,
-                                                                        )),
+                                                                        ))
+                                                                    : (sendDonationReceiptText)
+                                                                       ?
+                                                                       Text('Send Donation Receipt', 
+                                                                        style: TextStyle(
+                                                                          fontSize:
+                                                                              18.0,
+                                                                        ))
+                                                                    : null,
+                                                                        
                                                                 color: Colors
                                                                     .blue[500],
                                                                 textColor:
@@ -270,10 +281,27 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                 onPressed: () =>
                                                                     {
                                                                   setState(() {
-                                                                    isTransparent =
-                                                                        !isTransparent;
-                                                                    calcDonationText =
-                                                                        !calcDonationText;
+                                                                    isTransparent = !isTransparent;
+
+                                                                    if (calcDonationText == true) {  //show collect donation text
+                                                                      calcDonationText = false;
+                                                                      collectDonationText = true;
+                                                                      sendDonationReceiptText = false;
+                                                                    }
+
+                                                                    else if (collectDonationText == true) {  //show send donatation receipt text
+                                                                      calcDonationText = false;
+                                                                      collectDonationText = false;
+                                                                      sendDonationReceiptText = true;
+                                                                      beforeText = afterText;
+                                                                    }
+
+                                                                    else {                             //show calculate donation text
+                                                                      calcDonationText = true;
+                                                                      collectDonationText = false;
+                                                                      sendDonationReceiptText = false;
+                                                                      //show msg dialog
+                                                                    }
                                                                   }),
                                                                 },
                                                               ),
