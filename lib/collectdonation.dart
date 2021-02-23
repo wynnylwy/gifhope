@@ -29,6 +29,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
   int quantity = 1;
   String purchasequantity = "0";
   bool isTransparent = true;
+  bool calcDonationText = true;
 
   void initState() {
     super.initState();
@@ -105,7 +106,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                           Flexible(
                                             fit: FlexFit.tight,
                                             child: Container(
-                                               // color: Colors.yellow,
+                                                // color: Colors.yellow,
                                                 width: screenWidth / 3,
                                                 height: screenHeight / 3,
                                                 child: Row(
@@ -170,8 +171,8 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                               ),
                                                               Text(
                                                                 salesdetails[
-                                                                        index][
-                                                                    'sales'],
+                                                                        index]
+                                                                    ['sales'],
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         25),
@@ -191,41 +192,43 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                             ),
                                                           ),
                                                           SizedBox(height: 20),
-
-                                                         
-                                                           Opacity(
-                                                             opacity: isTransparent ? 0 : 1, 
-                                                                                                                        child: Container(  //put it in setState
-                                                                height: screenHeight/ 10,
-                                                                width: screenWidth,
-                                                                color: Colors.yellow,
-                                                                child: Column(
+                                                          Opacity(
+                                                            opacity:
+                                                                isTransparent
+                                                                    ? 0
+                                                                    : 1,
+                                                            child: Container(
+                                                              //put it in setState
+                                                              height:
+                                                                  screenHeight /
+                                                                      10,
+                                                              width:
+                                                                  screenWidth,
+                                                              color:
+                                                                  Colors.yellow,
+                                                              child: Column(
                                                                 crossAxisAlignment:
                                                                     CrossAxisAlignment
                                                                         .end,
                                                                 children: [
                                                                   Align(
-                                                                    alignment: Alignment
-                                                                        .centerRight,
-                                                                    child: Column(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .centerRight,
+                                                                    child:
+                                                                        Column(
                                                                       children: [
                                                                         Text(
                                                                             "Total Donation: ",
-                                                                            style: TextStyle(
-                                                                                fontSize:
-                                                                                    16.0)),
+                                                                            style:
+                                                                                TextStyle(fontSize: 16.0)),
                                                                         Text(
                                                                             "(20%)",
+                                                                            style:
+                                                                                TextStyle(fontSize: 16.0)),
+                                                                        Text("RM " + salesdetails[index]['donate'],
                                                                             style: TextStyle(
-                                                                                fontSize:
-                                                                                    16.0)),
-                                                                        Text(
-                                                                            "RM " +
-                                                                                salesdetails[index][
-                                                                                    'sales'],
-                                                                            style: TextStyle(
-                                                                                fontWeight:
-                                                                                    FontWeight.bold,
+                                                                                fontWeight: FontWeight.bold,
                                                                                 color: Colors.red,
                                                                                 fontSize: 25.0)),
                                                                       ],
@@ -233,11 +236,8 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                   ),
                                                                 ],
                                                               ),
-                                                              
-                                                              ),
-                                                           ),
-                                                          
-                                                          
+                                                            ),
+                                                          ),
                                                           Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -250,13 +250,17 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                             20.0)),
                                                                 minWidth: 100,
                                                                 height: 40,
-                                                                child: Text(
-                                                                    'Calculate Donation',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontSize:
-                                                                          18.0,
-                                                                    )),
+                                                                child: calcDonationText
+                                                                    ? Text('Calculate Donation',
+                                                                        style: TextStyle(
+                                                                          fontSize:
+                                                                              18.0,
+                                                                        ))
+                                                                    : Text('Collect Donation',
+                                                                        style: TextStyle(
+                                                                          fontSize:
+                                                                              18.0,
+                                                                        )),
                                                                 color: Colors
                                                                     .blue[500],
                                                                 textColor:
@@ -265,7 +269,12 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                 elevation: 10,
                                                                 onPressed: () =>
                                                                     {
-                                                                 setState(()=> isTransparent = !isTransparent),
+                                                                  setState(() {
+                                                                    isTransparent =
+                                                                        !isTransparent;
+                                                                    calcDonationText =
+                                                                        !calcDonationText;
+                                                                  }),
                                                                 },
                                                               ),
                                                               MaterialButton(
@@ -315,7 +324,8 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
   }
 
   _loadSalesDetails() async {
-    String urlLoadJobs = "https://yitengsze.com/a_gifhope/php/load_salesdonation.php";
+    String urlLoadJobs =
+        "https://yitengsze.com/a_gifhope/php/load_salesdonation.php";
 
     await http.post(urlLoadJobs, body: {}).then((res) {
       print(res.body);
