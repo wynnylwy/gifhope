@@ -338,6 +338,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   void _addToPurchase(int numOfItem, String id) {
+
+    if (widget.user.email.contains("unregistered")) {
+      Toast.show("Please register first", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
+    
     try {
       int cquantity =
           int.parse(widget.product["quantity"]); //current available qty

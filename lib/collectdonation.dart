@@ -29,6 +29,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
   int quantity = 1;
   String purchasequantity = "0";
   String beforeText= "(before collect donation)";
+  String beforeText2= "(before collect donation)";
   String afterText = "(after collect donation)";
   bool isTransparent = true;
   bool calcDonationText = true;
@@ -294,6 +295,8 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                       collectDonationText = false;
                                                                       sendDonationReceiptText = true;
                                                                       beforeText = afterText;
+
+                                                                      showAlertDialog(index);
                                                                     }
 
                                                                     else {                             //show calculate donation text
@@ -301,6 +304,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                       collectDonationText = false;
                                                                       sendDonationReceiptText = false;
                                                                       //show msg dialog
+                                                                      beforeText = beforeText2;
                                                                     }
                                                                   }),
                                                                 },
@@ -353,7 +357,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
 
   _loadSalesDetails() async {
     String urlLoadJobs =
-        "https://yitengsze.com/a_gifhope/php/load_salesdonation.php";
+        "https://yitengsze.com/a_gifhope/php/load_salesDonation.php";
 
     await http.post(urlLoadJobs, body: {}).then((res) {
       print(res.body);
@@ -373,160 +377,122 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
     });
   }
 
-  // Future<void> buyAgain(int index) async {
-  //   quantity = 1;
+  Future<void> showAlertDialog (int index) async {
+     
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: (context, newSetState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              title: new Text(
+                "Collect from " + salesdetails[index]['genre'],
+                style: TextStyle(
+                  fontFamily: 'Bellota',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  
+                ],
+              ),
+              actions: <Widget>[
+                MaterialButton(
+                  child: Text("Yes",
+                      style: TextStyle(
+                        color: Colors.black,
+                      )),
+                  onPressed: () {
+                    collectDonation(index);
+                  },
+                ),
+                MaterialButton(
+                  child: Text("Cancel",
+                      style: TextStyle(
+                        color: Colors.black,
+                      )),
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+              ],
+            );
+          });
+        });
+  }
 
-  //   await showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return StatefulBuilder(builder: (context, newSetState) {
-  //           return AlertDialog(
-  //             shape: RoundedRectangleBorder(
-  //                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
-  //             title: new Text(
-  //               "Purchase for " + purchasedetails[index]['name'],
-  //               style: TextStyle(
-  //                 fontFamily: 'Bellota',
-  //                 fontWeight: FontWeight.bold,
-  //                 color: Colors.black,
-  //               ),
-  //             ),
-  //             content: Column(
-  //               mainAxisSize: MainAxisSize.min,
-  //               children: <Widget>[
-  //                 Text(
-  //                   "Select purchase quantity:",
-  //                   style: TextStyle(color: Colors.black),
-  //                 ),
-  //                 //Row select qtty
-  //                 Row(
-  //                   mainAxisAlignment: MainAxisAlignment.center,
-  //                   children: <Widget>[
-  //                     FlatButton(
-  //                       onPressed: () => {
-  //                         newSetState(() {
-  //                           if (quantity > 1) {
-  //                             quantity--;
-  //                           }
-  //                         })
-  //                       },
-  //                       child: Icon(MdiIcons.minus, color: Colors.blue[400]),
-  //                     ),
-  //                     Text(quantity.toString(),
-  //                         style: TextStyle(color: Colors.black)),
-  //                     FlatButton(
-  //                       onPressed: () => {
-  //                         newSetState(() {
-  //                           if (quantity <
-  //                               (int.parse(purchasedetails[index]['quantity']) -
-  //                                   2)) {
-  //                             quantity++;
-  //                           } else {
-  //                             Toast.show(
-  //                                 "Product's quantity is not available", context,
-  //                                 duration: Toast.LENGTH_LONG,
-  //                                 gravity: Toast.BOTTOM);
-  //                           }
-  //                         })
-  //                       },
-  //                       child: Icon(MdiIcons.plus, color: Colors.blue[400]),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ],
-  //             ),
-  //             actions: <Widget>[
-  //               MaterialButton(
-  //                 child: Text("Yes",
-  //                     style: TextStyle(
-  //                       color: Colors.black,
-  //                     )),
-  //                 onPressed: () {
-  //                   addToPurchaseAgain(index);
-  //                   //get id's data, then pass, then push to page
-  //                 },
-  //               ),
-  //               MaterialButton(
-  //                 child: Text("Cancel",
-  //                     style: TextStyle(
-  //                       color: Colors.black,
-  //                     )),
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop(false);
-  //                 },
-  //               ),
-  //             ],
-  //           );
-  //         });
-  //       });
-  // }
+  collectDonation(int index) {
+    try {
+      String genre = salesdetails[index]["genre"];
+      double sales = double.parse(salesdetails[index]["sales"]); 
+      double donate = double.parse(salesdetails[index]["donate"]); 
+      print(genre);
+      print(sales);
+      print(donate);
 
-  // addToPurchaseAgain(int index) {
-  //   try {
-  //     var id = purchasedetails[index]["id"];
-  //     int cquantity = int.parse(purchasedetails[index]["quantity"]); //current available qty
-  //     print(cquantity);
-  //     print(id);
-  //     print(widget.user.email);
+      if (donate > 0) {
+        ProgressDialog pr = new ProgressDialog(context,
+            type: ProgressDialogType.Normal, isDismissible: false);
 
-  //     if (cquantity > 0) {
-  //       ProgressDialog pr = new ProgressDialog(context,
-  //           type: ProgressDialogType.Normal, isDismissible: false);
+        pr.style(message: "Collecting...");
+        pr.show();
 
-  //       pr.style(message: "Add to Purchase...");
-  //       pr.show();
+        String urlLoadJobs =
+            "https://yitengsze.com/a_gifhope/php/update_salesDonation.php";
+        http.post(urlLoadJobs, body: {
+          "sellerid": salesdetails[index]['sellerid'],
+          "genre": salesdetails[index]['genre'],
+          "sales": salesdetails[index]['sales'],
+          "donate": salesdetails[index]['donate'],
+        }).then((res) {
+          print(res.body);
+          if (res.body.contains("failed")) {
+            Toast.show("Collection Failed", context,
+                duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+          }
 
-  //       String urlLoadJobs =
-  //           "https://yitengsze.com/a_gifhope/php/insert_purchase.php";
-  //       http.post(urlLoadJobs, body: {
-  //         "email": widget.user.email,
-  //         "proid": purchasedetails[index]['id'],
-  //         "quantity": quantity.toString(),
-  //       }).then((res) {
-  //         print(res.body);
-  //         if (res.body.contains("failed")) {
-  //           Toast.show("Purchase Failed", context,
-  //               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-  //         }
+          else {
+            List respond = res.body.split(",");
+            // setState(() {
+            //   purchasequantity = respond[1];
+            //   widget.user.quantity = purchasequantity;
+            // });
+            Toast.show("Collection Success", context,
+                duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (BuildContext context) => PurchaseScreen(
+            //               user: widget.user,
+            //               id: purchasedetails[index]['id'],
+            //             )));
+          }
+          pr.hide();
+        }).catchError((err) {
+          print(err);
+          pr.hide();
+        });
 
-  //         else {
-  //           List respond = res.body.split(",");
-  //           setState(() {
-  //             purchasequantity = respond[1];
-  //             widget.user.quantity = purchasequantity;
-  //           });
-  //           Toast.show("Purchase Success", context,
-  //               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-  //           Navigator.push(
-  //               context,
-  //               MaterialPageRoute(
-  //                   builder: (BuildContext context) => PurchaseScreen(
-  //                         user: widget.user,
-  //                         id: purchasedetails[index]['id'],
-  //                       )));
-  //         }
-  //         pr.hide();
-  //       }).catchError((err) {
-  //         print(err);
-  //         pr.hide();
-  //       });
+        pr.hide();
+      } else {
+        Toast.show("Not enough amount to collect", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      }
+    } catch (e) {
+      Toast.show("Collection Failed", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    }
 
-  //       pr.hide();
-  //     } else {
-  //       Toast.show("Out of stock", context,
-  //           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-  //     }
-  //   } catch (e) {
-  //     Toast.show("Purchase Failed", context,
-  //         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-  //   }
-
-  //   Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //           builder: (BuildContext context) => PurchaseScreen(
-  //                 user: widget.user,
-  //                 id: purchasedetails[index]['id'],
-  //               )));
-  // }
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (BuildContext context) => PurchaseScreen(
+    //               user: widget.user,
+    //               id: purchasedetails[index]['id'],
+    //             )));
+  }
 }
