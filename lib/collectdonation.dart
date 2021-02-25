@@ -6,6 +6,7 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:toast/toast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:share/share.dart';
 
 import 'product.dart';
 import 'user.dart';
@@ -24,6 +25,7 @@ class CollectDonationScreen extends StatefulWidget {
 
 class _CollectDonationScreenState extends State<CollectDonationScreen> {
   List salesdetails;
+  List sellerInfo;
   String titlecenter = "Loading collect donation...";
   double screenHeight, screenWidth;
   int quantity = 1;
@@ -31,6 +33,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
   String beforeText= "(before collect donation)";
   String beforeText2= "(before collect donation)";
   String afterText = "(after collect donation)";
+  
   bool isTransparent = true;
   bool calcDonationText = true;
   bool collectDonationText =true;
@@ -175,9 +178,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                         16),
                                                               ),
                                                               Text(
-                                                                salesdetails[
-                                                                        index]
-                                                                    ['sales'],
+                                                               salesdetails[index]['sales'],
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         25),
@@ -206,8 +207,6 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                       10,
                                                               width:
                                                                   screenWidth,
-                                                              color:
-                                                                  Colors.yellow,
                                                               child: Column(
                                                                 crossAxisAlignment:
                                                                     CrossAxisAlignment
@@ -284,27 +283,38 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                   setState(() {
                                                                     isTransparent = !isTransparent;
 
-                                                                    if (calcDonationText == true) {  //show collect donation text
+                                                                    if (calcDonationText == true) {  //pressed calc
                                                                       calcDonationText = false;
                                                                       collectDonationText = true;
                                                                       sendDonationReceiptText = false;
                                                                     }
 
-                                                                    else if (collectDonationText == true) {  //show send donatation receipt text
+                                                                    else if (collectDonationText == true) {  //pressed collect
                                                                       calcDonationText = false;
                                                                       collectDonationText = false;
                                                                       sendDonationReceiptText = true;
                                                                       beforeText = afterText;
 
-                                                                      showAlertDialog(index);
+                                                                      showCollectDialog(index);
                                                                     }
 
-                                                                    else {                             //show calculate donation text
+                                                                    else {                             //pressed send 
                                                                       calcDonationText = true;
                                                                       collectDonationText = false;
                                                                       sendDonationReceiptText = false;
-                                                                      //show msg dialog
+
                                                                       beforeText = beforeText2;
+
+                                                                      String sellerReceipt = salesdetails[index]['sellerid'];
+                                                                      String genreReceipt = salesdetails[index]['genre'];
+                                                                      String donateValue = salesdetails[index]['donate'];
+                                                                      getSellerInfo (sellerReceipt, genreReceipt, donateValue);
+
+                                                                      
+                                                                      
+                                                                      
+                                                                     
+                                                                      
                                                                     }
                                                                   }),
                                                                 },
@@ -377,7 +387,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
     });
   }
 
-  Future<void> showAlertDialog (int index) async {
+  Future<void> showCollectDialog (int index) async {
      
     await showDialog(
         context: context,
@@ -407,6 +417,8 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                         color: Colors.black,
                       )),
                   onPressed: () {
+
+                    Navigator.pop(context);
                     collectDonation(index);
                   },
                 ),
@@ -430,9 +442,9 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
       String genre = salesdetails[index]["genre"];
       double sales = double.parse(salesdetails[index]["sales"]); 
       double donate = double.parse(salesdetails[index]["donate"]); 
-      print(genre);
-      print(sales);
-      print(donate);
+      print("Genre: "+ genre);
+      print("Sales: " + sales.toString());
+      print("Donate: " + donate.toString());
 
       if (donate > 0) {
         ProgressDialog pr = new ProgressDialog(context,
@@ -457,19 +469,13 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
 
           else {
             List respond = res.body.split(",");
-            // setState(() {
-            //   purchasequantity = respond[1];
-            //   widget.user.quantity = purchasequantity;
-            // });
+            setState(() {
+              purchasequantity = respond[1];
+              _loadSalesDetails();
+            });
+
             Toast.show("Collection Success", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (BuildContext context) => PurchaseScreen(
-            //               user: widget.user,
-            //               id: purchasedetails[index]['id'],
-            //             )));
           }
           pr.hide();
         }).catchError((err) {
@@ -486,13 +492,56 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
       Toast.show("Collection Failed", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }
-
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (BuildContext context) => PurchaseScreen(
-    //               user: widget.user,
-    //               id: purchasedetails[index]['id'],
-    //             )));
   }
+
+
+Future <void> getSellerInfo (String sellerReceipt, String genreReceipt, String donateValue) async
+  {
+
+    String urlLoadJobs = "https://yitengsze.com/a_gifhope/php/get_sellerInfo.php";
+     http.post(urlLoadJobs, body: {
+
+       "sellerid": sellerReceipt,
+
+     }).then((res) {
+        print(res.body);
+      if (res.body.contains("nodata")) {
+        setState(() {
+          sellerInfo = null;
+        });
+      } else {
+        setState(() {
+          var extractdata = json.decode(res.body);
+          sellerInfo = extractdata["seller"];
+
+          share(context, sellerInfo, genreReceipt, donateValue);
+          
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  Future <void> share (BuildContext context, List sellerInfo, String genreReceipt, String donateValue) async
+  {
+    final sellerInfoMap = sellerInfo.asMap();
+    final sellerID = sellerInfoMap [0];
+    final sellerName = sellerInfoMap [1];
+    final sellerEmail = sellerInfoMap [2];
+    final sellerPhone = sellerInfoMap [3];
+
+    final RenderBox box = context.findRenderObject();
+    final String text1 = "Your sales have been deducted for 20% as the donation to Gifhope sucessfully!";
+    final String text2 = " Here's your receipt \n Seller ID: $sellerID \n Name: $sellerName \n Phone: $sellerPhone \n Email: $sellerEmail \n Genre: $genreReceipt \n Amount: RM $donateValue \n THANK YOU! ";
+    
+    await Share.share (
+      text2, 
+      subject: text1,
+      sharePositionOrigin: box.localToGlobal (Offset.zero) & box.size,
+    );
+    
+  }
+
+ 
 }
