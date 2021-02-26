@@ -525,11 +525,11 @@ Future <void> getSellerInfo (String sellerReceipt, String genreReceipt, String d
 
   Future <void> share (BuildContext context, List sellerInfo, String genreReceipt, String donateValue) async
   {
-    final sellerInfoMap = sellerInfo.asMap();
-    final sellerID = sellerInfoMap [0];
-    final sellerName = sellerInfoMap [1];
-    final sellerEmail = sellerInfoMap [2];
-    final sellerPhone = sellerInfoMap [3];
+    Map sellerInfoMap = sellerInfo.asMap();
+    String sellerID = sellerInfoMap [0]["sellerid"];
+    String sellerName = sellerInfoMap [0]["name"];
+    String sellerEmail = sellerInfoMap [0]["email"];
+    String sellerPhone = sellerInfoMap [0]["contact"];
 
     final RenderBox box = context.findRenderObject();
     final String text1 = "Your sales have been deducted for 20% as the donation to Gifhope sucessfully!";
