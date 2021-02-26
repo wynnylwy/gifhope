@@ -8,15 +8,13 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:shimmer/shimmer.dart';
 import 'package:share/share.dart';
 
-import 'product.dart';
-import 'user.dart';
-import 'purchasescreen.dart';
+import 'salesdonate.dart';
 
 class CollectDonationScreen extends StatefulWidget {
-  final User user;
-  final Product product;
+  
+  final SalesDonate collect;
 
-  const CollectDonationScreen({Key key, this.user, this.product})
+  const CollectDonationScreen({Key key, this.collect})
       : super(key: key);
 
   @override
@@ -201,7 +199,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                           Opacity(
                                                             opacity: isTransparent ? 0: 1 ,
                                                             child: Container(
-                                                              //put it in setState
+                                                             
                                                               height:
                                                                   screenHeight /
                                                                       10,
@@ -309,12 +307,6 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                       String genreReceipt = salesdetails[index]['genre'];
                                                                       String donateValue = salesdetails[index]['donate'];
                                                                       getSellerInfo (sellerReceipt, genreReceipt, donateValue);
-
-                                                                      
-                                                                      
-                                                                      
-                                                                     
-                                                                      
                                                                     }
                                                                   }),
                                                                 },
@@ -367,9 +359,13 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
 
   _loadSalesDetails() async {
     String urlLoadJobs =
-        "https://yitengsze.com/a_gifhope/php/load_salesDonation.php";
+        "https://yitengsze.com/a_gifhope/php/load_salesDonationDetails.php";
 
-    await http.post(urlLoadJobs, body: {}).then((res) {
+    await http.post(urlLoadJobs, body: {
+
+      "genre": widget.collect.genre,
+
+    }).then((res) {
       print(res.body);
       if (res.body.contains("nodata")) {
         setState(() {
@@ -514,7 +510,7 @@ Future <void> getSellerInfo (String sellerReceipt, String genreReceipt, String d
           var extractdata = json.decode(res.body);
           sellerInfo = extractdata["seller"];
 
-          share(context, sellerInfo, genreReceipt, donateValue);
+          share( context, sellerInfo, genreReceipt, donateValue);
           
         });
       }

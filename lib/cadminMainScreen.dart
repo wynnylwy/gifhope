@@ -5,9 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:gifhope/admincharity.dart';
-import 'package:gifhope/collectdonation.dart';
-import 'package:gifhope/profilescreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:toast/toast.dart';
@@ -16,10 +13,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-import 'package:gifhope/user.dart';
 
-import 'purchasescreen.dart';
+
+import 'user.dart';
 import 'loginscreen.dart';
+import 'admincharity.dart';
+import 'admincharity.dart';
+import 'collectdonationtile.dart';
+import 'profilescreen.dart';
 
 class CharityAdminMainScreen extends StatefulWidget {
   final User user;
@@ -654,7 +655,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                CollectDonationScreen()))
+                                CollectDonationTileScreen()))
                   }),
 
           ListTile(
