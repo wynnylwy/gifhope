@@ -17,6 +17,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:gifhope/user.dart';
 
 import 'charity.dart';
+import 'collectdonationtile.dart';
 import 'loginscreen.dart';
 import 'newcharity.dart';
 import 'newproduct.dart';
@@ -508,7 +509,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                 backgroundColor: Colors.red[300],
                 label: "Collect Donation",
                 labelBackgroundColor: Colors.red[300],
-                //onTap: report,
+                onTap: _collectDonation,
               ),
             ],
           ),
@@ -658,11 +659,11 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
               trailing: Icon(Icons.arrow_forward),
               onTap: () => {
                     Navigator.pop(context),
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (BuildContext context) => BookingScreen())
-                    //       )
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => NewCharity())
+                          )
                   }),
 
           ListTile(
@@ -673,7 +674,11 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
               trailing: Icon(Icons.arrow_forward),
               onTap: () => {
                     Navigator.pop(context),
-                    //goToPaymentHistory(),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => CollectDonationTileScreen())
+                          )
                   }),
 
           ListTile(
@@ -1134,6 +1139,12 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
     await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => NewCharity()));
     _loadCharityData();
+  }
+
+  Future<void> _collectDonation() async {
+    await Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => CollectDonationTileScreen()));
+    
   }
 
   void _storePosition(TapDownDetails details) {
