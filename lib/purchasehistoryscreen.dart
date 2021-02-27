@@ -36,12 +36,19 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                  const Color(0xFFFF8A65),
-                  const Color(0xFFFFCA28),
+                 const Color(0xFFFF8A65),
+                 const Color(0xFFFFCA28),
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -54,13 +61,81 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                 fontFamily: 'Sofia',
                 fontWeight: FontWeight.bold,
                 fontSize: 30.0,
-                color: Colors.white)),
+                color: Colors.black)),
       ),
       body: Center(
         child: Container(
           color: Colors.orange[100],
           child: Column(
           children: <Widget>[
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 40, width: 20,),
+
+                  Expanded(
+                    flex: 6,
+                    child: RichText(
+                      text: TextSpan(
+                        text: "No.",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          fontSize: 18,
+                          color: Colors.black
+                        )
+                      ),
+                      ),
+                  ),
+                  Expanded(
+                    flex: 20,
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: "Order ID",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          fontSize: 18,
+                          color: Colors.black
+                        )
+                      ),
+                      ),
+                  ),
+
+                 Expanded(
+                    flex: 15,
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: "Total (RM)",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          fontSize: 18,
+                          color: Colors.black
+                        )
+                      ),
+                      ),
+                  ),
+
+                  Expanded(
+                    flex: 21,
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: "Bill ID",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          fontSize: 18,
+                          color: Colors.black
+                        )
+                      ),
+                      ),
+                  ),
+                ],
+              ),
             Padding(
               padding: EdgeInsets.all(10)
             ),
@@ -95,72 +170,78 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
 
                                   loadBookDetails(index);
                                 }),
-                                child: Card(
-                                  elevation: 10,
-                                  child: Row( 
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Expanded(
-                                        flex: 1,
-                                        child:
-                                            Text((index + 1).toString() + ".",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                )),
-                                      ),
-                                      Expanded(
-                                        flex: 4,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text("Order ID: ",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                )),
-                                            Text(paymentdata[index]['orderid']),
-                                          ],
+                                child: Container(
+                                  color: Colors.red,
+                                  child: Card(
+                                    elevation: 10,
+                                    child: Row( 
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Expanded(
+                                          flex: 2,
+                                          child:
+                                              Text((index + 1).toString() + ".",
+                                                 textAlign: TextAlign.center,
+                                                 style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 17
+
+                                                  )),
                                         ),
-                                      ),
-                                      Expanded(
-                                        flex: 4,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text(
-                                              "RM " +
-                                                  paymentdata[index]['total'],
-                                            ),
-                                          ],
+                                        Expanded(
+                                          flex: 5,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+
+                                              Text(paymentdata[index]['orderid'],
+                                              style: TextStyle(
+                                                        fontSize: 17
+                                                      )),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(
-                                        flex: 5,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Row(
-                                              children: <Widget>[
-                                                Text("Bill ID: ",
+                                        Expanded(
+                                          flex: 5,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text(
+                                                "RM " +
+                                                    paymentdata[index]['total'],
                                                     style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    )),
-                                                Text(paymentdata[index]
-                                                    ['billid']),
-                                              ],
-                                            ),
-                                            Text(dateFormat
-                                                .format(DateTime.parse(
-                                              paymentdata[index]['date'],
-                                            ))),
-                                          ],
+                                                        fontSize: 17
+                                                      )
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                        Expanded(
+                                          flex: 4,
+                                          child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Row(
+                                                children: <Widget>[
+                                                  Text(paymentdata[index]
+                                                      ['billid'],
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 18
+                                                      )),
+                                                ],
+                                              ),
+                                              Text(dateFormat
+                                                  .format(DateTime.parse(
+                                                paymentdata[index]['date'],
+                                              ))),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ));

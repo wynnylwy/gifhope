@@ -5,19 +5,17 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
-
 import 'order.dart';
 import 'package:gifhope/purchasedetailscreen.dart';
 
 import 'salesdonate.dart';
 
 class CollectDonationTileScreen extends StatefulWidget {
-
-
   const CollectDonationTileScreen({Key key}) : super(key: key);
 
   @override
-  _CollectDonationTileScreenState createState() => _CollectDonationTileScreenState();
+  _CollectDonationTileScreenState createState() =>
+      _CollectDonationTileScreenState();
 }
 
 class _CollectDonationTileScreenState extends State<CollectDonationTileScreen> {
@@ -38,12 +36,19 @@ class _CollectDonationTileScreenState extends State<CollectDonationTileScreen> {
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                  const Color(0xFFFF8A65),
-                  const Color(0xFFFFCA28),
+                  const Color(0xFFFDD835),
+                  const Color(0xFFFBC02D),
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -56,120 +61,152 @@ class _CollectDonationTileScreenState extends State<CollectDonationTileScreen> {
                 fontFamily: 'Sofia',
                 fontWeight: FontWeight.bold,
                 fontSize: 30.0,
-                color: Colors.white)),
+                color: Colors.black)),
       ),
       body: Center(
         child: Container(
           color: Colors.orange[100],
           child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10)
-            ),
-            salesdetails == null
-                ? Flexible(
-                    child: Container(
-                        child: Center(
-                    child: Shimmer.fromColors(
-                                  baseColor: Colors.black,
-                                  highlightColor: Colors.grey,
-                                  child: Text(
-                                    titlecenter,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'Mogra',
-                                        fontSize: 25.0,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                  )))
-                : Expanded(
-                    child: ListView.builder(
-                        itemCount: salesdetails == null ? 0 : salesdetails.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                              padding: EdgeInsets.fromLTRB(15, 1, 15, 1),
-                              child: InkResponse( 
-                                focusColor: Colors.blue[300],
-                                hoverColor: Colors.blue[300],
-                                highlightColor: Colors.blue[300],
-                                borderRadius: BorderRadius.circular(20.0),
-                                onTap: () => setState(() {
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 40, width: 16,),
+                  Expanded(
+                    flex: 10,
+                    child: RichText(
+                      text: TextSpan(
+                        text: "No.",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          fontSize: 18,
+                          color: Colors.black
+                        )
+                      ),
+                      ),
+                  ),
+                  Expanded(
+                    flex: 12,
+                    child: RichText(
+                      text: TextSpan(
+                        text: "Genre",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          fontSize: 18,
+                          color: Colors.black
+                        )
+                      ),
+                      ),
+                  ),
 
-                                  loadSalesDetails(index);  //
-                                }),
-                                child: Card(
-                                  elevation: 10,
-                                  child: Row( 
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Expanded(
-                                        flex: 1,
-                                        child:
-                                            Text((index + 1).toString() + ".",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                )),
-                                      ),
-                                      Expanded(
-                                        flex: 4,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text("Genre: ",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                )),
-                                            Text(salesdetails[index]['genre']),
-                                          ],
-                                        ),
-                                      ),
-                                      // Expanded(
-                                      //   flex: 4,
-                                      //   child: Column(
-                                      //     crossAxisAlignment:
-                                      //         CrossAxisAlignment.center,
-                                      //     children: <Widget>[
-                                      //       Text(
-                                      //         "RM " +
-                                      //             salesdetails[index]['sales'],
-                                      //       ),
-                                      //     ],
-                                      //   ),
-                                      // ),
-                                      Expanded(
-                                        flex: 5,
-                                        child: Column(
+                  Expanded(
+                    flex: 14,
+                    child: RichText(
+                      text: TextSpan(
+                        text: "Total Sales (RM)",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          fontSize: 18,
+                          color: Colors.black
+                        )
+                      ),
+                      ),
+                  ),
+                ],
+              ),
+              Padding(padding: EdgeInsets.all(10)),
+              salesdetails == null
+                  ? Flexible(
+                      child: Container(
+                          child: Center(
+                      child: Shimmer.fromColors(
+                          baseColor: Colors.black,
+                          highlightColor: Colors.grey,
+                          child: Text(
+                            titlecenter,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Mogra',
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold),
+                          )),
+                    )))
+                  : Expanded(
+                      child: ListView.builder(
+                          itemCount:
+                              salesdetails == null ? 0 : salesdetails.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                                padding: EdgeInsets.fromLTRB(15, 5, 15, 10),
+                                child: InkResponse(
+                                  focusColor: Colors.blue[300],
+                                  hoverColor: Colors.blue[300],
+                                  highlightColor: Colors.blue[300],
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  onTap: () => setState(() {
+                                    loadSalesDetails(index); //
+                                  }),
+                                  child: Container(
+                                    height: 60,
+                                    color: Colors.red,
+                                    child: Card(
+                                      elevation: 25,
+                                      margin: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                                      shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                    ),
+                                      child: Container(
+                                        
+                                        color: Colors.yellow[100],
+                                          child: Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: <Widget>[
-                                            Column(
-                                              children: <Widget>[
-                                                Text("Total Sales (RM): ",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    )),
-                                                Text(salesdetails[index]
-                                                    ['sales']),
-                                              ],
+                                            Expanded(
+                                              flex: 1,
+                                              child: Text(
+                                                  (index + 1).toString() + ".",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                  )),
                                             ),
-                                            
+
+                                            Expanded(
+                                              flex: 8,
+                                              child: Text( 
+                                                salesdetails[index]['genre'],
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                      fontSize: 20,
+                                                    
+                                                  )),
+                                            ),
+
+                                            Expanded(
+                                              flex: 4,
+                                              child: Text( 
+                                                salesdetails[index]['sales'],
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                      fontSize: 20,
+                                                    
+                                                  )),
+                                            ),
                                           ],
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ));
-                        }),
-                  ),
-          ],
+                                ));
+                          }),
+                    ),
+            ],
+          ),
         ),
-
-        ),
-        
       ),
     );
   }
@@ -208,7 +245,6 @@ class _CollectDonationTileScreenState extends State<CollectDonationTileScreen> {
         context,
         MaterialPageRoute(
             builder: (BuildContext context) => CollectDonationScreen(
-                 
                   collect: salesDonate,
                 )));
   }

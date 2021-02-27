@@ -47,12 +47,19 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),        
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                  const Color(0xFF3366FF),
-                  const Color(0xFF00CCFF),
+                  const Color(0xFFFDD835),
+                  const Color(0xFFFBC02D),
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -60,15 +67,15 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                 tileMode: TileMode.clamp),
           ),
         ),
-        title: Text('Collect Donation ',
+        title: Text('Collect Donation',
             style: TextStyle(
                 fontFamily: 'Sofia',
                 fontWeight: FontWeight.bold,
                 fontSize: 30.0,
-                color: Colors.white)),
+                color: Colors.black)),
       ),
       body: Container(
-        color: Colors.blue[800],
+        color: Colors.orange[100],
         child: Column(
           children: <Widget>[
             SizedBox(height: 20.0),
@@ -77,8 +84,8 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                     child: Container(
                         child: Center(
                     child: Shimmer.fromColors(
-                        baseColor: Colors.yellow[200],
-                        highlightColor: Colors.white,
+                        baseColor: Colors.black,
+                          highlightColor: Colors.grey,
                         child: Text(
                           titlecenter,
                           style: TextStyle(
