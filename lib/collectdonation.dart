@@ -297,10 +297,10 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                     else if (collectDonationText == true) {  //pressed collect
                                                                       calcDonationText = false;
                                                                       collectDonationText = false;
-                                                                      sendDonationReceiptText = true;
                                                                       beforeText = afterText;
 
                                                                       showCollectDialog(index);
+                                                                      sendDonationReceiptText = true;
                                                                     }
 
                                                                     else {                             //pressed send 

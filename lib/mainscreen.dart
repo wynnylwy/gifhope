@@ -67,6 +67,7 @@ class _MainScreenState extends State<MainScreen> {
         child: Scaffold(
           drawer: mainDrawer(context),
           appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.white),
             flexibleSpace: Container(
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
