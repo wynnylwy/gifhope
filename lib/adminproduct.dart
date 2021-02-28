@@ -16,7 +16,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'reportlist.dart';
+import 'report_sales.dart';
 import 'updateproduct.dart';
 
 class AdminProduct extends StatefulWidget {
@@ -501,7 +501,7 @@ class _AdminProductState extends State<AdminProduct> {
             child: Icon(MdiIcons.scriptText),
             label: "View Donation Report",
             labelBackgroundColor: Colors.blue[200],
-            onTap: report, //chg **
+           // onTap: report, //chg **
           ),
         ],
       ),
@@ -764,8 +764,8 @@ class _AdminProductState extends State<AdminProduct> {
   }
 
   //report
-  Future<void> report() async {
-    await Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => ReportList()));
-  }
+  // Future<void> report() async {
+  //   await Navigator.push(context,
+  //       MaterialPageRoute(builder: (BuildContext context) => ReportList()));
+  // }
 }
