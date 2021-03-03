@@ -1,11 +1,9 @@
-class Sales{
+class Sales {
   String genre;
   int totsales;
 
-  Sales(salesData, 
-    {
-      this.genre, 
-      this.totsales, 
-    }
+  Sales(
+    this.genre,
+    this.totsales,
   );
 }
