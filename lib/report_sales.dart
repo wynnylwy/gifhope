@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:http/http.dart' as http;
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 import 'sales.dart';
 
@@ -11,14 +16,13 @@ class SalesReportScreen extends StatefulWidget {
 }
 
 class _SalesReportScreenState extends State<SalesReportScreen> {
-  var chartDisplay, chartDisplay2;
-
   List<charts.Series<Sales, String>> seriesBarData;
+  List<Sales> salesData;
 
   @override
   void initState() {
     super.initState();
-    seriesBarData = getData();
+    getData();
   }
 
   Widget build(BuildContext context) {
@@ -28,49 +32,51 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
       ),
       body: Center(
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.40,
-          child: charts.BarChart(
-            seriesBarData,
-            vertical: true,
-            animate: true,
-            animationDuration: Duration(
-              microseconds: 2000,
-            ),
-          ),
-        ),
+            height: MediaQuery.of(context).size.height * 0.40,
+            child: SfCartesianChart(
+                primaryXAxis: CategoryAxis(),
+                // Chart title
+                title: ChartTitle(text: 'Sales'),
+                // Enable legend
+                legend: Legend(isVisible: false),
+                // Enable tooltip
+                tooltipBehavior: TooltipBehavior(enable: true),
+                series: <ChartSeries<Sales, String>>[
+                  BarSeries<Sales, String>(
+                      dataSource: salesData, // Deserialized Json data list.
+                      xValueMapper: (Sales sales, _) => sales.genre,
+                      yValueMapper: (Sales sales, _) => int.parse(sales.totsales),
+                      // Enable data label
+                      dataLabelSettings: DataLabelSettings(isVisible: true))
+                ])),
       ),
     );
   }
 
-  List<charts.Series<Sales, String>> getData() {
-    
-      var data = [
-        Sales("Women Clothing", 50),
-        Sales("Men Clothing", 100),
-        Sales("Men Shoes", 100)
-      ];
+  Future getData() async {
+    String urlLoadJobs =
+        "https://yitengsze.com/a_gifhope/php/load_salesDonation.php";
+    await http.get(urlLoadJobs).then((res) {
+      print(res.body);
 
-      var data2 = [
-        Sales("Women Clothing", 50),
-        Sales("Men Clothing", 200),
-        Sales("Men Shoes", 10)
-      ];
+      if (res.body.contains("nodata")) {
+        setState(() {
+          salesData = null;
+        });
+      } else {
+        setState(() {
+          var extractdata = json.decode(res.body);
+          //salesData = extractdata["sales"];
 
-      return [
-        charts.Series<Sales, String>(
-          id: 'Sales',
-          data: data,
-          domainFn: (Sales sales, _) => sales.genre,
-          measureFn: (Sales sales, _) => sales.totsales,
-        ),
+          for (Map i in extractdata) {
+            salesData.add(Sales.fromJson(i));
+          }
+        });
+      }
 
-        charts.Series<Sales, String>(
-          id: 'Sales',
-          data: data2,
-          domainFn: (Sales sales, _) => sales.genre,
-          measureFn: (Sales sales, _) => sales.totsales,
-        ),
-      ];
-    
+      return salesData;
+    }).catchError((err) {
+      print(err);
+    });
   }
 }

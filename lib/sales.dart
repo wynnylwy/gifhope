@@ -1,9 +1,22 @@
+import 'package:flutter/foundation.dart';
+
 class Sales {
   String genre;
-  int totsales;
+  String totsales;
 
   Sales(
     this.genre,
     this.totsales,
   );
+
+  
+  factory Sales.fromJson(Map<String, dynamic> map) {
+    
+    return Sales(
+        map['genre'].toString(),
+        map['sales'].toString()
+    );
+  }
+
+  
 }
