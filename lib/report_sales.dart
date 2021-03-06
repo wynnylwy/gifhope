@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:http/http.dart' as http;
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 import 'sales.dart';
 
@@ -17,13 +15,13 @@ class SalesReportScreen extends StatefulWidget {
 
 class _SalesReportScreenState extends State<SalesReportScreen> {
   List<charts.Series<Sales, String>> seriesBarData;
-  List<Sales> salesData;
+  List <dynamic>salesData;
 
   @override
-  void initState() {
-    super.initState();
-    getData();
-  }
+  // void initState() {
+  //   super.initState();
+  //   seriesBarData = getData();
+  // }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,23 +30,30 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
       ),
       body: Center(
         child: Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: SfCartesianChart(
-                primaryXAxis: CategoryAxis(),
-                // Chart title
-                title: ChartTitle(text: 'Sales'),
-                // Enable legend
-                legend: Legend(isVisible: false),
-                // Enable tooltip
-                tooltipBehavior: TooltipBehavior(enable: true),
-                series: <ChartSeries<Sales, String>>[
-                  BarSeries<Sales, String>(
-                      dataSource: salesData, // Deserialized Json data list.
-                      xValueMapper: (Sales sales, _) => sales.genre,
-                      yValueMapper: (Sales sales, _) => int.parse(sales.totsales),
-                      // Enable data label
-                      dataLabelSettings: DataLabelSettings(isVisible: true))
-                ])),
+          height: MediaQuery.of(context).size.height * 0.40,
+          child: FutureBuilder(
+              future: getData(),
+              builder: (BuildContext context,AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting && snapshot.hasError == false)
+                {
+                  return Center(
+                    child: CircularProgressIndicator()
+                  );
+                }
+
+                else 
+                {
+                  return new charts.BarChart(
+                    dataList (salesData),
+                    vertical: true,
+                    animate: true,
+                    animationDuration: Duration(
+                      microseconds: 2000,
+                    ),
+                  );
+                }
+              }),
+        ),
       ),
     );
   }
@@ -65,18 +70,45 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
         });
       } else {
         setState(() {
-          var extractdata = json.decode(res.body);
-          //salesData = extractdata["sales"];
+          // Iterable mapData = json.decode(res.body);
+          // List<Sales> list = mapData.toList();
+          // return list;
 
-          for (Map i in extractdata) {
-            salesData.add(Sales.fromJson(i));
-          }
+        Map<String, dynamic> map = json.decode(res.body);
+        map.forEach((k,v) => salesData.add(Sales(k,v)));
+        print(salesData);
+        //salesData = map["sales"].toList();
+          
         });
       }
 
       return salesData;
+
     }).catchError((err) {
       print(err);
     });
   }
+
+}
+
+List<charts.Series<Sales, String>> dataList(List<dynamic> apiData) 
+{
+  List<Sales> list = new List();
+
+  for (int i=0; i< apiData.length; i++)
+  {
+  
+    list.add(new Sales (apiData[i]['genre'], apiData[i]['sales']));
+  }
+
+  return [
+        new charts.Series<Sales, String>(
+          id: 'Sales',
+          data: list,
+          domainFn: (Sales sales, _) => sales.genre,
+          measureFn: (Sales sales, _) => int.parse(sales.totsales),
+        ),
+
+      ]; 
+  
 }

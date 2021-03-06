@@ -9,14 +9,7 @@ class Sales {
     this.totsales,
   );
 
-  
   factory Sales.fromJson(Map<String, dynamic> map) {
-    
-    return Sales(
-        map['genre'].toString(),
-        map['sales'].toString()
-    );
+    return Sales(map['genre'].toString(), map['sales'].toString());
   }
-
-  
 }
