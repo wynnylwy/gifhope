@@ -15,13 +15,8 @@ class SalesReportScreen extends StatefulWidget {
 
 class _SalesReportScreenState extends State<SalesReportScreen> {
   List<charts.Series<Sales, String>> seriesBarData;
-  List <dynamic>salesData;
 
   @override
-  // void initState() {
-  //   super.initState();
-  //   seriesBarData = getData();
-  // }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +29,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
           child: FutureBuilder(
               future: getData(),
               builder: (BuildContext context,AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting && snapshot.hasError == false)
+                if (snapshot.connectionState == ConnectionState.none || snapshot.hasData == false)
                 {
                   return Center(
                     child: CircularProgressIndicator()
@@ -44,7 +39,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                 else 
                 {
                   return new charts.BarChart(
-                    dataList (salesData),
+                    dataList (snapshot.data),
                     vertical: true,
                     animate: true,
                     animationDuration: Duration(
@@ -61,34 +56,21 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
   Future getData() async {
     String urlLoadJobs =
         "https://yitengsze.com/a_gifhope/php/load_salesDonation.php";
-    await http.get(urlLoadJobs).then((res) {
-      print(res.body);
+    final res = await http.get(urlLoadJobs);
 
-      if (res.body.contains("nodata")) {
-        setState(() {
-          salesData = null;
-        });
-      } else {
-        setState(() {
-          // Iterable mapData = json.decode(res.body);
-          // List<Sales> list = mapData.toList();
-          // return list;
+      if (res.body.contains("nodata")) 
+      {
+        return false;
+      } 
+      
+      else 
+      {
+        Map<String, dynamic> map = json.decode(res.body);  //json decode will return dynamic
+        final List<Sales> salesData = map["sales"].toList();
 
-        Map<String, dynamic> map = json.decode(res.body);
-        map.forEach((k,v) => salesData.add(Sales(k,v)));
-        print(salesData);
-        //salesData = map["sales"].toList();
-          
-        });
+        return salesData;
       }
-
-      return salesData;
-
-    }).catchError((err) {
-      print(err);
-    });
-  }
-
+    }
 }
 
 List<charts.Series<Sales, String>> dataList(List<dynamic> apiData) 

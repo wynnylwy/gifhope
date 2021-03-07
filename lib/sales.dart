@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class Sales {
   String genre;
   String totsales;
