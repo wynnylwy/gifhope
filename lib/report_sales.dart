@@ -44,7 +44,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                     animate: true,
                     barGroupingType: charts.BarGroupingType.grouped,
                     behaviors: [new charts.SeriesLegend(
-                      position: charts.BehaviorPosition.top,
+                      position: charts.BehaviorPosition.bottom,
                       horizontalFirst: false,  //legend show vertically
 
                     )],
@@ -61,7 +61,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
 
   Future getData() async {
     String urlLoadJobs =
-        "https://yitengsze.com/a_gifhope/php/load_salesDonation.php";
+        "https://yitengsze.com/a_gifhope/php/load_salesReport.php";
     final res = await http.get(urlLoadJobs);
 
       if (res.body.contains("nodata")) 
