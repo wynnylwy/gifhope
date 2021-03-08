@@ -42,6 +42,12 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                     dataList (snapshot.data),
                     vertical: true,
                     animate: true,
+                    barGroupingType: charts.BarGroupingType.grouped,
+                    behaviors: [new charts.SeriesLegend(
+                      position: charts.BehaviorPosition.top,
+                      horizontalFirst: false,  //legend show vertically
+
+                    )],
                     animationDuration: Duration(
                       microseconds: 2000,
                     ),
@@ -66,7 +72,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
       else 
       {
         Map<String, dynamic> map = json.decode(res.body);  //json decode will return dynamic
-        final List<Sales> salesData = map["sales"].toList();
+        final List<dynamic> salesData = map["sales"].toList();
 
         return salesData;
       }
@@ -80,15 +86,24 @@ List<charts.Series<Sales, String>> dataList(List<dynamic> apiData)
   for (int i=0; i< apiData.length; i++)
   {
   
-    list.add(new Sales (apiData[i]['genre'], apiData[i]['sales']));
+    list.add(new Sales (apiData[i]['genre'], apiData[i]['sales'], apiData[i]['donate'],));
   }
 
   return [
         new charts.Series<Sales, String>(
-          id: 'Sales',
+          id: 'Product Sales',
           data: list,
           domainFn: (Sales sales, _) => sales.genre,
           measureFn: (Sales sales, _) => int.parse(sales.totsales),
+          colorFn: (Sales sales, _) => charts.MaterialPalette.blue.shadeDefault
+        ),
+
+        new charts.Series<Sales, String>(
+          id: 'Collected Donation',
+          data: list,
+          domainFn: (Sales sales, _) => sales.genre,
+          measureFn: (Sales sales, _) => int.parse(sales.donate),
+          colorFn: (Sales sales, _) => charts.MaterialPalette.red.shadeDefault
         ),
 
       ]; 
