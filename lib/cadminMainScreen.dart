@@ -15,6 +15,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 
 
+import 'report_donate.dart';
 import 'report_sales.dart';
 import 'sampleChart2.dart';
 import 'user.dart';
@@ -684,7 +685,11 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
               trailing: Icon(Icons.arrow_forward),
               onTap: () => {
                     Navigator.pop(context),
-                    //goToPaymentHistory(),
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                DonateReportScreen()))
                   }),
 
           ListTile(

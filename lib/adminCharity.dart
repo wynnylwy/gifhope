@@ -21,6 +21,8 @@ import 'collectdonationtile.dart';
 import 'loginscreen.dart';
 import 'newcharity.dart';
 import 'newproduct.dart';
+import 'report_donate.dart';
+import 'report_sales.dart';
 import 'updatecharity.dart';
 
 class CharityAdminManageScreen extends StatefulWidget {
@@ -486,7 +488,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
               SpeedDialChild(
                 backgroundColor: Colors.red[300],
                 child: Icon(Icons.add_to_drive),
-                label: "New Charity Info",
+                label: "Create New Charity Info",
                 labelBackgroundColor: Colors.red[300],
                 onTap: _createNewCharity,
               ),
@@ -495,14 +497,14 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                 backgroundColor: Colors.red[300],
                 label: "View Sales Report",
                 labelBackgroundColor: Colors.red[300],
-                //onTap: createNewProduct,
+                onTap: _viewSalesReport,
               ),
               SpeedDialChild(
                 child: Icon(MdiIcons.scriptText),
                 backgroundColor: Colors.red[300],
                 label: "View Donation Report",
                 labelBackgroundColor: Colors.red[300],
-                //onTap: report,
+                onTap: _viewDonateReport,
               ),
               SpeedDialChild(
                 child: Icon(Icons.volunteer_activism),
@@ -689,7 +691,11 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
               trailing: Icon(Icons.arrow_forward),
               onTap: () => {
                     Navigator.pop(context),
-                    //goToPaymentHistory(),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => SalesReportScreen())
+                          )
                   }),
 
           ListTile(
@@ -700,7 +706,11 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
               trailing: Icon(Icons.arrow_forward),
               onTap: () => {
                     Navigator.pop(context),
-                    //goToPaymentHistory(),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => DonateReportScreen())
+                          )
                   }),
 
           ListTile(
@@ -1144,7 +1154,16 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
   Future<void> _collectDonation() async {
     await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => CollectDonationTileScreen()));
-    
+  }
+
+  Future<void> _viewSalesReport() async {
+    await Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => SalesReportScreen()));
+  }
+
+  Future<void> _viewDonateReport() async {
+    await Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => DonateReportScreen()));
   }
 
   void _storePosition(TapDownDetails details) {
