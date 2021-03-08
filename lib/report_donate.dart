@@ -61,7 +61,7 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
 
   Future getData() async {
     String urlLoadJobs =
-        "https://yitengsze.com/a_gifhope/php/load_donateReport.php";
+        "https://yitengsze.com/a_gifhope/php/load_donationReport.php";
     final res = await http.get(urlLoadJobs);
 
       if (res.body.contains("nodata")) 
