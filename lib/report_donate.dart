@@ -21,8 +21,27 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Donation Report"),
-      ),
+            iconTheme: IconThemeData(color: Colors.white),
+            flexibleSpace: Container(
+              decoration: new BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: [
+                      const Color(0xFFFDD835),
+                      const Color(0xFFFBC02D),
+                    ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 0.0),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp),
+              ),
+            ),
+            title: Text('Donation Report',
+                style: TextStyle(
+                    fontFamily: 'Sofia',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30.0,
+                    color: Colors.white)),
+          ),
       body: Center(
         child: Container(
           height: MediaQuery.of(context).size.height * 0.40,

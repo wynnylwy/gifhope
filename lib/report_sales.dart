@@ -21,8 +21,27 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sales Report"),
-      ),
+            iconTheme: IconThemeData(color: Colors.white),
+            flexibleSpace: Container(
+              decoration: new BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: [
+                      const Color(0xFF3366FF),
+                      const Color(0xFF00CCFF),
+                    ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 0.0),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp),
+              ),
+            ),
+            title: Text('Sales Report',
+                style: TextStyle(
+                    fontFamily: 'Sofia',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30.0,
+                    color: Colors.white)),
+          ),
       body: Center(
         child: Container(
           height: MediaQuery.of(context).size.height * 0.40,
