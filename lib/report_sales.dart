@@ -15,65 +15,120 @@ class SalesReportScreen extends StatefulWidget {
 
 class _SalesReportScreenState extends State<SalesReportScreen> {
   List<charts.Series<Sales, String>> seriesBarData;
+  List<String> listMonth = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
+  String selectedMonth;
 
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-            iconTheme: IconThemeData(color: Colors.white),
-            flexibleSpace: Container(
-              decoration: new BoxDecoration(
-                gradient: new LinearGradient(
-                    colors: [
-                      const Color(0xFF3366FF),
-                      const Color(0xFF00CCFF),
-                    ],
-                    begin: const FractionalOffset(0.0, 0.0),
-                    end: const FractionalOffset(1.0, 0.0),
-                    stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp),
+        iconTheme: IconThemeData(color: Colors.white),
+        flexibleSpace: Container(
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+                colors: [
+                  const Color(0xFF3366FF),
+                  const Color(0xFF00CCFF),
+                ],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
+          ),
+        ),
+        title: Text('Sales Report',
+            style: TextStyle(
+                fontFamily: 'Sofia',
+                fontWeight: FontWeight.bold,
+                fontSize: 30.0,
+                color: Colors.white)),
+      ),
+      body: Container(
+        // color: Colors.blue[100],
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(150, 10, 5, 50),
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.05,
+            //  color: Colors.red,
+              child: Row(
+                children: [
+                  Text("Month Selected: "),
+                  SizedBox(width: 28),
+                  DropdownButton(
+                      value: selectedMonth,
+                      items: listMonth.map((selectedMonth) {
+                        return DropdownMenuItem(
+                            child: new Text(
+                              selectedMonth,
+                              textAlign: TextAlign.center,
+                            ),
+                            value: selectedMonth);
+                      }).toList(),
+                      onChanged: (newValue) {
+                        setState(() {
+                          selectedMonth = newValue;
+                          print(selectedMonth);
+                        });
+                      }),
+                ],
               ),
             ),
-            title: Text('Sales Report',
-                style: TextStyle(
-                    fontFamily: 'Sofia',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30.0,
-                    color: Colors.white)),
           ),
-      body: Center(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.40,
-          child: FutureBuilder(
-              future: getData(),
-              builder: (BuildContext context,AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.none || snapshot.hasData == false)
-                {
-                  return Center(
-                    child: CircularProgressIndicator()
-                  );
-                }
 
-                else 
-                {
-                  return new charts.BarChart(
-                    dataList (snapshot.data),
-                    vertical: true,
-                    animate: true,
-                    barGroupingType: charts.BarGroupingType.grouped,
-                    behaviors: [new charts.SeriesLegend(
-                      position: charts.BehaviorPosition.bottom,
-                      horizontalFirst: false,  //legend show vertically
-
-                    )],
-                    animationDuration: Duration(
-                      microseconds: 2000,
-                    ),
-                  );
-                }
-              }),
-        ),
+          SizedBox(height: 20),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "RM",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline,
+              )),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.60,
+            child: FutureBuilder(
+                future: getData(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.none ||
+                      snapshot.hasData == false) {
+                    return Center(child: CircularProgressIndicator());
+                  } else {
+                    return new charts.BarChart(
+                      dataList(snapshot.data),
+                      vertical: true,
+                      animate: true,
+                      barGroupingType: charts.BarGroupingType.grouped,
+                      behaviors: [
+                        new charts.SeriesLegend(
+                          position: charts.BehaviorPosition.bottom,
+                          horizontalFirst: false, //legend show vertically
+                        )
+                      ],
+                      animationDuration: Duration(
+                        microseconds: 2000,
+                      ),
+                    );
+                  }
+                }),
+          ),
+        ]),
       ),
     );
   }
@@ -83,48 +138,41 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
         "https://yitengsze.com/a_gifhope/php/load_salesReport.php";
     final res = await http.get(urlLoadJobs);
 
-      if (res.body.contains("nodata")) 
-      {
-        return false;
-      } 
-      
-      else 
-      {
-        Map<String, dynamic> map = json.decode(res.body);  //json decode will return dynamic
-        final List<dynamic> salesData = map["sales"].toList();
+    if (res.body.contains("nodata")) {
+      return false;
+    } else {
+      Map<String, dynamic> map =
+          json.decode(res.body); //json decode will return dynamic
+      final List<dynamic> salesData = map["sales"].toList();
 
-        return salesData;
-      }
+      return salesData;
     }
+  }
 }
 
-List<charts.Series<Sales, String>> dataList(List<dynamic> apiData) 
-{
+List<charts.Series<Sales, String>> dataList(List<dynamic> apiData) {
   List<Sales> list = new List();
 
-  for (int i=0; i< apiData.length; i++)
-  {
-  
-    list.add(new Sales (apiData[i]['genre'], apiData[i]['sales'], apiData[i]['donate'],));
+  for (int i = 0; i < apiData.length; i++) {
+    list.add(new Sales(
+      apiData[i]['genre'],
+      apiData[i]['sales'],
+      apiData[i]['donate'],
+    ));
   }
 
   return [
-        new charts.Series<Sales, String>(
-          id: 'Product Sales',
-          data: list,
-          domainFn: (Sales sales, _) => sales.genre,
-          measureFn: (Sales sales, _) => int.parse(sales.totsales),
-          colorFn: (Sales sales, _) => charts.MaterialPalette.blue.shadeDefault
-        ),
-
-        new charts.Series<Sales, String>(
-          id: 'Collected Donation',
-          data: list,
-          domainFn: (Sales sales, _) => sales.genre,
-          measureFn: (Sales sales, _) => int.parse(sales.donate),
-          colorFn: (Sales sales, _) => charts.MaterialPalette.red.shadeDefault
-        ),
-
-      ]; 
-  
+    new charts.Series<Sales, String>(
+        id: 'Product Sales',
+        data: list,
+        domainFn: (Sales sales, _) => sales.genre,
+        measureFn: (Sales sales, _) => int.parse(sales.totsales),
+        colorFn: (Sales sales, _) => charts.MaterialPalette.blue.shadeDefault),
+    new charts.Series<Sales, String>(
+        id: 'Collected Donation',
+        data: list,
+        domainFn: (Sales sales, _) => sales.genre,
+        measureFn: (Sales sales, _) => int.parse(sales.donate),
+        colorFn: (Sales sales, _) => charts.MaterialPalette.red.shadeDefault),
+  ];
 }
