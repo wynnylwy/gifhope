@@ -67,9 +67,13 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
             //  color: Colors.red,
               child: Row(
                 children: [
-                  Text("Month Selected: "),
-                  SizedBox(width: 28),
+                  Text("Month Selected: ",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold
+                        )),
+                  SizedBox(width: 25),
                   DropdownButton(
+                      hint: Text("Month"),
                       value: selectedMonth,
                       items: listMonth.map((selectedMonth) {
                         return DropdownMenuItem(
