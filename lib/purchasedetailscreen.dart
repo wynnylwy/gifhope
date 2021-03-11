@@ -62,7 +62,7 @@ class _PurchaseDetailScreenState extends State<PurchaseDetailScreen> {
         color: Colors.blue[800],
         child: Column(
           children: <Widget>[
-            SizedBox(height: 20.0),
+            SizedBox(height: 15.0),
             purchasedetails == null
                 ? Flexible(
                     child: Container(
@@ -84,7 +84,7 @@ class _PurchaseDetailScreenState extends State<PurchaseDetailScreen> {
                         itemCount: purchasedetails == null ? 0 : purchasedetails.length,
                         itemBuilder: (context, index) {
                           return Container(
-                            height: screenHeight / 2.2,
+                            height: screenHeight / 2.4,
                             width: screenWidth / 2.5,
                             child: Column(
                               children: <Widget>[
