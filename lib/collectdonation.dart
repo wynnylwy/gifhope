@@ -8,14 +8,13 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:shimmer/shimmer.dart';
 import 'package:share/share.dart';
 
+import 'collectdonationtile.dart';
 import 'salesdonate.dart';
 
 class CollectDonationScreen extends StatefulWidget {
-  
   final SalesDonate collect;
 
-  const CollectDonationScreen({Key key, this.collect})
-      : super(key: key);
+  const CollectDonationScreen({Key key, this.collect}) : super(key: key);
 
   @override
   _CollectDonationScreenState createState() => _CollectDonationScreenState();
@@ -28,13 +27,13 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
   double screenHeight, screenWidth;
   int quantity = 1;
   String purchasequantity = "0";
-  String beforeText= "(before collect donation)";
-  String beforeText2= "(before collect donation)";
+  String beforeText = "(before collect donation)";
+  String beforeText2 = "(before collect donation)";
   String afterText = "(after collect donation)";
-  
+
   bool isTransparent = true;
   bool calcDonationText = true;
-  bool collectDonationText =true;
+  bool collectDonationText = true;
   bool sendDonationReceiptText = true;
 
   void initState() {
@@ -49,11 +48,11 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
           onPressed: () => Navigator.of(context).pop(),
-        ),        
+        ),
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
@@ -85,7 +84,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                         child: Center(
                     child: Shimmer.fromColors(
                         baseColor: Colors.black,
-                          highlightColor: Colors.grey,
+                        highlightColor: Colors.grey,
                         child: Text(
                           titlecenter,
                           style: TextStyle(
@@ -183,7 +182,9 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                         16),
                                                               ),
                                                               Text(
-                                                               salesdetails[index]['sales'],
+                                                                salesdetails[
+                                                                        index]
+                                                                    ['sales'],
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         25),
@@ -204,9 +205,11 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                           ),
                                                           SizedBox(height: 20),
                                                           Opacity(
-                                                            opacity: isTransparent ? 0: 1 ,
+                                                            opacity:
+                                                                isTransparent
+                                                                    ? 0
+                                                                    : 1,
                                                             child: Container(
-                                                             
                                                               height:
                                                                   screenHeight /
                                                                       10,
@@ -256,27 +259,23 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                             20.0)),
                                                                 minWidth: 100,
                                                                 height: 40,
-                                                                child: (calcDonationText) 
+                                                                child: (calcDonationText)
                                                                     ? Text('Calculate Donation',
                                                                         style: TextStyle(
                                                                           fontSize:
                                                                               18.0,
                                                                         ))
                                                                     : (collectDonationText)
-                                                                       ?  Text('Collect Donation', 
-                                                                        style: TextStyle(
-                                                                          fontSize:
-                                                                              18.0,
-                                                                        ))
-                                                                    : (sendDonationReceiptText)
-                                                                       ?
-                                                                       Text('Send Donation Receipt', 
-                                                                        style: TextStyle(
-                                                                          fontSize:
-                                                                              18.0,
-                                                                        ))
-                                                                    : null,
-                                                                        
+                                                                        ? Text('Collect Donation',
+                                                                            style: TextStyle(
+                                                                              fontSize: 18.0,
+                                                                            ))
+                                                                        : (sendDonationReceiptText)
+                                                                            ? Text('Send Donation Receipt',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18.0,
+                                                                                ))
+                                                                            : null,
                                                                 color: Colors
                                                                     .blue[500],
                                                                 textColor:
@@ -286,34 +285,63 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                 onPressed: () =>
                                                                     {
                                                                   setState(() {
-                                                                    isTransparent = !isTransparent;
+                                                                    isTransparent =
+                                                                        !isTransparent;
 
-                                                                    if (calcDonationText == true) {  //pressed calc
-                                                                      calcDonationText = false;
-                                                                      collectDonationText = true;
-                                                                      sendDonationReceiptText = false;
-                                                                    }
+                                                                    if (calcDonationText ==
+                                                                        true) {
+                                                                      //pressed calc
+                                                                      calcDonationText =
+                                                                          false;
+                                                                      collectDonationText =
+                                                                          true;
+                                                                      sendDonationReceiptText =
+                                                                          false;
+                                                                    } else if (collectDonationText ==
+                                                                        true) {
+                                                                      //pressed collect
+                                                                      calcDonationText =
+                                                                          false;
+                                                                      collectDonationText =
+                                                                          false;
+                                                                      beforeText =
+                                                                          afterText;
 
-                                                                    else if (collectDonationText == true) {  //pressed collect
-                                                                      calcDonationText = false;
-                                                                      collectDonationText = false;
-                                                                      beforeText = afterText;
+                                                                      showCollectDialog(
+                                                                          index);
+                                                                      sendDonationReceiptText =
+                                                                          true;
+                                                                    } else {
+                                                                      //pressed send
+                                                                      calcDonationText =
+                                                                          true;
+                                                                      collectDonationText =
+                                                                          false;
+                                                                      sendDonationReceiptText =
+                                                                          false;
 
-                                                                      showCollectDialog(index);
-                                                                      sendDonationReceiptText = true;
-                                                                    }
+                                                                      beforeText =
+                                                                          beforeText2;
 
-                                                                    else {                             //pressed send 
-                                                                      calcDonationText = true;
-                                                                      collectDonationText = false;
-                                                                      sendDonationReceiptText = false;
-
-                                                                      beforeText = beforeText2;
-
-                                                                      String sellerReceipt = salesdetails[index]['sellerid'];
-                                                                      String genreReceipt = salesdetails[index]['genre'];
-                                                                      String donateValue = salesdetails[index]['donate'];
-                                                                      getSellerInfo (sellerReceipt, genreReceipt, donateValue);
+                                                                      String
+                                                                          sellerReceipt =
+                                                                          salesdetails[index]
+                                                                              [
+                                                                              'sellerid'];
+                                                                      String
+                                                                          genreReceipt =
+                                                                          salesdetails[index]
+                                                                              [
+                                                                              'genre'];
+                                                                      String
+                                                                          donateValue =
+                                                                          salesdetails[index]
+                                                                              [
+                                                                              'donate'];
+                                                                      getSellerInfo(
+                                                                          sellerReceipt,
+                                                                          genreReceipt,
+                                                                          donateValue);
                                                                     }
                                                                   }),
                                                                 },
@@ -339,9 +367,11 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                         .white,
                                                                 elevation: 10,
                                                                 onPressed: () {
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                          builder: (BuildContext context) =>
+                                                                              CollectDonationTileScreen()));
                                                                 },
                                                               ),
                                                             ],
@@ -369,9 +399,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
         "https://yitengsze.com/a_gifhope/php/load_salesDonationDetails.php";
 
     await http.post(urlLoadJobs, body: {
-
       "genre": widget.collect.genre,
-
     }).then((res) {
       print(res.body);
       if (res.body.contains("nodata")) {
@@ -390,8 +418,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
     });
   }
 
-  Future<void> showCollectDialog (int index) async {
-     
+  Future<void> showCollectDialog(int index) async {
     await showDialog(
         context: context,
         builder: (context) {
@@ -409,9 +436,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  
-                ],
+                children: <Widget>[],
               ),
               actions: <Widget>[
                 MaterialButton(
@@ -420,7 +445,6 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                         color: Colors.black,
                       )),
                   onPressed: () {
-
                     Navigator.pop(context);
                     collectDonation(index);
                   },
@@ -443,9 +467,9 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
   collectDonation(int index) {
     try {
       String genre = salesdetails[index]["genre"];
-      double sales = double.parse(salesdetails[index]["sales"]); 
-      double donate = double.parse(salesdetails[index]["donate"]); 
-      print("Genre: "+ genre);
+      double sales = double.parse(salesdetails[index]["sales"]);
+      double donate = double.parse(salesdetails[index]["donate"]);
+      print("Genre: " + genre);
       print("Sales: " + sales.toString());
       print("Donate: " + donate.toString());
 
@@ -468,9 +492,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
           if (res.body.contains("failed")) {
             Toast.show("Collection Failed", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-          }
-
-          else {
+          } else {
             List respond = res.body.split(",");
             setState(() {
               purchasequantity = respond[1];
@@ -497,17 +519,14 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
     }
   }
 
-
-Future <void> getSellerInfo (String sellerReceipt, String genreReceipt, String donateValue) async
-  {
-
-    String urlLoadJobs = "https://yitengsze.com/a_gifhope/php/get_sellerInfo.php";
-     http.post(urlLoadJobs, body: {
-
-       "sellerid": sellerReceipt,
-
-     }).then((res) {
-        print(res.body);
+  Future<void> getSellerInfo(
+      String sellerReceipt, String genreReceipt, String donateValue) async {
+    String urlLoadJobs =
+        "https://yitengsze.com/a_gifhope/php/get_sellerInfo.php";
+    http.post(urlLoadJobs, body: {
+      "sellerid": sellerReceipt,
+    }).then((res) {
+      print(res.body);
       if (res.body.contains("nodata")) {
         setState(() {
           sellerInfo = null;
@@ -517,8 +536,7 @@ Future <void> getSellerInfo (String sellerReceipt, String genreReceipt, String d
           var extractdata = json.decode(res.body);
           sellerInfo = extractdata["seller"];
 
-          share( context, sellerInfo, genreReceipt, donateValue);
-          
+          share(context, sellerInfo, genreReceipt, donateValue);
         });
       }
     }).catchError((err) {
@@ -526,25 +544,24 @@ Future <void> getSellerInfo (String sellerReceipt, String genreReceipt, String d
     });
   }
 
-  Future <void> share (BuildContext context, List sellerInfo, String genreReceipt, String donateValue) async
-  {
+  Future<void> share(BuildContext context, List sellerInfo, String genreReceipt,
+      String donateValue) async {
     Map sellerInfoMap = sellerInfo.asMap();
-    String sellerID = sellerInfoMap [0]["sellerid"];
-    String sellerName = sellerInfoMap [0]["name"];
-    String sellerEmail = sellerInfoMap [0]["email"];
-    String sellerPhone = sellerInfoMap [0]["contact"];
+    String sellerID = sellerInfoMap[0]["sellerid"];
+    String sellerName = sellerInfoMap[0]["name"];
+    String sellerEmail = sellerInfoMap[0]["email"];
+    String sellerPhone = sellerInfoMap[0]["contact"];
 
     final RenderBox box = context.findRenderObject();
-    final String text1 = "Your sales have been deducted for 20% as the donation to Gifhope sucessfully!";
-    final String text2 = " Here's your receipt \n Seller ID: $sellerID \n Name: $sellerName \n Phone: $sellerPhone \n Email: $sellerEmail \n Genre: $genreReceipt \n Amount: RM $donateValue \n THANK YOU! ";
-    
-    await Share.share (
-      text2, 
-      subject: text1,
-      sharePositionOrigin: box.localToGlobal (Offset.zero) & box.size,
-    );
-    
-  }
+    final String text1 =
+        "Your sales have been deducted for 20% as the donation to Gifhope sucessfully!";
+    final String text2 =
+        " Here's your receipt \n Seller ID: $sellerID \n Name: $sellerName \n Phone: $sellerPhone \n Email: $sellerEmail \n Genre: $genreReceipt \n Amount: RM $donateValue \n THANK YOU! ";
 
- 
+    await Share.share(
+      text2,
+      subject: text1,
+      sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
+    );
+  }
 }

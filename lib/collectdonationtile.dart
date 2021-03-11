@@ -193,7 +193,6 @@ class _CollectDonationTileScreenState extends State<CollectDonationTileScreen> {
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                       fontSize: 20,
-                                                    
                                                   )),
                                             ),
                                           ],
@@ -247,5 +246,8 @@ class _CollectDonationTileScreenState extends State<CollectDonationTileScreen> {
             builder: (BuildContext context) => CollectDonationScreen(
                   collect: salesDonate,
                 )));
+
+    _loadSalesTile();
+    
   }
 }
