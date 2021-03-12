@@ -87,6 +87,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                         setState(() {
                           selectedMonth = newValue;
                           print(selectedMonth);
+                          postMonthSelected(selectedMonth);
                         });
                       }),
                 ],
@@ -152,9 +153,8 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
       return salesData;
     }
   }
-}
 
-List<charts.Series<Sales, String>> dataList(List<dynamic> apiData) {
+  List<charts.Series<Sales, String>> dataList(List<dynamic> apiData) {
   List<Sales> list = new List();
 
   for (int i = 0; i < apiData.length; i++) {
@@ -180,3 +180,30 @@ List<charts.Series<Sales, String>> dataList(List<dynamic> apiData) {
         colorFn: (Sales sales, _) => charts.MaterialPalette.red.shadeDefault),
   ];
 }
+
+
+  Future postMonthSelected(String monthSelected) async {
+    String urlLoadJobs = "https://yitengsze.com/a_gifhope/php/get_monthSelected.php";
+    await http.post(urlLoadJobs, body: {
+
+      "monthSelected" : monthSelected,
+    }).then((res) {
+      if (res.body.contains("nodata")) {
+        print(res.body);
+       
+        setState(() {
+          seriesBarData = null;
+        });
+      } else {
+        setState(() {
+          var extractdata = json.decode(res.body);
+          seriesBarData = extractdata["month"];
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+}
+
+
