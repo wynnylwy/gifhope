@@ -25,7 +25,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   double screenHeight, screenWidth;
-  final dateFormat = new DateFormat('yyyy-MM-dd hh:mm:ss');
+  final dateFormat = new DateFormat(' yyyy-MM-dd hh:mm:ss');
   var parsedDate;
 
   @override
@@ -306,6 +306,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         print(err);
       });
     }
+
+    Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          ProfileScreen(user: widget.user)));
   }
 
   void changeName() {

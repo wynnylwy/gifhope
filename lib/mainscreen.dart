@@ -573,6 +573,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget mainDrawer(BuildContext context) {
+    imageCache.clear();
     return Drawer(
       child: ListView(
         children: <Widget>[
