@@ -59,12 +59,14 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
       ),
       body: Container(
         // color: Colors.blue[100],
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start, 
+          children: [
           Padding(
             padding: EdgeInsets.fromLTRB(150, 10, 5, 50),
             child: Container(
               height: MediaQuery.of(context).size.height * 0.05,
-            //  color: Colors.red,
+              color: Colors.red,
               child: Row(
                 children: [
                   Text("Month Selected: ",
@@ -106,10 +108,17 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                 decoration: TextDecoration.underline,
               )),
           ),
+
+          selectedMonth == null 
+          ? Container(
+            color: Colors.red,
+          )
+          :
           Container(
+            color: Colors.yellow,
             height: MediaQuery.of(context).size.height * 0.60,
             child: FutureBuilder(
-                future: getData(),
+                future: getData(selectedMonth),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.none ||
                       snapshot.hasData == false) {
@@ -138,19 +147,31 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
     );
   }
 
-  Future getData() async {
+  Future getData(String selectedMonth) async {
     String urlLoadJobs =
         "https://yitengsze.com/a_gifhope/php/load_salesReport.php";
-    final res = await http.get(urlLoadJobs);
+    final res = await http.post(urlLoadJobs, body: {
+
+      "selectedMonth" : selectedMonth,
+    });
 
     if (res.body.contains("nodata")) {
       return false;
-    } else {
-      Map<String, dynamic> map =
-          json.decode(res.body); //json decode will return dynamic
-      final List<dynamic> salesData = map["sales"].toList();
+    } 
+    
+    else {
+      // Map<String, dynamic> map =
+      //     json.decode(res.body); //json decode will return dynamic
+      // final List<dynamic> salesData = map["sales"].toList();
 
-      return salesData;
+      
+
+      
+         Map<String, dynamic> map =  json.decode(res.body);
+           final List<dynamic> salesData = map["sales"].toList();
+        return salesData;
+
+      
     }
   }
 
