@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:http/http.dart' as http;
+import 'package:shimmer/shimmer.dart';
 
 import 'sales.dart';
 
@@ -31,6 +32,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
   ];
 
   String selectedMonth;
+  String titlecenter = "No Records";
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +61,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
       ),
       body: Container(
         // color: Colors.blue[100],
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start, 
-          children: [
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Padding(
             padding: EdgeInsets.fromLTRB(150, 10, 5, 50),
             child: Container(
@@ -70,9 +70,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
               child: Row(
                 children: [
                   Text("Month Selected: ",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold
-                        )),
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   SizedBox(width: 25),
                   DropdownButton(
                       hint: Text("Month"),
@@ -96,52 +94,61 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
               ),
             ),
           ),
-
           SizedBox(height: 20),
           Align(
             alignment: Alignment.centerLeft,
-            child: Text(
-              "RM",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-              )),
+            child: Text("RM",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                )),
           ),
-
-          selectedMonth == null 
-          ? Container(
-            color: Colors.red,
-          )
-          :
-          Container(
-            color: Colors.yellow,
-            height: MediaQuery.of(context).size.height * 0.60,
-            child: FutureBuilder(
-                future: getData(selectedMonth),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState == ConnectionState.none ||
-                      snapshot.hasData == false) {
-                    return Center(child: CircularProgressIndicator());
-                  } else {
-                    return new charts.BarChart(
-                      dataList(snapshot.data),
-                      vertical: true,
-                      animate: true,
-                      barGroupingType: charts.BarGroupingType.grouped,
-                      behaviors: [
-                        new charts.SeriesLegend(
-                          position: charts.BehaviorPosition.bottom,
-                          horizontalFirst: false, //legend show vertically
-                        )
-                      ],
-                      animationDuration: Duration(
-                        microseconds: 2000,
-                      ),
-                    );
-                  }
-                }),
-          ),
+          selectedMonth == null
+              ? Container(
+                  color: Colors.red,
+                  height: MediaQuery.of(context).size.height * 0.60,
+                  child: Center(
+                      child: Shimmer.fromColors(
+                          baseColor: Colors.yellow[500],
+                          highlightColor: Colors.white,
+                          child: Text(
+                            titlecenter,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Mogra',
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold),
+                          ))),
+                )
+              : Container(
+                  color: Colors.yellow,
+                  height: MediaQuery.of(context).size.height * 0.60,
+                  child: FutureBuilder(
+                      future: getData(selectedMonth),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState == ConnectionState.none ||
+                            snapshot.hasData == false) {
+                          return Center(child: CircularProgressIndicator());
+                        } else {
+                          return new charts.BarChart(
+                            dataList(snapshot.data),
+                            vertical: true,
+                            animate: true,
+                            barGroupingType: charts.BarGroupingType.grouped,
+                            behaviors: [
+                              new charts.SeriesLegend(
+                                position: charts.BehaviorPosition.bottom,
+                                horizontalFirst: false, //legend show vertically
+                              )
+                            ],
+                            animationDuration: Duration(
+                              microseconds: 2000,
+                            ),
+                          );
+                        }
+                      }),
+                ),
         ]),
       ),
     );
@@ -151,67 +158,59 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
     String urlLoadJobs =
         "https://yitengsze.com/a_gifhope/php/load_salesReport.php";
     final res = await http.post(urlLoadJobs, body: {
-
-      "selectedMonth" : selectedMonth,
+      "selectedMonth": selectedMonth,
     });
 
     if (res.body.contains("nodata")) {
       return false;
-    } 
-    
-    else {
+    } else {
       // Map<String, dynamic> map =
       //     json.decode(res.body); //json decode will return dynamic
       // final List<dynamic> salesData = map["sales"].toList();
 
-      
-
-      
-         Map<String, dynamic> map =  json.decode(res.body);
-           final List<dynamic> salesData = map["sales"].toList();
-        return salesData;
-
-      
+      Map<String, dynamic> map = json.decode(res.body);
+      final List<dynamic> salesData = map["sales"].toList();
+      return salesData;
     }
   }
 
   List<charts.Series<Sales, String>> dataList(List<dynamic> apiData) {
-  List<Sales> list = new List();
+    List<Sales> list = new List();
 
-  for (int i = 0; i < apiData.length; i++) {
-    list.add(new Sales(
-      apiData[i]['genre'],
-      apiData[i]['sales'],
-      apiData[i]['donate'],
-    ));
+    for (int i = 0; i < apiData.length; i++) {
+      list.add(new Sales(
+        apiData[i]['genre'],
+        apiData[i]['sales'],
+        apiData[i]['donate'],
+      ));
+    }
+
+    return [
+      new charts.Series<Sales, String>(
+          id: 'Product Sales',
+          data: list,
+          domainFn: (Sales sales, _) => sales.genre,
+          measureFn: (Sales sales, _) => int.parse(sales.totsales),
+          colorFn: (Sales sales, _) =>
+              charts.MaterialPalette.blue.shadeDefault),
+      new charts.Series<Sales, String>(
+          id: 'Collected Donation',
+          data: list,
+          domainFn: (Sales sales, _) => sales.genre,
+          measureFn: (Sales sales, _) => int.parse(sales.donate),
+          colorFn: (Sales sales, _) => charts.MaterialPalette.red.shadeDefault),
+    ];
   }
 
-  return [
-    new charts.Series<Sales, String>(
-        id: 'Product Sales',
-        data: list,
-        domainFn: (Sales sales, _) => sales.genre,
-        measureFn: (Sales sales, _) => int.parse(sales.totsales),
-        colorFn: (Sales sales, _) => charts.MaterialPalette.blue.shadeDefault),
-    new charts.Series<Sales, String>(
-        id: 'Collected Donation',
-        data: list,
-        domainFn: (Sales sales, _) => sales.genre,
-        measureFn: (Sales sales, _) => int.parse(sales.donate),
-        colorFn: (Sales sales, _) => charts.MaterialPalette.red.shadeDefault),
-  ];
-}
-
-
   Future postMonthSelected(String monthSelected) async {
-    String urlLoadJobs = "https://yitengsze.com/a_gifhope/php/get_monthSelected.php";
+    String urlLoadJobs =
+        "https://yitengsze.com/a_gifhope/php/get_monthSelected.php";
     await http.post(urlLoadJobs, body: {
-
-      "monthSelected" : monthSelected,
+      "monthSelected": monthSelected,
     }).then((res) {
       if (res.body.contains("nodata")) {
         print(res.body);
-       
+
         setState(() {
           seriesBarData = null;
         });
@@ -226,5 +225,3 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
     });
   }
 }
-
-
