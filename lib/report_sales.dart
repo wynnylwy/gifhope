@@ -32,7 +32,6 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
   ];
 
   String selectedMonth;
-  String titlecenter = "No Records";
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +69,9 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
               child: Row(
                 children: [
                   Text("Month Selected: ",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold)),
                   SizedBox(width: 25),
                   DropdownButton(
                       hint: Text("Month"),
@@ -105,27 +106,45 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
           ),
           selectedMonth == null && salesData == null
               ? Container(
-                 // color: Colors.red,
-                  height: MediaQuery.of(context).size.height * 0.60,
+                  height: MediaQuery.of(context).size.height * 0.65,
                   child: Center(
                       child: Shimmer.fromColors(
                           baseColor: Colors.indigo[800],
                           highlightColor: Colors.blue[200],
-                          child: Text(
-                            titlecenter,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Mogra',
-                                fontSize: 40.0,
-                                fontWeight: FontWeight.bold),
-                          ))),
-                )
+                          child: Center(
+                                child: Shimmer.fromColors(
+                                    baseColor: Colors.indigo[800],
+                                    highlightColor: Colors.blue[200],
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                      Text(
+                                        "No Records",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Mogra',
+                                            fontSize: 38.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Please select month",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Mogra',
+                                            fontSize: 30.0,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ]))),
+                )))
               : Container(
                   //color: Colors.yellow,
-                  height: MediaQuery.of(context).size.height * 0.60,
+                  height: MediaQuery.of(context).size.height * 0.65,
                   child: FutureBuilder(
                       future: getData(selectedMonth),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      builder: (BuildContext context, AsyncSnapshot snapshot) 
+                      {
                         if (snapshot.connectionState == ConnectionState.none ||
                             snapshot.hasData == false) {
                           return Center(child: CircularProgressIndicator());
@@ -133,8 +152,6 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                         else if (snapshot.hasData == true &&
                             snapshot.data == false) {
                           return Container(
-                            //color: Colors.red,
-                            height: MediaQuery.of(context).size.height * 0.60,
                             child: Center(
                                 child: Shimmer.fromColors(
                                     baseColor: Colors.indigo[800],
@@ -148,7 +165,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'Mogra',
-                                            fontSize: 40.0,
+                                            fontSize: 38.0,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
@@ -157,14 +174,16 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'Mogra',
-                                            fontSize: 32.0,
+                                            fontSize: 30.0,
                                             fontWeight: FontWeight.bold),
                                       )
-                                    ]))),
+                                    ])
+                                    )),
                           );
                         } 
                         
-                        else {
+                        else 
+                        {
                           return new charts.BarChart(
                             dataList(snapshot.data),
                             vertical: true,
@@ -195,11 +214,14 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
       "selectedMonth": selectedMonth,
     });
 
-    if (res.body.contains("nodata")) {
+    if (res.body.contains("nodata")) 
+    {
       return false;
-    } else {
-      Map<String, dynamic> map =
-          json.decode(res.body); //json decode will return dynamic
+    } 
+    
+    else 
+    {
+      Map<String, dynamic> map = json.decode(res.body); //json decode will return dynamic
       salesData = map["sales"].toList();
 
       return salesData;
