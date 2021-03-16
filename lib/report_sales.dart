@@ -15,8 +15,6 @@ class SalesReportScreen extends StatefulWidget {
 }
 
 class _SalesReportScreenState extends State<SalesReportScreen> {
-  List<charts.Series<Sales, String>> seriesBarData;
-
   List<dynamic> salesData;
   List<String> listMonth = [
     "January",
@@ -34,7 +32,6 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
   ];
 
   String selectedMonth;
-  var nullValue;
   String titlecenter = "No Records";
 
   @override
@@ -90,7 +87,6 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                         setState(() {
                           selectedMonth = newValue;
                           print(selectedMonth);
-                          //  postMonthSelected(selectedMonth);
                         });
                       }),
                 ],
@@ -109,18 +105,18 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
           ),
           selectedMonth == null && salesData == null
               ? Container(
-                  color: Colors.red,
+                 // color: Colors.red,
                   height: MediaQuery.of(context).size.height * 0.60,
                   child: Center(
                       child: Shimmer.fromColors(
-                          baseColor: Colors.yellow[500],
-                          highlightColor: Colors.white,
+                          baseColor: Colors.indigo[800],
+                          highlightColor: Colors.blue[200],
                           child: Text(
                             titlecenter,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Mogra',
-                                fontSize: 25.0,
+                                fontSize: 40.0,
                                 fontWeight: FontWeight.bold),
                           ))),
                 )
@@ -134,29 +130,41 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                             snapshot.hasData == false) {
                           return Center(child: CircularProgressIndicator());
                         } 
-                        
                         else if (snapshot.hasData == true &&
                             snapshot.data == false) {
                           return Container(
-                            color: Colors.red,
+                            //color: Colors.red,
                             height: MediaQuery.of(context).size.height * 0.60,
                             child: Center(
                                 child: Shimmer.fromColors(
-                                    baseColor: Colors.yellow[500],
-                                    highlightColor: Colors.white,
-                                    child: Text(
-                                      "Null",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: 'Mogra',
-                                          fontSize: 25.0,
-                                          fontWeight: FontWeight.bold),
-                                    ))),
+                                    baseColor: Colors.indigo[800],
+                                    highlightColor: Colors.blue[200],
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                      Text(
+                                        "No Records",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Mogra',
+                                            fontSize: 40.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Please reselect month",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Mogra',
+                                            fontSize: 32.0,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ]))),
                           );
                         } 
                         
-                        else 
-                        {
+                        else {
                           return new charts.BarChart(
                             dataList(snapshot.data),
                             vertical: true,
@@ -180,21 +188,16 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
     );
   }
 
-  Future getData(String selectedMonth) async 
-  {
+  Future getData(String selectedMonth) async {
     String urlLoadJobs =
         "https://yitengsze.com/a_gifhope/php/load_salesReport.php";
     final res = await http.post(urlLoadJobs, body: {
       "selectedMonth": selectedMonth,
     });
 
-    if (res.body.contains("nodata")) 
-    {
+    if (res.body.contains("nodata")) {
       return false;
-    } 
-    
-    else 
-    {
+    } else {
       Map<String, dynamic> map =
           json.decode(res.body); //json decode will return dynamic
       salesData = map["sales"].toList();
@@ -229,28 +232,5 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
           measureFn: (Sales sales, _) => int.parse(sales.donate),
           colorFn: (Sales sales, _) => charts.MaterialPalette.red.shadeDefault),
     ];
-  }
-
-  Future postMonthSelected(String monthSelected) async {
-    String urlLoadJobs =
-        "https://yitengsze.com/a_gifhope/php/get_monthSelected.php";
-    await http.post(urlLoadJobs, body: {
-      "monthSelected": monthSelected,
-    }).then((res) {
-      if (res.body.contains("nodata")) {
-        print(res.body);
-
-        setState(() {
-          seriesBarData = null;
-        });
-      } else {
-        setState(() {
-          var extractdata = json.decode(res.body);
-          seriesBarData = extractdata["month"];
-        });
-      }
-    }).catchError((err) {
-      print(err);
-    });
   }
 }
