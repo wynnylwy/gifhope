@@ -16,6 +16,8 @@ class SalesReportScreen extends StatefulWidget {
 
 class _SalesReportScreenState extends State<SalesReportScreen> {
   List<charts.Series<Sales, String>> seriesBarData;
+
+  List<dynamic> salesData;
   List<String> listMonth = [
     "January",
     "February",
@@ -32,6 +34,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
   ];
 
   String selectedMonth;
+  var nullValue;
   String titlecenter = "No Records";
 
   @override
@@ -66,7 +69,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
             padding: EdgeInsets.fromLTRB(150, 10, 5, 50),
             child: Container(
               height: MediaQuery.of(context).size.height * 0.05,
-              color: Colors.red,
+              // color: Colors.red,
               child: Row(
                 children: [
                   Text("Month Selected: ",
@@ -87,7 +90,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                         setState(() {
                           selectedMonth = newValue;
                           print(selectedMonth);
-                          postMonthSelected(selectedMonth);
+                          //  postMonthSelected(selectedMonth);
                         });
                       }),
                 ],
@@ -104,7 +107,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                   decoration: TextDecoration.underline,
                 )),
           ),
-          selectedMonth == null
+          selectedMonth == null && salesData == null
               ? Container(
                   color: Colors.red,
                   height: MediaQuery.of(context).size.height * 0.60,
@@ -122,7 +125,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                           ))),
                 )
               : Container(
-                  color: Colors.yellow,
+                  //color: Colors.yellow,
                   height: MediaQuery.of(context).size.height * 0.60,
                   child: FutureBuilder(
                       future: getData(selectedMonth),
@@ -130,7 +133,30 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                         if (snapshot.connectionState == ConnectionState.none ||
                             snapshot.hasData == false) {
                           return Center(child: CircularProgressIndicator());
-                        } else {
+                        } 
+                        
+                        else if (snapshot.hasData == true &&
+                            snapshot.data == false) {
+                          return Container(
+                            color: Colors.red,
+                            height: MediaQuery.of(context).size.height * 0.60,
+                            child: Center(
+                                child: Shimmer.fromColors(
+                                    baseColor: Colors.yellow[500],
+                                    highlightColor: Colors.white,
+                                    child: Text(
+                                      "Null",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'Mogra',
+                                          fontSize: 25.0,
+                                          fontWeight: FontWeight.bold),
+                                    ))),
+                          );
+                        } 
+                        
+                        else 
+                        {
                           return new charts.BarChart(
                             dataList(snapshot.data),
                             vertical: true,
@@ -154,22 +180,25 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
     );
   }
 
-  Future getData(String selectedMonth) async {
+  Future getData(String selectedMonth) async 
+  {
     String urlLoadJobs =
         "https://yitengsze.com/a_gifhope/php/load_salesReport.php";
     final res = await http.post(urlLoadJobs, body: {
       "selectedMonth": selectedMonth,
     });
 
-    if (res.body.contains("nodata")) {
+    if (res.body.contains("nodata")) 
+    {
       return false;
-    } else {
-      // Map<String, dynamic> map =
-      //     json.decode(res.body); //json decode will return dynamic
-      // final List<dynamic> salesData = map["sales"].toList();
+    } 
+    
+    else 
+    {
+      Map<String, dynamic> map =
+          json.decode(res.body); //json decode will return dynamic
+      salesData = map["sales"].toList();
 
-      Map<String, dynamic> map = json.decode(res.body);
-      final List<dynamic> salesData = map["sales"].toList();
       return salesData;
     }
   }
