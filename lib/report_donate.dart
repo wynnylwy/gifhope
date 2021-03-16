@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:http/http.dart' as http;
+import 'package:shimmer/shimmer.dart';
 
 import 'cdonate.dart';
 
@@ -14,7 +15,7 @@ class DonateReportScreen extends StatefulWidget {
 }
 
 class _DonateReportScreenState extends State<DonateReportScreen> {
-  List<charts.Series<CDonate, String>> seriesBarData;
+  List<dynamic> donateData;
 
   List<String> listMonth = [
     "January",
@@ -59,9 +60,7 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
                 color: Colors.black)),
       ),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start, 
-          children: [
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Padding(
             padding: EdgeInsets.fromLTRB(150, 10, 5, 50),
             child: Container(
@@ -69,12 +68,11 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
               child: Row(
                 children: [
                   Text("Month Selected: ",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold
-                        )),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                   SizedBox(width: 25),
                   DropdownButton(
-                    hint: Text("Month"),
+                      hint: Text("Month"),
                       value: selectedMonth,
                       items: listMonth.map((selectedMonth) {
                         return DropdownMenuItem(
@@ -104,49 +102,123 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
                   decoration: TextDecoration.underline,
                 )),
           ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: FutureBuilder(
-                future: getData(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState == ConnectionState.none ||
-                      snapshot.hasData == false) {
-                    return Center(child: CircularProgressIndicator());
-                  } else {
-                    return new charts.BarChart(
-                      dataList(snapshot.data),
-                      vertical: true,
-                      animate: true,
-                      barGroupingType: charts.BarGroupingType.grouped,
-                      behaviors: [
-                        new charts.SeriesLegend(
-                          position: charts.BehaviorPosition.bottom,
-                          horizontalFirst: false, //legend show vertically
-                        )
-                      ],
-                      animationDuration: Duration(
-                        microseconds: 2000,
-                      ),
-                    );
-                  }
-                }),
-          ),
+          selectedMonth == null && donateData == null
+              ? Container(
+                  height: MediaQuery.of(context).size.height * 0.65,
+                  child: Center(
+                          child: Shimmer.fromColors(
+                                    baseColor: Colors.black87,
+                                    highlightColor: Colors.amber[800],
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                      Text(
+                                        "No Records",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Mogra',
+                                            fontSize: 38.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Please select month",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Mogra',
+                                            fontSize: 30.0,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ]))),
+                )
+              : Container(
+                  height: MediaQuery.of(context).size.height * 0.60,
+                  child: FutureBuilder(
+                      future: getData(selectedMonth),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState == ConnectionState.none ||
+                            snapshot.hasData == false) 
+                        { 
+                          return Center(
+                            child: CircularProgressIndicator());
+                        }
+
+                        else if (snapshot.hasData == true &&
+                            snapshot.data == false) 
+                        { 
+                          return Container(
+                            child: Center(
+                                child: Shimmer.fromColors(
+                                    baseColor: Colors.black87,
+                                    highlightColor: Colors.amber[800],
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                      Text(
+                                        "No Records",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Mogra',
+                                            fontSize: 38.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Please reselect month",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Mogra',
+                                            fontSize: 30.0,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ]))),
+                          );
+                        } 
+                        
+                        else 
+                        {
+                          return new charts.BarChart(
+                            dataList(snapshot.data),
+                            vertical: true,
+                            animate: true,
+                            barGroupingType: charts.BarGroupingType.grouped,
+                            behaviors: [
+                              new charts.SeriesLegend(
+                                position: charts.BehaviorPosition.bottom,
+                                horizontalFirst: false, //legend show vertically
+                              )
+                            ],
+                            animationDuration: Duration(
+                              microseconds: 2000,
+                            ),
+                          );
+                        }
+                      }),
+                ),
         ]),
       ),
     );
   }
 
-  Future getData() async {
+  Future getData(String selectedMonth) async {
     String urlLoadJobs =
         "https://yitengsze.com/a_gifhope/php/load_donationReport.php";
-    final res = await http.get(urlLoadJobs);
+    final res = await http.post(urlLoadJobs, body: {
+      "selectedMonth": selectedMonth,
+    });
 
-    if (res.body.contains("nodata")) {
+    if (res.body.contains("nodata")) 
+    {
       return false;
-    } else {
+    } 
+    
+    else 
+    {
       Map<String, dynamic> map =
           json.decode(res.body); //json decode will return dynamic
-      final List<dynamic> donateData = map["donate"].toList();
+      donateData = map["donate"].toList();
 
       return donateData;
     }
