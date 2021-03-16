@@ -2,7 +2,13 @@
 error_reporting(0);
 include_once ("dbconnect.php");
 
-$sql = "SELECT * FROM z_salesdonation";
+$selectedMonth = $_POST['selectedMonth'];
+
+if (isset($selectedMonth)){
+    
+  $sql = "SELECT GENRE, SALES, DONATE FROM z_salesdonation WHERE MONTHNAME(DATE)= '$selectedMonth'";
+    
+}
 
 $result = $conn->query($sql);
 
