@@ -62,7 +62,7 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
       body: Container(
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(150, 10, 5, 50),
+            padding: EdgeInsets.fromLTRB(150, 10, 5, 10),
             child: Container(
               height: MediaQuery.of(context).size.height * 0.05,
               child: Row(
@@ -92,7 +92,25 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          Padding(
+            padding: EdgeInsets.fromLTRB(220, 5, 10, 5),
+            child: Row(children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height * 0.025,
+                width: MediaQuery.of(context).size.width * 0.06,
+                color: Colors.red,
+              ),
+              SizedBox(width: 10),
+              Text(
+                "Collected Donation",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ]),
+          ),
+          SizedBox(height:20),
           Align(
             alignment: Alignment.centerLeft,
             child: Text("RM",
@@ -106,31 +124,31 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
               ? Container(
                   height: MediaQuery.of(context).size.height * 0.65,
                   child: Center(
-                          child: Shimmer.fromColors(
-                                    baseColor: Colors.black87,
-                                    highlightColor: Colors.amber[800],
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                      Text(
-                                        "No Records",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Mogra',
-                                            fontSize: 38.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "Please select month",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Mogra',
-                                            fontSize: 30.0,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ]))),
+                      child: Shimmer.fromColors(
+                          baseColor: Colors.black87,
+                          highlightColor: Colors.amber[800],
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "No Records",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Mogra',
+                                      fontSize: 38.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "Please select month",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Mogra',
+                                      fontSize: 30.0,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ]))),
                 )
               : Container(
                   height: MediaQuery.of(context).size.height * 0.60,
@@ -138,58 +156,45 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
                       future: getData(selectedMonth),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.none ||
-                            snapshot.hasData == false) 
-                        { 
-                          return Center(
-                            child: CircularProgressIndicator());
-                        }
-
-                        else if (snapshot.hasData == true &&
-                            snapshot.data == false) 
-                        { 
+                            snapshot.hasData == false) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasData == true &&
+                            snapshot.data == false) {
                           return Container(
                             child: Center(
                                 child: Shimmer.fromColors(
                                     baseColor: Colors.black87,
                                     highlightColor: Colors.amber[800],
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                      Text(
-                                        "No Records",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Mogra',
-                                            fontSize: 38.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "Please reselect month",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Mogra',
-                                            fontSize: 30.0,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ]))),
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            "No Records",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Mogra',
+                                                fontSize: 38.0,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            "Please reselect month",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Mogra',
+                                                fontSize: 30.0,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ]))),
                           );
-                        } 
-                        
-                        else 
-                        {
+                        } else {
                           return new charts.BarChart(
                             dataList(snapshot.data),
                             vertical: true,
                             animate: true,
                             barGroupingType: charts.BarGroupingType.grouped,
-                            behaviors: [
-                              new charts.SeriesLegend(
-                                position: charts.BehaviorPosition.bottom,
-                                horizontalFirst: false, //legend show vertically
-                              )
-                            ],
                             animationDuration: Duration(
                               microseconds: 2000,
                             ),
@@ -209,13 +214,9 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
       "selectedMonth": selectedMonth,
     });
 
-    if (res.body.contains("nodata")) 
-    {
+    if (res.body.contains("nodata")) {
       return false;
-    } 
-    
-    else 
-    {
+    } else {
       Map<String, dynamic> map =
           json.decode(res.body); //json decode will return dynamic
       donateData = map["donate"].toList();

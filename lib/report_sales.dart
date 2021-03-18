@@ -62,16 +62,15 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
         // color: Colors.blue[100],
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(150, 10, 5, 50),
+            padding: EdgeInsets.fromLTRB(150, 10, 5, 5),
             child: Container(
               height: MediaQuery.of(context).size.height * 0.05,
               // color: Colors.red,
               child: Row(
                 children: [
                   Text("Month Selected: ",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold)),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                   SizedBox(width: 25),
                   DropdownButton(
                       hint: Text("Month"),
@@ -94,6 +93,42 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
               ),
             ),
           ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(220, 5, 10, 5),
+            child: Column(children: <Widget>[
+              Row(children: <Widget>[
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.025,
+                  width: MediaQuery.of(context).size.width * 0.06,
+                  color: Colors.blue,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  "Product Sales",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ]),
+              SizedBox(height: 10),
+              Row(children: <Widget>[
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.025,
+                  width: MediaQuery.of(context).size.width * 0.06,
+                  color: Colors.red,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  "Collected Donation",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ]),
+            ]),
+          ),
           SizedBox(height: 20),
           Align(
             alignment: Alignment.centerLeft,
@@ -109,47 +144,45 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                   height: MediaQuery.of(context).size.height * 0.65,
                   child: Center(
                       child: Shimmer.fromColors(
-                          baseColor: Colors.indigo[800],
-                          highlightColor: Colors.blue[200],
-                          child: Center(
-                                child: Shimmer.fromColors(
-                                    baseColor: Colors.indigo[800],
-                                    highlightColor: Colors.blue[200],
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                      Text(
-                                        "No Records",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Mogra',
-                                            fontSize: 38.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "Please select month",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Mogra',
-                                            fontSize: 30.0,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ]))),
-                )))
+                    baseColor: Colors.indigo[800],
+                    highlightColor: Colors.blue[200],
+                    child: Center(
+                        child: Shimmer.fromColors(
+                            baseColor: Colors.indigo[800],
+                            highlightColor: Colors.blue[200],
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    "No Records",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'Mogra',
+                                        fontSize: 38.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "Please select month",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'Mogra',
+                                        fontSize: 30.0,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ]))),
+                  )))
               : Container(
                   //color: Colors.yellow,
                   height: MediaQuery.of(context).size.height * 0.65,
                   child: FutureBuilder(
                       future: getData(selectedMonth),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) 
-                      {
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.none ||
                             snapshot.hasData == false) {
                           return Center(child: CircularProgressIndicator());
-                        } 
-                        else if (snapshot.hasData == true &&
+                        } else if (snapshot.hasData == true &&
                             snapshot.data == false) {
                           return Container(
                             child: Center(
@@ -157,44 +190,35 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                                     baseColor: Colors.indigo[800],
                                     highlightColor: Colors.blue[200],
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                      Text(
-                                        "No Records",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Mogra',
-                                            fontSize: 38.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "Please reselect month",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Mogra',
-                                            fontSize: 30.0,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ])
-                                    )),
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            "No Records",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Mogra',
+                                                fontSize: 38.0,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            "Please reselect month",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Mogra',
+                                                fontSize: 30.0,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ]))),
                           );
-                        } 
-                        
-                        else 
-                        {
+                        } else {
                           return new charts.BarChart(
                             dataList(snapshot.data),
                             vertical: true,
                             animate: true,
                             barGroupingType: charts.BarGroupingType.grouped,
-                            behaviors: [
-                              new charts.SeriesLegend(
-                                position: charts.BehaviorPosition.bottom,
-                                horizontalFirst: false, //legend show vertically
-                              )
-                            ],
                             animationDuration: Duration(
                               microseconds: 2000,
                             ),
@@ -214,14 +238,11 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
       "selectedMonth": selectedMonth,
     });
 
-    if (res.body.contains("nodata")) 
-    {
+    if (res.body.contains("nodata")) {
       return false;
-    } 
-    
-    else 
-    {
-      Map<String, dynamic> map = json.decode(res.body); //json decode will return dynamic
+    } else {
+      Map<String, dynamic> map =
+          json.decode(res.body); //json decode will return dynamic
       salesData = map["sales"].toList();
 
       return salesData;
