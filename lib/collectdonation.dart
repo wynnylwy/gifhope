@@ -442,6 +442,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                 MaterialButton(
                   child: Text("Yes",
                       style: TextStyle(
+                        fontSize: 16,
                         color: Colors.black,
                       )),
                   onPressed: () {
@@ -452,6 +453,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                 MaterialButton(
                   child: Text("Cancel",
                       style: TextStyle(
+                        fontSize: 16,
                         color: Colors.black,
                       )),
                   onPressed: () {
