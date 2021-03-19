@@ -112,108 +112,99 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                       visible: _visible,
                       child: Card(
                         elevation: 10,
-                        child: Padding(
-                          padding: EdgeInsets.all(5),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: <Widget>[
                                 Column(
                                   children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Recent"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.update,
-                                            size: 35.0,
-                                            color: Colors.black,
+                                    Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 15,
+                                            bottom: 15,
+                                            left: 10,
+                                            right: 10),
+                                        child: TextButton(
+                                          onPressed: () => _sortItem("Recent"),
+                                          child: new Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              new Icon(
+                                                MdiIcons.update,
+                                                size: 55.0,
+                                                color: Colors.black,
+                                              ),
+                                              new Text(
+                                                "Recent",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: 15.0),
+                                              )
+                                            ],
                                           ),
-                                          Text(
-                                            "Recent",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                        ))
                                   ],
                                 ),
                                 SizedBox(width: 3),
                                 Column(
                                   children: <Widget>[
                                     Padding(
-                                        padding: EdgeInsets.only(top:15, bottom: 15, left:10, right:10),
-                                        child: RaisedButton(
-                                          onPressed: () => _sortItem("COVID-19"),
-                                          elevation: 12,
-                                          color: Colors.white,
-
+                                        padding: EdgeInsets.all(5),
+                                        child: TextButton(
+                                          onPressed: () =>
+                                              _sortItem("COVID-19"),
                                           child: new Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               new Image.asset(
-                                                  'assets/images/covid19.png',
-                                                  height: 55,
-                                                  width: 50,
-                                                  fit: BoxFit.fitWidth,
-                                                ),
-                                              
+                                                'assets/images/covid19.png',
+                                                height: 60,
+                                                width: 50,
+                                                fit: BoxFit.fitWidth,
+                                              ),
                                               new Text(
-                                                    "COVID-19",
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 15.0),
-                                                  )
+                                                "COVID-19",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: 15.0),
+                                              )
                                             ],
                                           ),
                                         ))
-                                    // FlatButton(
-                                    //   onPressed: () => _sortItem("COVID-19"),
-                                    //   color: Colors.yellow[400],
-                                    //   padding: EdgeInsets.all(10),
-                                    //   child: Column(
-                                    //     children: <Widget>[
-                                    //       Icon(
-                                    //         Icons.coronavirus,
-                                    //         size: 35.0,
-                                    //         color: Colors.black,
-                                    //       ),
-                                    //       Text(
-                                    //         "COVID-19",
-                                    //         style:
-                                    //             TextStyle(color: Colors.black),
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                                 SizedBox(width: 3),
                                 Column(
                                   children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () =>
-                                          _sortItem("Food Security"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.food_bank,
-                                            size: 35.0,
-                                            color: Colors.black,
+                                    Padding(
+                                        padding: EdgeInsets.all(5),
+                                        child: TextButton(
+                                          onPressed: () =>
+                                              _sortItem("Food Security"),
+                                          child: new Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              new Image.asset(
+                                                'assets/images/food.png',
+                                                height: 60,
+                                                width: 75,
+                                                fit: BoxFit.fitWidth,
+                                              ),
+                                              new Text(
+                                                "Food Security",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: 15.0),
+                                              )
+                                            ],
                                           ),
-                                          Text(
-                                            "Food Security",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                        ))
                                   ],
                                 ),
                                 SizedBox(
@@ -221,25 +212,31 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                 ),
                                 Column(
                                   children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Children"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.child_care,
-                                            size: 35.0,
-                                            color: Colors.black,
+                                    Padding(
+                                        padding: EdgeInsets.all(5),
+                                        child: TextButton(
+                                          onPressed: () =>
+                                              _sortItem("Children"),
+                                          child: new Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              new Image.asset(
+                                                'assets/images/refugee.png',
+                                                height: 65,
+                                                width: 70,
+                                                fit: BoxFit.fitWidth,
+                                              ),
+                                              new Text(
+                                                "Children",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: 15.0),
+                                              )
+                                            ],
                                           ),
-                                          Text(
-                                            "Children",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                        ))
                                   ],
                                 ),
                                 SizedBox(
@@ -247,25 +244,31 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                 ),
                                 Column(
                                   children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Education"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.school,
-                                            size: 35.0,
-                                            color: Colors.black,
+                                    Padding(
+                                        padding: EdgeInsets.all(5),
+                                        child: TextButton(
+                                          onPressed: () =>
+                                              _sortItem("Education"),
+                                          child: new Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              new Image.asset(
+                                                'assets/images/education.png',
+                                                height: 65,
+                                                width: 75,
+                                                fit: BoxFit.fitWidth,
+                                              ),
+                                              new Text(
+                                                "Education",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: 15.0),
+                                              )
+                                            ],
                                           ),
-                                          Text(
-                                            "Education",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                        ))
                                   ],
                                 ),
                                 SizedBox(
@@ -273,56 +276,67 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                 ),
                                 Column(
                                   children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Animals"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.dog,
-                                            size: 35.0,
-                                            color: Colors.black,
+                                    Padding(
+                                        padding: EdgeInsets.all(5),
+                                        child: TextButton(
+                                          onPressed: () => _sortItem("Animals"),
+                                          child: new Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              new Image.asset(
+                                                'assets/images/animals.png',
+                                                height: 70,
+                                                width: 75,
+                                                fit: BoxFit.fitWidth,
+                                              ),
+                                              new Text(
+                                                "Animals",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: 15.0),
+                                              )
+                                            ],
                                           ),
-                                          Text(
-                                            "Animals",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                        ))
                                   ],
                                 ),
                                 SizedBox(width: 3),
                                 Column(
                                   children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Disaster"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.emoticonCryOutline,
-                                            size: 35.0,
-                                            color: Colors.black,
+                                    Padding(
+                                        padding: EdgeInsets.all(5),
+                                        child: TextButton(
+                                          onPressed: () =>
+                                              _sortItem("Disaster"),
+                                          child: new Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              new Image.asset(
+                                                'assets/images/disaster.png',
+                                                height: 75,
+                                                width: 70,
+                                                fit: BoxFit.fitWidth,
+                                              ),
+                                              new Text(
+                                                "Disaster",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: 15.0),
+                                              )
+                                            ],
                                           ),
-                                          Text(
-                                            "Disaster",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                        ))
                                   ],
                                 ),
                                 SizedBox(width: 3),
                               ],
                             ),
                           ),
-                        ),
+                        
                       ),
                     ),
 
@@ -379,7 +393,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                     charitydata == null
                         ? Flexible(
                             child: Container(
-                                color: Colors.red[100],
+                                color: Colors.amber[100],
                                 child: Center(
                                   child: Shimmer.fromColors(
                                       baseColor: Colors.black,
@@ -721,57 +735,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
               onTap: () => {
                     _logout(),
                   }),
-
-//Admin Menu    Shopper cannot see charity admin's drawer!! 27/1/2021*
-          // Visibility(
-          //   visible: _isSeller,
-          //   child: Column(
-          //     children: <Widget>[
-          //       Divider(
-          //         height: 3,
-          //         color: Colors.black,
-          //       ),
-          //       Center(
-          //         child: Text("Seller Menu",
-          //             style: TextStyle(
-          //               fontSize: 15,
-          //               fontWeight: FontWeight.bold,
-          //             )),
-          //       ),
-          //       ListTile(
-          //         title:
-          //             Text("Manage Prodcut Info", style: TextStyle(fontSize: 16)),
-          //         trailing: Icon(Icons.arrow_forward),
-          //         onTap: () => {
-          //           Navigator.pop(context),
-          //           Navigator.push(
-          //               context,
-          //               MaterialPageRoute(
-          //                   builder: (BuildContext context) =>
-          //                       AdminProduct(user: widget.user))
-
-          //                       )
-          //         },
-          //       ),
-
-          //       ListTile(
-          //         title:
-          //             Text("View Report", style: TextStyle(fontSize: 16)),
-          //         trailing: Icon(Icons.arrow_forward),
-          //         // onTap: () => {
-          //         //   Navigator.pop(context),
-          //         //   Navigator.push(
-          //         //       context,
-          //         //       MaterialPageRoute(
-          //         //           builder: (BuildContext context) =>
-          //         //               AdminProduct(user: widget.user))
-
-          //         //               )
-          //         // },
-          //       ),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );
