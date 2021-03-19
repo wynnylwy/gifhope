@@ -13,8 +13,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-
-
 import 'report_donate.dart';
 import 'report_sales.dart';
 import 'sampleChart2.dart';
@@ -146,25 +144,51 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                                 SizedBox(width: 3),
                                 Column(
                                   children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("COVID-19"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.coronavirus,
-                                            size: 35.0,
-                                            color: Colors.black,
+                                    Padding(
+                                        padding: EdgeInsets.only(top:15, bottom: 15, left:10, right:10),
+                                        child: RaisedButton(
+                                          onPressed: () => _sortItem("COVID-19"),
+                                          elevation: 12,
+                                          color: Colors.white,
+
+                                          child: new Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              new Image.asset(
+                                                  'assets/images/covid19.png',
+                                                  height: 55,
+                                                  width: 50,
+                                                  fit: BoxFit.fitWidth,
+                                                ),
+                                              
+                                              new Text(
+                                                    "COVID-19",
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 15.0),
+                                                  )
+                                            ],
                                           ),
-                                          Text(
-                                            "COVID-19",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                        ))
+                                    // FlatButton(
+                                    //   onPressed: () => _sortItem("COVID-19"),
+                                    //   color: Colors.yellow[400],
+                                    //   padding: EdgeInsets.all(10),
+                                    //   child: Column(
+                                    //     children: <Widget>[
+                                    //       Icon(
+                                    //         Icons.coronavirus,
+                                    //         size: 35.0,
+                                    //         color: Colors.black,
+                                    //       ),
+                                    //       Text(
+                                    //         "COVID-19",
+                                    //         style:
+                                    //             TextStyle(color: Colors.black),
+                                    //       ),
+                                    //     ],
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 SizedBox(width: 3),
@@ -872,18 +896,15 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                           children: <Widget>[
                             Container(
                               decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.red,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black45,
-                                    blurRadius: 2,
-                                    spreadRadius: 5,
-
-                                  )
-                                ]
-                                
-                              ),
+                                  shape: BoxShape.circle,
+                                  color: Colors.red,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black45,
+                                      blurRadius: 2,
+                                      spreadRadius: 5,
+                                    )
+                                  ]),
                               child: IconButton(
                                 icon: Icon(Icons.close),
                                 iconSize: 18.0,
