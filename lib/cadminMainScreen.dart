@@ -624,118 +624,148 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
 
   Widget mainDrawer(BuildContext context) {
     return Drawer(
-      child: ListView(
-        children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text(widget.user.name,
-                style: TextStyle(fontSize: 18.0, color: Colors.white)),
-            accountEmail: Text(widget.user.email,
-                style: TextStyle(fontSize: 18.0, color: Colors.white)),
-            otherAccountsPictures: <Widget>[
-              Align(
-                alignment: Alignment.topRight,
-                child: Text(widget.user.credit,
-                    style: TextStyle(fontSize: 10.0, color: Colors.white)),
+      child: Container(
+        decoration: BoxDecoration(
+                  gradient: new LinearGradient(
+                      colors: [
+                        const Color(0xFFFBC02D),
+                        const Color(0xFFFDD835),
+                      ],
+                      begin: const FractionalOffset(0.0, 0.0),
+                      end: const FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp),
+                ),
+
+              child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                  gradient: new LinearGradient(
+                      colors: [
+                        const Color(0xFFFBC02D),
+                        const Color(0xFFFDD835),
+                      ],
+                      begin: const FractionalOffset(0.0, 0.0),
+                      end: const FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp),
+                ),
+              accountName: Text(widget.user.name,
+                  style: TextStyle(fontSize: 18.0, color: Colors.black)),
+              accountEmail: Text(widget.user.email,
+                  style: TextStyle(fontSize: 18.0, color: Colors.black)),
+              otherAccountsPictures: <Widget>[
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Text(widget.user.credit,
+                      style: TextStyle(fontSize: 11.8, color: Colors.black)),
+                ),
+              ],
+              currentAccountPicture: CircleAvatar(
+                child: Text(
+                  widget.user.name.toString().substring(0, 1).toUpperCase(),
+                  style: TextStyle(fontSize: 40.0, color: Colors.white),
+                ),
+                backgroundImage: NetworkImage(
+                    "http://yitengsze.com/a_gifhope/profileimages/${widget.user.email}.jpg"),
               ),
-            ],
-            currentAccountPicture: CircleAvatar(
-              backgroundColor:
-                  Theme.of(context).platform == TargetPlatform.android
-                      ? Colors.white
-                      : Colors.white,
-              child: Text(
-                widget.user.name.toString().substring(0, 1).toUpperCase(),
-                style: TextStyle(fontSize: 40.0, color: Colors.white),
-              ),
-              backgroundImage: NetworkImage(
-                  "http://yitengsze.com/a_gifhope/profileimages/${widget.user.email}.jpg"),
+              onDetailsPressed: () => {
+                Navigator.pop(context),
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            ProfileScreen(user: widget.user)))
+              },
             ),
-            onDetailsPressed: () => {
-              Navigator.pop(context),
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          ProfileScreen(user: widget.user)))
-            },
-          ),
 
-          ListTile(
-              title:
-                  Text("Charity List", style: TextStyle(color: Colors.black)),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    _loadCharityData(),
-                  }),
-
-          ListTile(
-              title: Text("Manage Charity Info",
+            ListTile(
+                title: Text("Charity List", 
                   style: TextStyle(
                     color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                CharityAdminManageScreen(user: widget.user)))
-                  }),
+                    fontSize: 16)),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () => {
+                      Navigator.pop(context),
+                      _loadCharityData(),
+                    }),
 
-          ListTile(
-              title: Text("Collect Donation",
+            ListTile(
+                title: Text("Manage Charity Info",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16
+                    )),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  CharityAdminManageScreen(user: widget.user)))
+                    }),
+
+            ListTile(
+                title: Text("Collect Donation",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16
+                    )),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  CollectDonationTileScreen()))
+                    }),
+
+            ListTile(
+                title: Text("View Sales Report",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16
+                    )),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  SalesReportScreen()))
+                    }),
+
+            ListTile(
+                title: Text("View Donation Report",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16
+                    )),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  DonateReportScreen()))
+                    }),
+
+            ListTile(
+                title: Text("Log Out", 
                   style: TextStyle(
                     color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                CollectDonationTileScreen()))
-                  }),
-
-          ListTile(
-              title: Text("View Sales Report",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                SalesReportScreen()))
-                  }),
-
-          ListTile(
-              title: Text("View Donation Report",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                DonateReportScreen()))
-                  }),
-
-          ListTile(
-              title: Text("Log Out", style: TextStyle(color: Colors.black)),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    _logout(),
-                  }),
-        ],
+                    fontSize: 16)),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () => {
+                      _logout(),
+                    }),
+          ],
+        ),
       ),
     );
   }
