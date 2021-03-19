@@ -11,14 +11,11 @@ import 'package:toast/toast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'report_donate.dart';
 import 'report_sales.dart';
-import 'sampleChart2.dart';
 import 'user.dart';
 import 'loginscreen.dart';
-import 'admincharity.dart';
 import 'admincharity.dart';
 import 'collectdonationtile.dart';
 import 'profilescreen.dart';
@@ -112,231 +109,10 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                       visible: _visible,
                       child: Card(
                         elevation: 10,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 15,
-                                            bottom: 15,
-                                            left: 10,
-                                            right: 10),
-                                        child: TextButton(
-                                          onPressed: () => _sortItem("Recent"),
-                                          child: new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              new Icon(
-                                                MdiIcons.update,
-                                                size: 55.0,
-                                                color: Colors.black,
-                                              ),
-                                              new Text(
-                                                "Recent",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black,
-                                                    fontSize: 15.0),
-                                              )
-                                            ],
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                        padding: EdgeInsets.all(5),
-                                        child: TextButton(
-                                          onPressed: () =>
-                                              _sortItem("COVID-19"),
-                                          child: new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              new Image.asset(
-                                                'assets/images/covid19.png',
-                                                height: 60,
-                                                width: 50,
-                                                fit: BoxFit.fitWidth,
-                                              ),
-                                              new Text(
-                                                "COVID-19",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black,
-                                                    fontSize: 15.0),
-                                              )
-                                            ],
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                        padding: EdgeInsets.all(5),
-                                        child: TextButton(
-                                          onPressed: () =>
-                                              _sortItem("Food Security"),
-                                          child: new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              new Image.asset(
-                                                'assets/images/food.png',
-                                                height: 60,
-                                                width: 75,
-                                                fit: BoxFit.fitWidth,
-                                              ),
-                                              new Text(
-                                                "Food Security",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black,
-                                                    fontSize: 15.0),
-                                              )
-                                            ],
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                        padding: EdgeInsets.all(5),
-                                        child: TextButton(
-                                          onPressed: () =>
-                                              _sortItem("Children"),
-                                          child: new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              new Image.asset(
-                                                'assets/images/refugee.png',
-                                                height: 65,
-                                                width: 70,
-                                                fit: BoxFit.fitWidth,
-                                              ),
-                                              new Text(
-                                                "Children",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black,
-                                                    fontSize: 15.0),
-                                              )
-                                            ],
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                        padding: EdgeInsets.all(5),
-                                        child: TextButton(
-                                          onPressed: () =>
-                                              _sortItem("Education"),
-                                          child: new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              new Image.asset(
-                                                'assets/images/education.png',
-                                                height: 65,
-                                                width: 75,
-                                                fit: BoxFit.fitWidth,
-                                              ),
-                                              new Text(
-                                                "Education",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black,
-                                                    fontSize: 15.0),
-                                              )
-                                            ],
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                        padding: EdgeInsets.all(5),
-                                        child: TextButton(
-                                          onPressed: () => _sortItem("Animals"),
-                                          child: new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              new Image.asset(
-                                                'assets/images/animals.png',
-                                                height: 70,
-                                                width: 75,
-                                                fit: BoxFit.fitWidth,
-                                              ),
-                                              new Text(
-                                                "Animals",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black,
-                                                    fontSize: 15.0),
-                                              )
-                                            ],
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                        padding: EdgeInsets.all(5),
-                                        child: TextButton(
-                                          onPressed: () =>
-                                              _sortItem("Disaster"),
-                                          child: new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              new Image.asset(
-                                                'assets/images/disaster.png',
-                                                height: 75,
-                                                width: 70,
-                                                fit: BoxFit.fitWidth,
-                                              ),
-                                              new Text(
-                                                "Disaster",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black,
-                                                    fontSize: 15.0),
-                                              )
-                                            ],
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                              ],
-                            ),
-                          ),
-                        
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: genreDropDownList(),
+                        ),
                       ),
                     ),
 
@@ -626,35 +402,34 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
     return Drawer(
       child: Container(
         decoration: BoxDecoration(
-                  gradient: new LinearGradient(
-                      colors: [
-                        const Color(0xFFFBC02D),
-                        const Color(0xFFFDD835),
-                      ],
-                      begin: const FractionalOffset(0.0, 0.0),
-                      end: const FractionalOffset(1.0, 0.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
-                ),
-
-              child: ListView(
+          gradient: new LinearGradient(
+              colors: [
+                const Color(0xFFFBC02D),
+                const Color(0xFFFDD835),
+              ],
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp),
+        ),
+        child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                  gradient: new LinearGradient(
-                      colors: [
-                        const Color(0xFFFBC02D),
-                        const Color(0xFFFDD835),
-                      ],
-                      begin: const FractionalOffset(0.0, 0.0),
-                      end: const FractionalOffset(1.0, 0.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
-                ),
+                gradient: new LinearGradient(
+                    colors: [
+                      const Color(0xFFFBC02D),
+                      const Color(0xFFFDD835),
+                    ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 0.0),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp),
+              ),
               accountName: Text(widget.user.name,
                   style: TextStyle(fontSize: 18.0, color: Colors.black)),
               accountEmail: Text(widget.user.email,
-                  style: TextStyle(fontSize: 18.0, color: Colors.black)),
+                  style: TextStyle(fontSize: 16.0, color: Colors.black)),
               otherAccountsPictures: <Widget>[
                 Align(
                   alignment: Alignment.topRight,
@@ -679,25 +454,18 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                             ProfileScreen(user: widget.user)))
               },
             ),
-
             ListTile(
-                title: Text("Charity List", 
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16)),
-                trailing: Icon(Icons.arrow_forward),
+                title: Text("Charity List",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.list, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       _loadCharityData(),
                     }),
-
             ListTile(
                 title: Text("Manage Charity Info",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16
-                    )),
-                trailing: Icon(Icons.arrow_forward),
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(MdiIcons.databaseEdit, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       Navigator.push(
@@ -706,14 +474,10 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                               builder: (BuildContext context) =>
                                   CharityAdminManageScreen(user: widget.user)))
                     }),
-
             ListTile(
                 title: Text("Collect Donation",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16
-                    )),
-                trailing: Icon(Icons.arrow_forward),
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.attach_money, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       Navigator.push(
@@ -722,14 +486,10 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                               builder: (BuildContext context) =>
                                   CollectDonationTileScreen()))
                     }),
-
             ListTile(
                 title: Text("View Sales Report",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16
-                    )),
-                trailing: Icon(Icons.arrow_forward),
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.request_page, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       Navigator.push(
@@ -738,14 +498,10 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                               builder: (BuildContext context) =>
                                   SalesReportScreen()))
                     }),
-
             ListTile(
                 title: Text("View Donation Report",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16
-                    )),
-                trailing: Icon(Icons.arrow_forward),
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(MdiIcons.scriptText, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       Navigator.push(
@@ -754,19 +510,225 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                               builder: (BuildContext context) =>
                                   DonateReportScreen()))
                     }),
-
             ListTile(
-                title: Text("Log Out", 
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16)),
-                trailing: Icon(Icons.arrow_forward),
+                title: Text("Log Out",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.logout, color: Colors.black),
                 onTap: () => {
                       _logout(),
                     }),
           ],
         ),
       ),
+    );
+  }
+
+  Widget genreDropDownList() {
+    return Row(
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Padding(
+                padding:
+                    EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
+                child: TextButton(
+                  onPressed: () => _sortItem("Recent"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Icon(
+                        MdiIcons.update,
+                        size: 55.0,
+                        color: Colors.black,
+                      ),
+                      new Text(
+                        "Recent",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("COVID-19"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/covid19.png',
+                        height: 60,
+                        width: 50,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "COVID-19",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Food Security"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/food.png',
+                        height: 60,
+                        width: 75,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Food Security",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(
+          width: 3,
+        ),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Children"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/refugee.png',
+                        height: 65,
+                        width: 70,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Children",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(
+          width: 3,
+        ),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Education"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/education.png',
+                        height: 65,
+                        width: 75,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Education",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(
+          width: 3,
+        ),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Animals"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/animals.png',
+                        height: 70,
+                        width: 75,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Animals",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Disaster"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/disaster.png',
+                        height: 75,
+                        width: 70,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Disaster",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+      ],
     );
   }
 
