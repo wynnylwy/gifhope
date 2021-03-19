@@ -43,7 +43,6 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
   String donatequantity = "0";
   String numOfItem = "0";
   int quantity = 1;
-  bool _isShopper = false;
   String titlecenter = "Charity data is not found";
 
   @override
@@ -107,7 +106,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                 await refreshList();
               },
               child: Container(
-                color: Colors.red[100],
+                color: Colors.amber[100],
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -858,7 +857,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
       print(widget.user.email);
 
       showModalBottomSheet(
-          backgroundColor: Colors.red[100],
+          backgroundColor: Colors.amber[50],
           context: context,
           isScrollControlled: true,
           builder: (BuildContext builder) {
@@ -875,6 +874,15 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.red,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black45,
+                                    blurRadius: 2,
+                                    spreadRadius: 5,
+
+                                  )
+                                ]
+                                
                               ),
                               child: IconButton(
                                 icon: Icon(Icons.close),
@@ -971,7 +979,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                               fontSize: 16.5,
                               fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: 30),
                         Icon(
                           Icons.volunteer_activism,
                           color: Colors.blue[500],
