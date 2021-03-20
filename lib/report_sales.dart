@@ -140,39 +140,46 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                 )),
           ),
           selectedMonth == null && salesData == null
-              ? Container(
-                  height: MediaQuery.of(context).size.height * 0.65,
-                  child: Center(
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                        height: MediaQuery.of(context).size.height * 0.40,
+                        width: MediaQuery.of(context).size.width * 0.55,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                          fit: BoxFit.fitWidth,
+                          image: AssetImage('assets/images/exclam.png'),
+                        ))),
+                    Container(
                       child: Shimmer.fromColors(
-                    baseColor: Colors.indigo[800],
-                    highlightColor: Colors.blue[200],
-                    child: Center(
-                        child: Shimmer.fromColors(
-                            baseColor: Colors.indigo[800],
-                            highlightColor: Colors.blue[200],
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    "No Records",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: 'Mogra',
-                                        fontSize: 38.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "Please select month",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: 'Mogra',
-                                        fontSize: 30.0,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ]))),
-                  )))
+                          baseColor: Colors.black87,
+                          highlightColor: Colors.grey,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  "No Records",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Mogra',
+                                      fontSize: 38.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "Please select month",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Mogra',
+                                      fontSize: 30.0,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ])),
+                    ),
+                  ],
+                )
               : Container(
                   //color: Colors.yellow,
                   height: MediaQuery.of(context).size.height * 0.65,
@@ -182,16 +189,28 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                         if (snapshot.connectionState == ConnectionState.none ||
                             snapshot.hasData == false) {
                           return Center(child: CircularProgressIndicator());
-                        } else if (snapshot.hasData == true &&
+                        } 
+                        else if (snapshot.hasData == true &&
                             snapshot.data == false) {
-                          return Container(
-                            child: Center(
+                          return Column(
+                            children: [
+                              Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.40,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.55,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                    fit: BoxFit.fitWidth,
+                                    image: AssetImage('assets/images/sad.png'),
+                                  ))),
+                              Container(
                                 child: Shimmer.fromColors(
-                                    baseColor: Colors.indigo[800],
-                                    highlightColor: Colors.blue[200],
+                                    baseColor: Colors.black87,
+                                    highlightColor: Colors.grey,
                                     child: Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
                                             "No Records",
@@ -203,7 +222,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
-                                            "Please reselect month",
+                                            "Please re-select month",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 color: Colors.white,
@@ -211,9 +230,12 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                                                 fontSize: 30.0,
                                                 fontWeight: FontWeight.bold),
                                           )
-                                        ]))),
+                                        ])),
+                              ),
+                            ],
                           );
-                        } else {
+                        } 
+                        else {
                           return new charts.BarChart(
                             dataList(snapshot.data),
                             vertical: true,

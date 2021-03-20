@@ -111,7 +111,7 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
               )
             ]),
           ),
-          SizedBox(height:20),
+          SizedBox(height: 20),
           Align(
             alignment: Alignment.centerLeft,
             child: Text("RM",
@@ -122,14 +122,23 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
                 )),
           ),
           selectedMonth == null && donateData == null
-              ? Container(
-                  height: MediaQuery.of(context).size.height * 0.65,
-                  child: Center(
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                        height: MediaQuery.of(context).size.height * 0.40,
+                        width: MediaQuery.of(context).size.width * 0.55,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                          fit: BoxFit.fitWidth,
+                          image: AssetImage('assets/images/exclam.png'),
+                        ))),
+                    Container(
                       child: Shimmer.fromColors(
                           baseColor: Colors.black87,
-                          highlightColor: Colors.amber[800],
+                          highlightColor: Colors.grey,
                           child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
                                   "No Records",
@@ -149,10 +158,12 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
                                       fontSize: 30.0,
                                       fontWeight: FontWeight.bold),
                                 )
-                              ]))),
+                              ])),
+                    ),
+                  ],
                 )
               : Container(
-                  height: MediaQuery.of(context).size.height * 0.60,
+                  height: MediaQuery.of(context).size.height * 0.70,
                   child: FutureBuilder(
                       future: getData(selectedMonth),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -161,14 +172,25 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
                           return Center(child: CircularProgressIndicator());
                         } else if (snapshot.hasData == true &&
                             snapshot.data == false) {
-                          return Container(
-                            child: Center(
+                          return Column(
+                            children: [
+                              Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.40,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.55,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                    fit: BoxFit.fitWidth,
+                                    image: AssetImage('assets/images/sad.png'),
+                                  ))),
+                              Container(
                                 child: Shimmer.fromColors(
                                     baseColor: Colors.black87,
-                                    highlightColor: Colors.amber[800],
+                                    highlightColor: Colors.grey,
                                     child: Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
                                             "No Records",
@@ -180,7 +202,7 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
-                                            "Please reselect month",
+                                            "Please re-select month",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 color: Colors.white,
@@ -188,7 +210,9 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
                                                 fontSize: 30.0,
                                                 fontWeight: FontWeight.bold),
                                           )
-                                        ]))),
+                                        ])),
+                              ),
+                            ],
                           );
                         } else {
                           return new charts.BarChart(
