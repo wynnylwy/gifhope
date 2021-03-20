@@ -19,6 +19,8 @@ import 'product.dart';
 import 'purchasescreen.dart';
 import 'profilescreen.dart';
 import 'adminproduct.dart';
+import 'report_donate.dart';
+import 'report_sales.dart';
 
 class MainScreen extends StatefulWidget {
   final User user;
@@ -545,8 +547,7 @@ class _MainScreenState extends State<MainScreen> {
 
   void _loadData() async {
     String urlLoadJobs = datalink;
-    await http.post(urlLoadJobs, body: {}).then((res) 
-    {
+    await http.post(urlLoadJobs, body: {}).then((res) {
       if (res.body.contains("nodata")) {
         print(res.body);
         cartNum = "0";
@@ -575,189 +576,213 @@ class _MainScreenState extends State<MainScreen> {
   Widget mainDrawer(BuildContext context) {
     imageCache.clear();
     return Drawer(
-      child: ListView(
-        children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text(widget.user.name,
-                style: TextStyle(fontSize: 18.0, color: Colors.white)),
-            accountEmail: Text(widget.user.email,
-                style: TextStyle(fontSize: 18.0, color: Colors.white)),
-            otherAccountsPictures: <Widget>[
-              Align(
-                alignment: Alignment.topRight,
-                child: Text(widget.user.credit,
-                    style: TextStyle(fontSize: 10.0, color: Colors.white)),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: new LinearGradient(
+              colors: [
+                const Color(0xFF3366FF),
+                const Color(0xFF00CCFF),
+              ],
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp),
+        ),
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: [
+                      const Color(0xFF3366FF),
+                      const Color(0xFF00CCFF),
+                    ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 0.0),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp),
               ),
-            ],
-            currentAccountPicture: CircleAvatar(
-              backgroundColor:
-                  Theme.of(context).platform == TargetPlatform.android
-                      ? Colors.white
-                      : Colors.white,
-              child: Text(
-                widget.user.name.toString().substring(0, 1).toUpperCase(),
-                style: TextStyle(fontSize: 40.0, color: Colors.white),
+              accountName: Text(widget.user.name,
+                  style: TextStyle(fontSize: 18.0, color: Colors.white)),
+              accountEmail: Text(widget.user.email,
+                  style: TextStyle(fontSize: 18.0, color: Colors.white)),
+              otherAccountsPictures: <Widget>[
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Text(widget.user.credit,
+                      style: TextStyle(fontSize: 10.0, color: Colors.white)),
+                ),
+              ],
+              currentAccountPicture: CircleAvatar(
+                backgroundColor:
+                    Theme.of(context).platform == TargetPlatform.android
+                        ? Colors.white
+                        : Colors.white,
+                child: Text(
+                  widget.user.name.toString().substring(0, 1).toUpperCase(),
+                  style: TextStyle(fontSize: 40.0, color: Colors.white),
+                ),
+                backgroundImage: NetworkImage(
+                    "http://yitengsze.com/a_gifhope/profileimages/${widget.user.email}.jpg"),
               ),
-              backgroundImage: NetworkImage(
-                  "http://yitengsze.com/a_gifhope/profileimages/${widget.user.email}.jpg"),
+              onDetailsPressed: () => {
+                Navigator.pop(context),
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            ProfileScreen(user: widget.user)))
+              },
             ),
-            onDetailsPressed: () => {
-              Navigator.pop(context),
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          ProfileScreen(user: widget.user)))
-            },
-          ),
 
-          ListTile(
-              title: Text("My Profile",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              ProfileScreen(user: widget.user)),
-                    )
-                  }),
-
-          ListTile(
-              title: Text("My Purchase",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    goToBookings(),
-                  }),
-
-          ListTile(
-              title: Text("Purchase History",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    goToPaymentHistory(),
-                  }),
-
-          ListTile(
-              title: Text("Go To Donation List",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              CharityScreen(user: widget.user)),
-                    )
-                  }),
-
-          ListTile(
-              title: Text("Back to Product List",
-                  style: TextStyle(color: Colors.black)),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    _loadData(),
-                  }),
-
-          ListTile(
-              title: Text("Log Out", style: TextStyle(color: Colors.black)),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    _logout(),
-                  }),
-
-          //Admin Menu
-          Visibility(
-            visible: _isSeller,
-            child: Column(
-              children: <Widget>[
-                Divider(
-                  height: 3,
-                  color: Colors.black,
-                ),
-                Center(
-                  child: Text("Seller Menu",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-                ListTile(
-                  title: Text("Manage Product Info",
-                      style: TextStyle(fontSize: 16)),
-                  trailing: Icon(Icons.arrow_forward),
-                  onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
+            ListTile(
+                title: Text("My Profile",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16
+                    )),
+                leading: Icon(Icons.account_circle, color: Colors.white),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                AdminProduct(user: widget.user)))
-                  },
-                ),
-                // ListTile(
-                //   title: Text("Sales History", style: TextStyle(fontSize: 16)),
-                //   trailing: Icon(Icons.arrow_forward),
-                //   // onTap: () => {
-                //   //   Navigator.pop(context),
-                //   //   Navigator.push(
-                //   //       context,
-                //   //       MaterialPageRoute(
-                //   //           builder: (BuildContext context) =>
-                //   //               AdminProduct(user: widget.user))
+                                ProfileScreen(user: widget.user)),
+                      )
+                    }),
 
-                //   //               )
-                //   // },
-                // ),
-                ListTile(
-                  title:
-                      Text("View Sales Report", style: TextStyle(fontSize: 16)),
-                  trailing: Icon(Icons.arrow_forward),
-                  // onTap: () => {
-                  //   Navigator.pop(context),
-                  //   Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //           builder: (BuildContext context) =>
-                  //               AdminProduct(user: widget.user))
+            ListTile(
+                title: Text("My Purchase",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16
+                    )),
+                leading: Icon(Icons.shopping_cart, color: Colors.white),
+                onTap: () => {
+                      Navigator.pop(context),
+                      goToBookings(),
+                    }),
 
-                  //               )
-                  // },
-                ),
-                ListTile(
-                  title: Text("View Donation Report",
-                      style: TextStyle(fontSize: 16)),
-                  trailing: Icon(Icons.arrow_forward),
-                  // onTap: () => {
-                  //   Navigator.pop(context),
-                  //   Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //           builder: (BuildContext context) =>
-                  //               AdminProduct(user: widget.user))
+            ListTile(
+                title: Text("Purchase History",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16
+                    )),
+                leading: Icon(Icons.schedule, color: Colors.white),
+                onTap: () => {
+                      Navigator.pop(context),
+                      goToPaymentHistory(),
+                    }),
 
-                  //               )
-                  // },
-                ),
-              ],
+            ListTile(
+                title: Text("Go To Donation List",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16
+                    )),
+                leading: Icon(Icons.arrow_forward, color: Colors.white),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                CharityScreen(user: widget.user)),
+                      )
+                    }),
+
+            ListTile(
+                title: Text("Back to Product List",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16
+                    )),
+                leading: Icon(Icons.arrow_back, color: Colors.white),
+                onTap: () => {
+                      Navigator.pop(context),
+                      _loadData(),
+                    }),
+
+            ListTile(
+                title: Text("Log Out", 
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16
+                    )),
+                leading: Icon(Icons.exit_to_app, color: Colors.white),
+                onTap: () => {
+                      _logout(),
+                    }),
+
+            //Admin Menu
+            Visibility(
+              visible: _isSeller,
+              child: Column(
+                children: <Widget>[
+                  Divider(
+                    height: 3,
+                    color: Colors.black,
+                  ),
+                  Center(
+                    child: Text("Seller Menu",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black
+                        )),
+                  ),
+                  ListTile(
+                    title: Text("Manage Product Info",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16)),
+                    leading: Icon(MdiIcons.databaseEdit, color: Colors.black),
+                    onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  AdminProduct(user: widget.user)))
+                    },
+                  ),
+                  ListTile(
+                    title: Text("View Sales Report",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16)),
+                    leading: Icon(Icons.request_page, color: Colors.black),
+                    onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  SalesReportScreen()))
+                    },
+                  ),
+                  ListTile(
+                    title: Text("View Donation Report",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16)),
+                    leading: Icon(MdiIcons.scriptText, color: Colors.black),
+                    onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  DonateReportScreen()))
+                    }
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -1016,7 +1041,6 @@ class _MainScreenState extends State<MainScreen> {
                           MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   LoginScreen()));
-
                     }),
                 new FlatButton(
                     child: new Text("No",

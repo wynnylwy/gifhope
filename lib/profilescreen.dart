@@ -25,7 +25,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   double screenHeight, screenWidth;
-  final dateFormat = new DateFormat(' yyyy-MM-dd hh:mm:ss');
+  final dateFormat = new DateFormat('yyyy-MM-dd HH:mm:ss');
   var parsedDate;
 
   @override

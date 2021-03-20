@@ -513,7 +513,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
             ListTile(
                 title: Text("Log Out",
                     style: TextStyle(color: Colors.black, fontSize: 16)),
-                leading: Icon(Icons.logout, color: Colors.black),
+                 leading: Icon(Icons.exit_to_app, color: Colors.black),
                 onTap: () => {
                       _logout(),
                     }),
