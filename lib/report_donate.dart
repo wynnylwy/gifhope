@@ -60,6 +60,7 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
                 color: Colors.black)),
       ),
       body: Container(
+        color: Colors.amber[100],
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Padding(
             padding: EdgeInsets.fromLTRB(150, 10, 5, 10),

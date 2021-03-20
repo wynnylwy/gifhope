@@ -64,6 +64,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
         child: Scaffold(
           drawer: mainDrawer(context),
           appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.black),
             flexibleSpace: Container(
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(

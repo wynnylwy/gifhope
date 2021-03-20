@@ -77,12 +77,13 @@ class _NewCharityState extends State<NewCharity> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                  const Color(0xFF3366FF),
-                  const Color(0xFF00CCFF),
+                  const Color(0xFFFDD835),
+                  const Color(0xFFFBC02D),
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -95,7 +96,7 @@ class _NewCharityState extends State<NewCharity> {
                 fontFamily: 'Sofia',
                 fontWeight: FontWeight.bold,
                 fontSize: 30.0,
-                color: Colors.white)),
+                color: Colors.black)),
       ),
       body: Center(
         child: Container(
@@ -295,7 +296,7 @@ class _NewCharityState extends State<NewCharity> {
                                                 width: 70,
                                                 height: 45,
                                                 child: RaisedButton(
-                                                  color: Colors.blue[100],
+                                                  color: Colors.amber[100],
                                                   child: Text(
                                                     startDate,
                                                     style:
@@ -325,7 +326,7 @@ class _NewCharityState extends State<NewCharity> {
                                                 width: 70,
                                                 height: 45,
                                                 child: RaisedButton(
-                                                  color: Colors.blue[100],
+                                                  color: Colors.amber[100],
                                                   child: Text(
                                                     endDate,
                                                     style:
@@ -412,11 +413,11 @@ class _NewCharityState extends State<NewCharity> {
                                                 width: 70,
                                                 height: 45,
                                                 child: RaisedButton(
-                                                  color: Colors.blue[100],
+                                                  color: Colors.amber[100],
                                                   child: Text(
                                                     startTime, //startTime
                                                     style:
-                                                        TextStyle(fontSize: 14),
+                                                        TextStyle(fontSize: 15),
                                                   ),
                                                   onPressed: () async {
                                                     final selectedStartTime = await _selectTime(context);
@@ -440,11 +441,11 @@ class _NewCharityState extends State<NewCharity> {
                                                 width: 70,
                                                 height: 45,
                                                 child: RaisedButton(
-                                                  color: Colors.blue[100],
+                                                  color: Colors.amber[100],
                                                   child: Text(
                                                     endTime,
                                                     style:
-                                                        TextStyle(fontSize: 14),
+                                                        TextStyle(fontSize: 15),
                                                   ),
                                                   onPressed: () async {
                                                     final selectedEndTime = await _selectTime(context);
@@ -712,7 +713,7 @@ class _NewCharityState extends State<NewCharity> {
                                     fontSize: 17,
                                   ),
                                 ),
-                                color: Colors.yellow[200],
+                                color: Colors.amber[100],
                                 textColor: Colors.black,
                                 elevation: 10,
                                 onPressed: _addNewEventDialog,
@@ -729,7 +730,7 @@ class _NewCharityState extends State<NewCharity> {
                                     fontSize: 17,
                                   ),
                                 ),
-                                color: Colors.yellow[200],
+                                color: Colors.amber[100],
                                 textColor: Colors.black,
                                 elevation: 10,
                                 onPressed: () {
@@ -782,8 +783,8 @@ class _NewCharityState extends State<NewCharity> {
               ],
         androidUiSettings: AndroidUiSettings(
           toolbarTitle: 'Cropper',
-          toolbarColor: Colors.blue[600],
-          toolbarWidgetColor: Colors.white,
+          toolbarColor: Colors.amber[300],
+          toolbarWidgetColor: Colors.black,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
         ),

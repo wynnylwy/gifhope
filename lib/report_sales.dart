@@ -37,13 +37,13 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: Colors.black),
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                  const Color(0xFF3366FF),
-                  const Color(0xFF00CCFF),
+                  const Color(0xFFFDD835),
+                  const Color(0xFFFBC02D),
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -56,10 +56,10 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                 fontFamily: 'Sofia',
                 fontWeight: FontWeight.bold,
                 fontSize: 30.0,
-                color: Colors.white)),
+                color: Colors.black)),
       ),
       body: Container(
-        // color: Colors.blue[100],
+        color: Colors.amber[100],
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Padding(
             padding: EdgeInsets.fromLTRB(150, 10, 5, 5),
