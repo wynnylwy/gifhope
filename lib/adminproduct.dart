@@ -16,6 +16,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'report_donate.dart';
 import 'report_sales.dart';
 import 'updateproduct.dart';
 
@@ -495,13 +496,13 @@ class _AdminProductState extends State<AdminProduct> {
             child: Icon(Icons.request_page),
             label: "View Sales Report",
             labelBackgroundColor: Colors.blue[200],
-            onTap: _createNewProduct, //chg **
+            onTap: _viewSalesReport, 
           ),
           SpeedDialChild(
             child: Icon(MdiIcons.scriptText),
             label: "View Donation Report",
             labelBackgroundColor: Colors.blue[200],
-           // onTap: report, //chg **
+            onTap: _viewDonateReport, 
           ),
         ],
       ),
@@ -763,9 +764,13 @@ class _AdminProductState extends State<AdminProduct> {
     _loadData();
   }
 
-  //report
-  // Future<void> report() async {
-  //   await Navigator.push(context,
-  //       MaterialPageRoute(builder: (BuildContext context) => ReportList()));
-  // }
+  Future<void> _viewSalesReport() async {
+    await Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => SalesReportScreen()));
+  }
+
+  Future<void> _viewDonateReport() async {
+    await Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => DonateReportScreen()));
+  }
 }
