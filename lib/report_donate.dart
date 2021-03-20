@@ -163,7 +163,7 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
                   ],
                 )
               : Container(
-                  height: MediaQuery.of(context).size.height * 0.70,
+                  height: MediaQuery.of(context).size.height * 0.65,
                   child: FutureBuilder(
                       future: getData(selectedMonth),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
