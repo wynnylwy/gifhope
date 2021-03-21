@@ -76,8 +76,6 @@ class _MainScreenState extends State<MainScreen> {
                     colors: [
                       Colors.deepOrange[200],
                       Colors.red[100],
-                      // const Color(0xFF3366FF),
-                      // const Color(0xFF00CCFF),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
@@ -126,216 +124,7 @@ class _MainScreenState extends State<MainScreen> {
                           padding: EdgeInsets.all(5),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Recent"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.update,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Recent",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () =>
-                                          _sortItem("Women Clothing"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Row(children: <Widget>[
-                                            Icon(
-                                              MdiIcons.genderFemale,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                            Icon(
-                                              MdiIcons.hanger,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                          ]),
-                                          Text(
-                                            "Women Clothing",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () =>
-                                          _sortItem("Men Clothing"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Row(children: <Widget>[
-                                            Icon(
-                                              MdiIcons.genderMale,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                            Icon(
-                                              MdiIcons.hanger,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                          ]),
-                                          Text(
-                                            "Men Clothing",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Women Shoes"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Row(children: <Widget>[
-                                            Icon(
-                                              MdiIcons.genderFemale,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                            Icon(
-                                              MdiIcons.walk,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                          ]),
-                                          Text(
-                                            "Women Shoes",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Men Shoes"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Row(children: <Widget>[
-                                            Icon(
-                                              MdiIcons.genderMale,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                            Icon(
-                                              MdiIcons.walk,
-                                              size: 35.0,
-                                              color: Colors.black,
-                                            ),
-                                          ]),
-                                          Text(
-                                            "Men Shoes",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () =>
-                                          _sortItem("Bag & Wallet"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.shopping,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Bag & Wallet",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () =>
-                                          _sortItem("Book & Stationery"),
-                                      color: Colors.yellow[200],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.bookOpen,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Book & Stationery",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                              ],
-                            ),
+                            child: genreDropDownList(),
                           ),
                         ),
                       ),
@@ -516,7 +305,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               )),
           floatingActionButton: FloatingActionButton.extended(
-            backgroundColor: Colors.yellow,
+              backgroundColor: Colors.yellow,
               onPressed: () async {
                 if (widget.user.email.contains("unregistered")) {
                   Toast.show("Please register first", context,
@@ -542,14 +331,10 @@ class _MainScreenState extends State<MainScreen> {
                 _loadData(); //refresh data
                 _loadPurchaseQuantity();
               },
-              icon: Icon(
-                      Icons.add_shopping_cart, 
-                      color: Colors.black),
-              label:
-                  Text(cartNum, 
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black))),
+              icon: Icon(Icons.add_shopping_cart, color: Colors.black),
+              label: Text(cartNum,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black))),
         ));
   }
 
@@ -586,6 +371,7 @@ class _MainScreenState extends State<MainScreen> {
     return Drawer(
       child: Container(
         decoration: BoxDecoration(
+          // shape: BoxShape.circle,
           gradient: new LinearGradient(
               colors: [
                 Colors.deepOrange[200],
@@ -645,10 +431,7 @@ class _MainScreenState extends State<MainScreen> {
 
             ListTile(
                 title: Text("My Profile",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16
-                    )),
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
                 leading: Icon(Icons.account_circle, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
@@ -662,10 +445,7 @@ class _MainScreenState extends State<MainScreen> {
 
             ListTile(
                 title: Text("My Purchase",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16
-                    )),
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
                 leading: Icon(Icons.shopping_cart, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
@@ -674,10 +454,7 @@ class _MainScreenState extends State<MainScreen> {
 
             ListTile(
                 title: Text("Purchase History",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16
-                    )),
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
                 leading: Icon(Icons.schedule, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
@@ -686,10 +463,7 @@ class _MainScreenState extends State<MainScreen> {
 
             ListTile(
                 title: Text("Go To Donation List",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16
-                    )),
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
                 leading: Icon(Icons.arrow_forward, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
@@ -703,10 +477,7 @@ class _MainScreenState extends State<MainScreen> {
 
             ListTile(
                 title: Text("Back to Product List",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16
-                    )),
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
                 leading: Icon(Icons.arrow_back, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
@@ -714,11 +485,8 @@ class _MainScreenState extends State<MainScreen> {
                     }),
 
             ListTile(
-                title: Text("Log Out", 
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16
-                    )),
+                title: Text("Log Out",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
                 leading: Icon(Icons.exit_to_app, color: Colors.black),
                 onTap: () => {
                       _logout(),
@@ -736,16 +504,13 @@ class _MainScreenState extends State<MainScreen> {
                   Center(
                     child: Text("Seller Menu",
                         style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                        )),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
                   ),
                   ListTile(
                     title: Text("Manage Product Info",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16)),
+                        style: TextStyle(color: Colors.black, fontSize: 16)),
                     leading: Icon(MdiIcons.databaseEdit, color: Colors.black),
                     onTap: () => {
                       Navigator.pop(context),
@@ -758,9 +523,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   ListTile(
                     title: Text("View Sales Report",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16)),
+                        style: TextStyle(color: Colors.black, fontSize: 16)),
                     leading: Icon(Icons.request_page, color: Colors.black),
                     onTap: () => {
                       Navigator.pop(context),
@@ -772,20 +535,17 @@ class _MainScreenState extends State<MainScreen> {
                     },
                   ),
                   ListTile(
-                    title: Text("View Donation Report",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16)),
-                    leading: Icon(MdiIcons.scriptText, color: Colors.black),
-                    onTap: () => {
-                      Navigator.pop(context),
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  DonateReportScreen()))
-                    }
-                  ),
+                      title: Text("View Donation Report",
+                          style: TextStyle(color: Colors.black, fontSize: 16)),
+                      leading: Icon(MdiIcons.scriptText, color: Colors.black),
+                      onTap: () => {
+                            Navigator.pop(context),
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        DonateReportScreen()))
+                          }),
                 ],
               ),
             ),
@@ -799,35 +559,208 @@ class _MainScreenState extends State<MainScreen> {
     print("Type");
   }
 
-  void _viewDetails(int index) {
-    if (widget.user.email.contains("unregistered")) {
-      Toast.show("Please register first", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-    if (widget.user.email.contains("admin@gifhope.com")) {
-      Toast.show("Admin mode", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-    try {
-      print(productdata[index]["id"]);
-      print(widget.user.email);
-
-      // BookingScreen(user: widget.user)
-
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (BuildContext context) => DetailsScreen(
-      //               product: widget.product,
-      //               index: index,
-      //             ))); //DONE!!
-
-    } catch (e) {
-      Toast.show("Show details Failed", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-    }
+  Widget genreDropDownList() {
+    return Row(
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(top: 5, bottom: 5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Recent"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 10),
+                      new Icon(
+                        MdiIcons.update,
+                        size: 60.0,
+                        color: Colors.black,
+                      ),
+                      SizedBox(height: 10),
+                      new Text(
+                        "Recent",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Women Clothing"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/womencloth.jpg',
+                        height: 85,
+                        width: 90,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Women Clothing",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Men Clothing"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/mencloth.jpg',
+                        height: 85,
+                        width: 80,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Men Clothing",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Women Shoes"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/womenshoes.jpg',
+                        height: 85,
+                        width: 80,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Women Shoes",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Men Shoes"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/menshoes.jpg',
+                        height: 85,
+                        width: 90,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Men Shoes",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Bag & Wallet"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/bag.jpg',
+                        height: 85,
+                        width: 80,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Bag & Wallet",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Book & Stationery"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/book.jpg',
+                        height: 85,
+                        width: 80,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Book & Stationery",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+      ],
+    );
   }
 
   goToBookings() async {

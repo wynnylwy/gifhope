@@ -154,7 +154,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       }),
                                   SizedBox(width: 25),
                                   Icon(MdiIcons.checkDecagram,
-                                      color: Colors.red),
+                                      color: Colors.blue),
                                   Text(
                                     " Qty Available: " +
                                         widget.product["quantity"],
