@@ -47,8 +47,8 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                 const Color(0xFFFF8A65),
-                 const Color(0xFFFFCA28),
+                  Colors.deepOrange[200],
+                  Colors.red[100],
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -65,7 +65,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
       ),
       body: Center(
         child: Container(
-          color: Colors.orange[100],
+          color: Colors.red[50],
           child: Column(
           children: <Widget>[
             Row(

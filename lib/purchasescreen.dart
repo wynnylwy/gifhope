@@ -65,12 +65,13 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
           flexibleSpace: Container(
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
                   colors: [
-                    const Color(0xFF3366FF),
-                    const Color(0xFF00CCFF),
+                    Colors.deepOrange[200],
+                    Colors.red[100],
                   ],
                   begin: const FractionalOffset(0.0, 0.0),
                   end: const FractionalOffset(1.0, 0.0),
@@ -83,7 +84,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                   fontFamily: 'Sofia',
                   fontWeight: FontWeight.bold,
                   fontSize: 30.0,
-                  color: Colors.white)),
+                  color: Colors.black)),
           leading: new IconButton(
               icon: new Icon(Icons.arrow_back),
               onPressed: () {
@@ -103,23 +104,23 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
           ],
         ),
         body: Container(
-            color: Colors.blue[800],
+            color: Colors.red[100],
             child: Center(
               child: Column(
                 children: <Widget>[
                   Text("Here's Your Purchase",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
                       )),
                   purchaseData == null
                       ? Flexible(
                           child: Container(
-                              color: Colors.blue[800],
+                              color: Colors.red[100],
                               child: Center(
                                 child: Shimmer.fromColors(
-                                    baseColor: Colors.yellow[500],
+                                    baseColor: Colors.black,
                                     highlightColor: Colors.white,
                                     child: Text(
                                       "Loading Your Purchase...",
@@ -326,8 +327,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                 child: Text('Make Payment',
                                                     style: TextStyle(
                                                       fontSize: 20.0,
+                                                      color: Colors.black
                                                     )),
-                                                color: Colors.blue[500],
+                                                color: Colors.yellow[300],
                                                 textColor: Colors.white,
                                                 elevation: 10,
                                                 onPressed: makePayment,
@@ -342,8 +344,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                 child: Text('Cancel',
                                                     style: TextStyle(
                                                       fontSize: 20.0,
+                                                      color: Colors.black
                                                     )),
-                                                color: Colors.blue[500],
+                                                color: Colors.yellow[300],
                                                 textColor: Colors.white,
                                                 elevation: 10,
                                                 onPressed: () {

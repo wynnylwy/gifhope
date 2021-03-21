@@ -69,13 +69,15 @@ class _MainScreenState extends State<MainScreen> {
         child: Scaffold(
           drawer: mainDrawer(context),
           appBar: AppBar(
-            iconTheme: IconThemeData(color: Colors.white),
+            iconTheme: IconThemeData(color: Colors.black),
             flexibleSpace: Container(
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
                     colors: [
-                      const Color(0xFF3366FF),
-                      const Color(0xFF00CCFF),
+                      Colors.deepOrange[200],
+                      Colors.red[100],
+                      // const Color(0xFF3366FF),
+                      // const Color(0xFF00CCFF),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
@@ -88,7 +90,7 @@ class _MainScreenState extends State<MainScreen> {
                     fontFamily: 'Sofia',
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
-                    color: Colors.white)),
+                    color: Colors.black)),
             actions: <Widget>[
               IconButton(
                   icon: _visible
@@ -112,7 +114,7 @@ class _MainScreenState extends State<MainScreen> {
                 await refreshList();
               },
               child: Container(
-                color: Colors.blue[800],
+                color: Colors.red[100],
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -386,7 +388,7 @@ class _MainScreenState extends State<MainScreen> {
                     Text(
                       curtype,
                       style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
@@ -394,11 +396,11 @@ class _MainScreenState extends State<MainScreen> {
                     productdata == null
                         ? Flexible(
                             child: Container(
-                                color: Colors.blue[800],
+                                color: Colors.red[100],
                                 child: Center(
                                   child: Shimmer.fromColors(
-                                      baseColor: Colors.yellow[500],
-                                      highlightColor: Colors.white,
+                                      baseColor: Colors.black,
+                                      highlightColor: Colors.grey,
                                       child: Text(
                                         titlecenter,
                                         style: TextStyle(
@@ -514,6 +516,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               )),
           floatingActionButton: FloatingActionButton.extended(
+            backgroundColor: Colors.yellow,
               onPressed: () async {
                 if (widget.user.email.contains("unregistered")) {
                   Toast.show("Please register first", context,
@@ -539,9 +542,14 @@ class _MainScreenState extends State<MainScreen> {
                 _loadData(); //refresh data
                 _loadPurchaseQuantity();
               },
-              icon: Icon(Icons.add_shopping_cart),
+              icon: Icon(
+                      Icons.add_shopping_cart, 
+                      color: Colors.black),
               label:
-                  Text(cartNum, style: TextStyle(fontWeight: FontWeight.bold))),
+                  Text(cartNum, 
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black))),
         ));
   }
 
@@ -580,8 +588,8 @@ class _MainScreenState extends State<MainScreen> {
         decoration: BoxDecoration(
           gradient: new LinearGradient(
               colors: [
-                const Color(0xFF3366FF),
-                const Color(0xFF00CCFF),
+                Colors.deepOrange[200],
+                Colors.red[100],
               ],
               begin: const FractionalOffset(0.0, 0.0),
               end: const FractionalOffset(1.0, 0.0),
@@ -594,8 +602,8 @@ class _MainScreenState extends State<MainScreen> {
               decoration: BoxDecoration(
                 gradient: new LinearGradient(
                     colors: [
-                      const Color(0xFF3366FF),
-                      const Color(0xFF00CCFF),
+                      Colors.deepOrange[200],
+                      Colors.red[100],
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
@@ -603,14 +611,14 @@ class _MainScreenState extends State<MainScreen> {
                     tileMode: TileMode.clamp),
               ),
               accountName: Text(widget.user.name,
-                  style: TextStyle(fontSize: 18.0, color: Colors.white)),
+                  style: TextStyle(fontSize: 18.0, color: Colors.black)),
               accountEmail: Text(widget.user.email,
-                  style: TextStyle(fontSize: 18.0, color: Colors.white)),
+                  style: TextStyle(fontSize: 16.0, color: Colors.black)),
               otherAccountsPictures: <Widget>[
                 Align(
                   alignment: Alignment.topRight,
                   child: Text(widget.user.credit,
-                      style: TextStyle(fontSize: 10.0, color: Colors.white)),
+                      style: TextStyle(fontSize: 15.0, color: Colors.black)),
                 ),
               ],
               currentAccountPicture: CircleAvatar(
@@ -638,10 +646,10 @@ class _MainScreenState extends State<MainScreen> {
             ListTile(
                 title: Text("My Profile",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 16
                     )),
-                leading: Icon(Icons.account_circle, color: Colors.white),
+                leading: Icon(Icons.account_circle, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       Navigator.push(
@@ -655,10 +663,10 @@ class _MainScreenState extends State<MainScreen> {
             ListTile(
                 title: Text("My Purchase",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 16
                     )),
-                leading: Icon(Icons.shopping_cart, color: Colors.white),
+                leading: Icon(Icons.shopping_cart, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       goToBookings(),
@@ -667,10 +675,10 @@ class _MainScreenState extends State<MainScreen> {
             ListTile(
                 title: Text("Purchase History",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 16
                     )),
-                leading: Icon(Icons.schedule, color: Colors.white),
+                leading: Icon(Icons.schedule, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       goToPaymentHistory(),
@@ -679,10 +687,10 @@ class _MainScreenState extends State<MainScreen> {
             ListTile(
                 title: Text("Go To Donation List",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 16
                     )),
-                leading: Icon(Icons.arrow_forward, color: Colors.white),
+                leading: Icon(Icons.arrow_forward, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       Navigator.push(
@@ -696,10 +704,10 @@ class _MainScreenState extends State<MainScreen> {
             ListTile(
                 title: Text("Back to Product List",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 16
                     )),
-                leading: Icon(Icons.arrow_back, color: Colors.white),
+                leading: Icon(Icons.arrow_back, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       _loadData(),
@@ -708,10 +716,10 @@ class _MainScreenState extends State<MainScreen> {
             ListTile(
                 title: Text("Log Out", 
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 16
                     )),
-                leading: Icon(Icons.exit_to_app, color: Colors.white),
+                leading: Icon(Icons.exit_to_app, color: Colors.black),
                 onTap: () => {
                       _logout(),
                     }),
@@ -828,7 +836,7 @@ class _MainScreenState extends State<MainScreen> {
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     } else if (widget.user.email.contains("seller@gifhope.com")) {
-      Toast.show("Seller mode", context,
+      Toast.show("Seller Mode", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     } else if (widget.user.quantity.contains("0")) {
@@ -852,7 +860,7 @@ class _MainScreenState extends State<MainScreen> {
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     } else if (widget.user.email.contains("seller@gifhope.com")) {
-      Toast.show("Seller mode", context,
+      Toast.show("Seller Mode", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     } else {

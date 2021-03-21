@@ -540,7 +540,7 @@ class _AdminProductState extends State<AdminProduct> {
         "genre": genre,
       }).then((res) {
         print(res.body);
-        if (res.body.contains("nodata")) {
+        if (res.body.contains("nodata")) { 
           setState(() {
             productdata = null;
             curtype = genre;

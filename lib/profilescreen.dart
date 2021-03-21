@@ -41,12 +41,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         flexibleSpace: Container(
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
                   colors: [
-                    const Color(0xFF3366FF),
-                    const Color(0xFF00CCFF),
+                    Colors.deepOrange[200],
+                    Colors.red[100],
                   ],
                   begin: const FractionalOffset(0.0, 0.0),
                   end: const FractionalOffset(1.0, 0.0),
@@ -59,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   fontFamily: 'Sofia',
                   fontWeight: FontWeight.bold,
                   fontSize: 30.0,
-                  color: Colors.white))
+                  color: Colors.black))
       ),
       body: Center(
         child: Column(
@@ -194,11 +195,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 2),
+                    SizedBox(height: 10),
                     Divider(
                       height: 2,
                       color: Colors.black,
-                      thickness: 3,
+                      thickness: 4,
                     ),
                 
                   ],
@@ -206,12 +207,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             Container(
-              color: Colors.blue[400],
+              color: Colors.red[100],
               child: Center(
                   child: Text(
                 "MANAGE YOUR PROFILE",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
