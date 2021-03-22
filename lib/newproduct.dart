@@ -9,7 +9,12 @@ import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:image_cropper/image_cropper.dart';
 
+import 'user.dart';
+
 class NewProduct extends StatefulWidget {
+  final User user;
+
+  const NewProduct({Key key, this.user}) : super(key: key);
   @override
   _NewProductState createState() => _NewProductState();
 }
@@ -25,8 +30,7 @@ class _NewProductState extends State<NewProduct> {
   TextEditingController nameEditingController = new TextEditingController();
   TextEditingController priceEditingController = new TextEditingController();
   TextEditingController qtyEditingController = new TextEditingController();
-  TextEditingController descriptionEditingController =
-      new TextEditingController();
+  TextEditingController descriptionEditingController = new TextEditingController();
 
   FocusNode _idFocusNode = FocusNode();
   FocusNode _nameFocusNode = FocusNode();
@@ -49,8 +53,8 @@ class _NewProductState extends State<NewProduct> {
   List<String> listGenre = [
     "Women Clothing",
     "Men Clothing",
-    "Women Shoe",
-    "Men Shoe",
+    "Women Shoes",
+    "Men Shoes",
     "Bag & Wallet",
     "Book & Stationery"
   ];
@@ -62,12 +66,13 @@ class _NewProductState extends State<NewProduct> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                  const Color(0xFF3366FF),
-                  const Color(0xFF00CCFF),
+                  Colors.deepOrange[200],
+                  Colors.red[100],
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -80,7 +85,7 @@ class _NewProductState extends State<NewProduct> {
                 fontFamily: 'Sofia',
                 fontWeight: FontWeight.bold,
                 fontSize: 30.0,
-                color: Colors.white)),
+                color: Colors.black)),
       ),
       body: Center(
         child: Container(
@@ -398,6 +403,30 @@ class _NewProductState extends State<NewProduct> {
                                   ),
                                 ],
                               ),
+
+                              // TableRow(
+                              //   children: [
+                              //     TableCell(
+                              //       child: Container(
+                              //         alignment: Alignment.centerLeft,
+                              //         height: 40,
+                              //         child: Text("Added by: ",
+                              //             style: TextStyle(
+                              //               fontWeight: FontWeight.bold,
+                              //               fontSize: 17,
+                              //             )),
+                              //       ),
+                              //     ),
+
+                              //     TableCell(
+                              //       child: Container(
+                              //         alignment: Alignment.centerLeft,
+                              //         height: 30,
+                              //         child: Text(widget.user.id),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
                             ],
                           ),
                           SizedBox(height: 3),
@@ -413,10 +442,10 @@ class _NewProductState extends State<NewProduct> {
                                   'Add',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 17,
+                                    fontSize: 18,
                                   ),
                                 ),
-                                color: Colors.yellow[200],
+                                color: Colors.yellow[300],
                                 textColor: Colors.black,
                                 elevation: 10,
                                 onPressed: _addNewProdDialog,
@@ -430,10 +459,10 @@ class _NewProductState extends State<NewProduct> {
                                   'Cancel',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 17,
+                                    fontSize: 18,
                                   ),
                                 ),
-                                color: Colors.yellow[200],
+                                color: Colors.yellow[300],
                                 textColor: Colors.black,
                                 elevation: 10,
                                 onPressed: () {
@@ -486,8 +515,8 @@ class _NewProductState extends State<NewProduct> {
               ],
         androidUiSettings: AndroidUiSettings(
           toolbarTitle: 'Cropper',
-          toolbarColor: Colors.blue[600],
-          toolbarWidgetColor: Colors.white,
+          toolbarColor: Colors.red[100],
+          toolbarWidgetColor: Colors.black,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
         ),

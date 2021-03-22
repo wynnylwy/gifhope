@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   fontFamily: 'Sofia',
                   fontWeight: FontWeight.bold,
                   fontSize: 30.0,
-                  color: Colors.black))
+                  color: Colors.white))
       ),
       body: Center(
         child: Column(
@@ -195,11 +195,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 2),
                     Divider(
                       height: 2,
                       color: Colors.black,
-                      thickness: 4,
+                      thickness: 3,
                     ),
                 
                   ],
@@ -207,12 +207,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             Container(
-              color: Colors.red[100],
+              color: Colors.blue[400],
               child: Center(
                   child: Text(
                 "MANAGE YOUR PROFILE",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),

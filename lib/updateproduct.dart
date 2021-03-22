@@ -53,8 +53,8 @@ class _UpdateProductState extends State<UpdateProduct> {
   List<String> listGenre = [
     "Women Clothing",
     "Men Clothing",
-    "Women Shoe",
-    "Men Shoe",
+    "Women Shoes",
+    "Men Shoes",
     "Bag & Wallet",
     "Book & Stationery"
   ];
@@ -77,12 +77,13 @@ class _UpdateProductState extends State<UpdateProduct> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                  const Color(0xFF3366FF),
-                  const Color(0xFF00CCFF),
+                  Colors.deepOrange[200],
+                  Colors.red[100],
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -95,7 +96,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                 fontFamily: 'Sofia',
                 fontWeight: FontWeight.bold,
                 fontSize: 30.0,
-                color: Colors.white)),
+                color: Colors.black)),
       ),
       body: Container(
         //pic container
@@ -428,7 +429,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                     fontSize: 17,
                                   ),
                                 ),
-                                color: Colors.yellow[200],
+                                color: Colors.yellow[300],
                                 textColor: Colors.black,
                                 elevation: 10,
                                 onPressed: updateProductDialog,
@@ -445,7 +446,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                     fontSize: 17,
                                   ),
                                 ),
-                                color: Colors.yellow[200],
+                                color: Colors.yellow[300],
                                 textColor: Colors.black,
                                 elevation: 10,
                                 onPressed: () {
@@ -475,7 +476,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           title: Text("Update Product ID: " + widget.product.pid,
                   style: TextStyle(
-                    fontFamily: 'Bellota',
+                    // fontFamily: 'Bellota',
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -485,6 +486,7 @@ class _UpdateProductState extends State<UpdateProduct> {
             new FlatButton(
               child: new Text("Yes",
                   style: TextStyle(
+                    color: Colors.black,
                     fontSize: 17,
                   )),
               onPressed: () {
@@ -495,6 +497,7 @@ class _UpdateProductState extends State<UpdateProduct> {
             new FlatButton(
               child: new Text("No",
                   style: TextStyle(
+                    color: Colors.black,
                     fontSize: 17,
                   )),
               onPressed: () {
@@ -633,7 +636,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               ],
         androidUiSettings: AndroidUiSettings(
           toolbarTitle: 'Cropper',
-          toolbarColor: Colors.blue[600],
+          toolbarColor: Colors.red[100],
           toolbarWidgetColor: Colors.black,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,

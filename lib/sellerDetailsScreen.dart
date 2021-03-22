@@ -41,12 +41,13 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
           flexibleSpace: Container(
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
                   colors: [
-                    const Color(0xFF3366FF),
-                    const Color(0xFF00CCFF),
+                    Colors.deepOrange[200],
+                    Colors.red[100],
                   ],
                   begin: const FractionalOffset(0.0, 0.0),
                   end: const FractionalOffset(1.0, 0.0),
@@ -59,7 +60,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                   fontFamily: 'Sofia',
                   fontWeight: FontWeight.bold,
                   fontSize: 30.0,
-                  color: Colors.white)),
+                  color: Colors.black)),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -75,7 +76,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                         padding: EdgeInsets.only(
                             top: size.height * 0.05), //content height
                         decoration: BoxDecoration(
-                          color: Colors.blue[100],
+                          color: Colors.red[100],
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(40),
@@ -141,7 +142,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                                       }),
                                   SizedBox(width: 25),
                                   Icon(MdiIcons.checkDecagram,
-                                      color: Colors.red),
+                                      color: Colors.blue),
                                   Text(
                                     " Qty Available: " +
                                         widget.product["quantity"],
@@ -158,10 +159,10 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                     productdata == null
                         ? Flexible(
                             child: Container(
-                                color: Colors.blue[800],
+                                color: Colors.red[100],
                                 child: Center(
                                   child: Shimmer.fromColors(
-                                      baseColor: Colors.yellow[500],
+                                      baseColor: Colors.black,
                                       highlightColor: Colors.white,
                                       child: Text(
                                         titlecenter,

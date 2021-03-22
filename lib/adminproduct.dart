@@ -712,6 +712,7 @@ class _AdminProductState extends State<AdminProduct> {
                     "Yes",
                     style: TextStyle(
                       fontSize: 17,
+                      color: Colors.black,
                     ),
                   )),
               new FlatButton(
@@ -722,6 +723,7 @@ class _AdminProductState extends State<AdminProduct> {
                   "No",
                   style: TextStyle(
                     fontSize: 17,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -758,7 +760,7 @@ class _AdminProductState extends State<AdminProduct> {
 
   Future<void> _createNewProduct() async {
     await Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => NewProduct()));
+        MaterialPageRoute(builder: (BuildContext context) => NewProduct(user: widget.user)));
     _loadData();
   }
 
