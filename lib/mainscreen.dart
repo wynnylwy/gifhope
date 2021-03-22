@@ -202,11 +202,13 @@ class _MainScreenState extends State<MainScreen> {
                         : Expanded(
                             child: GridView.count(
                               crossAxisCount: 2,
-                              childAspectRatio:
-                                  (screenWidth / screenHeight) / 0.9,
+                              childAspectRatio: (screenWidth / screenHeight) / 0.9,
                               children:
                                   List.generate(productdata.length, (index) {
                                 return Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)
+                                  ),
                                     elevation: 10,
                                     child: Padding(
                                       padding:

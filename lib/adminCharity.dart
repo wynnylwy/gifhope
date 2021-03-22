@@ -51,7 +51,6 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
     _loadCharityData();
     _loadDonationQuantity();
     refreshKey = GlobalKey<RefreshIndicatorState>();
-    
   }
 
   Widget build(BuildContext context) {
@@ -204,6 +203,8 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                                     onTap: () => _showPopUpMenu(index),
                                     onTapDown: _storePosition,
                                     child: Card(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20)),
                                         elevation: 10,
                                         child: Padding(
                                           padding: EdgeInsets.fromLTRB(
@@ -276,7 +277,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(height:8),
+                                              SizedBox(height: 8),
                                               MaterialButton(
                                                   elevation: 5,
                                                   shape: RoundedRectangleBorder(
@@ -442,16 +443,16 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
           children: <Widget>[
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                  gradient: new LinearGradient(
-                      colors: [
-                        const Color(0xFFFF8A65),
-                        const Color(0xFFFF7043),
-                      ],
-                      begin: const FractionalOffset(0.0, 0.0),
-                      end: const FractionalOffset(1.0, 0.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
-                ),
+                gradient: new LinearGradient(
+                    colors: [
+                      const Color(0xFFFF8A65),
+                      const Color(0xFFFF7043),
+                    ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 0.0),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp),
+              ),
               accountName: Text(widget.user.name,
                   style: TextStyle(fontSize: 18.0, color: Colors.black)),
               accountEmail: Text(widget.user.email,
@@ -480,74 +481,73 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                             ProfileScreen(user: widget.user)))
               },
             ),
-
             ListTile(
-                  title: Text("Charity List",
-                      style: TextStyle(color: Colors.black, fontSize: 16)),
-                  leading: Icon(Icons.list, color: Colors.black),
-                  onTap: () => {
-                        Navigator.pop(context),
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    CharityAdminMainScreen(user: widget.user)))
-                      }),
-              ListTile(
-                  title: Text("Manage Charity Info",
-                      style: TextStyle(color: Colors.black, fontSize: 16)),
-                  leading: Icon(MdiIcons.databaseEdit, color: Colors.black),
-                  onTap: () => {
-                        Navigator.pop(context),
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    CharityAdminManageScreen(user: widget.user)))
-                      }),
-              ListTile(
-                  title: Text("Collect Donation",
-                      style: TextStyle(color: Colors.black, fontSize: 16)),
-                  leading: Icon(Icons.attach_money, color: Colors.black),
-                  onTap: () => {
-                        Navigator.pop(context),
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    CollectDonationTileScreen()))
-                      }),
-              ListTile(
-                  title: Text("View Sales Report",
-                      style: TextStyle(color: Colors.black, fontSize: 16)),
-                  leading: Icon(Icons.request_page, color: Colors.black),
-                  onTap: () => {
-                        Navigator.pop(context),
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    SalesReportScreen()))
-                      }),
-              ListTile(
-                  title: Text("View Donation Report",
-                      style: TextStyle(color: Colors.black, fontSize: 16)),
-                  leading: Icon(MdiIcons.scriptText, color: Colors.black),
-                  onTap: () => {
-                        Navigator.pop(context),
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    DonateReportScreen()))
-                      }),
-              ListTile(
-                  title: Text("Log Out",
-                      style: TextStyle(color: Colors.black, fontSize: 16)),
-                  leading: Icon(Icons.logout, color: Colors.black),
-                  onTap: () => {
-                        _logout(),
-                      }),
+                title: Text("Charity List",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.list, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  CharityAdminMainScreen(user: widget.user)))
+                    }),
+            ListTile(
+                title: Text("Manage Charity Info",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(MdiIcons.databaseEdit, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  CharityAdminManageScreen(user: widget.user)))
+                    }),
+            ListTile(
+                title: Text("Collect Donation",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.attach_money, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  CollectDonationTileScreen()))
+                    }),
+            ListTile(
+                title: Text("View Sales Report",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.request_page, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  SalesReportScreen()))
+                    }),
+            ListTile(
+                title: Text("View Donation Report",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(MdiIcons.scriptText, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  DonateReportScreen()))
+                    }),
+            ListTile(
+                title: Text("Log Out",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.logout, color: Colors.black),
+                onTap: () => {
+                      _logout(),
+                    }),
           ],
         ),
       ),
@@ -931,22 +931,28 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
   }
 
   Future<void> _collectDonation() async {
-    await Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => CollectDonationTileScreen()));
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => CollectDonationTileScreen()));
   }
 
   Future<void> _viewSalesReport() async {
-    await Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => SalesReportScreen()));
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => SalesReportScreen()));
   }
 
   Future<void> _viewDonateReport() async {
-    await Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => DonateReportScreen()));
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => DonateReportScreen()));
   }
 
   void _storePosition(TapDownDetails details) {
-     _tapPosition = details.globalPosition;
+    _tapPosition = details.globalPosition;
   }
 
   _showPopUpMenu(int index) async {
@@ -955,7 +961,8 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
     await showMenu(
       context: context,
       position: RelativeRect.fromRect(
-          _tapPosition & Size(40, 40), // smaller rect, pop up after touch on touch's area
+          _tapPosition &
+              Size(40, 40), // smaller rect, pop up after touch on touch's area
           Offset.zero & overlay.size), // Bigger rect, the entire screen
       items: [
         PopupMenuItem(
@@ -973,8 +980,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
     );
   }
 
-  Widget genreDropDownList()
-  {
+  Widget genreDropDownList() {
     return Row(
       children: <Widget>[
         Column(
@@ -1186,7 +1192,6 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
   Future<void> _onEventDetail(int index) async {
     print(charitydata[index]['id']);
     print(charitydata[index]['name']);
-     
 
     Charity charityInfo = new Charity(
         eid: charitydata[index]['id'],
@@ -1256,7 +1261,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
         type: ProgressDialogType.Normal, isDismissible: false);
     pr.style(message: "Deleting event...");
     pr.show();
-    http.post("https://yitengsze.com/a_gifhope/php/delete_charity.php", body: { 
+    http.post("https://yitengsze.com/a_gifhope/php/delete_charity.php", body: {
       "eid": charitydata[index]['id'],
     }).then((res) {
       print(res.body);

@@ -191,6 +191,8 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                               children:
                                   List.generate(charitydata.length, (index) {
                                 return Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20)),
                                     elevation: 10,
                                     child: Padding(
                                       padding:
@@ -513,7 +515,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
             ListTile(
                 title: Text("Log Out",
                     style: TextStyle(color: Colors.black, fontSize: 16)),
-                 leading: Icon(Icons.exit_to_app, color: Colors.black),
+                leading: Icon(Icons.exit_to_app, color: Colors.black),
                 onTap: () => {
                       _logout(),
                     }),
@@ -852,14 +854,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                             Container(
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.red,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black45,
-                                      blurRadius: 2,
-                                      spreadRadius: 5,
-                                    )
-                                  ]),
+                                  color: Colors.red,),
                               child: IconButton(
                                 icon: Icon(Icons.close),
                                 iconSize: 18.0,

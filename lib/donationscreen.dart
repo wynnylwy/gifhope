@@ -96,7 +96,7 @@ class _DonationScreenState extends State<DonationScreen> {
           ],
         ),
         body: Container(
-            color: Colors.red[100],
+            color: Colors.amber[100],
             child: Center(
               child: Column(
                 children: <Widget>[
@@ -109,7 +109,7 @@ class _DonationScreenState extends State<DonationScreen> {
                   donationData == null
                       ? Flexible(
                           child: Container(
-                              color: Colors.red[100],
+                              color: Colors.amber[100],
                               child: Center(
                                 child: Shimmer.fromColors(
                                     baseColor: Colors.black,
@@ -174,7 +174,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                                     style: TextStyle(
                                                       fontSize: 20.0,
                                                     )),
-                                                color: Colors.yellow[400],
+                                                color: Colors.yellow[300],
                                                 textColor: Colors.black,
                                                 elevation: 10,
                                                 onPressed: makePayment,
@@ -190,7 +190,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                                     style: TextStyle(
                                                       fontSize: 20.0,
                                                     )),
-                                                color: Colors.yellow[400],
+                                                color: Colors.yellow[300],
                                                 textColor: Colors.black,
                                                 elevation: 10,
                                                 onPressed: () {

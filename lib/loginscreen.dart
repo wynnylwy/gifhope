@@ -321,7 +321,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 phone: userdata[3],
                 credit: userdata[4],
                 datereg: userdata[5],
-                quantity: userdata[6]);
+                quantity: userdata[6],
+                donation: userdata[7]);
             pr.hide();
 
             Toast.show("Login success", context,

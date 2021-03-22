@@ -195,6 +195,9 @@ class _AdminProductState extends State<AdminProduct> {
                                 onTap: () => _showPopUpMenu(index),
                                 onTapDown: _storePosition, //menu position
                                 child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
                                     elevation: 10,
                                     child: Padding(
                                       padding: EdgeInsets.all(5),

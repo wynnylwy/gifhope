@@ -5,9 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:gifhope/admincharity.dart';
 import 'package:gifhope/adminproduct.dart';
-import 'package:gifhope/purchasedetailscreen.dart';
 
 import 'package:gifhope/mainscreen.dart';
 import 'package:gifhope/profilescreen.dart';
@@ -18,7 +16,6 @@ import 'package:toast/toast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:gifhope/user.dart';
 
@@ -76,6 +73,7 @@ class _CharityScreenState extends State<CharityScreen> {
         child: Scaffold(
           drawer: mainDrawer(context),
           appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.black),
             flexibleSpace: Container(
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
@@ -118,7 +116,7 @@ class _CharityScreenState extends State<CharityScreen> {
                 await refreshList();
               },
               child: Container(
-                color: Colors.red[100],
+                color: Colors.amber[100],
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -130,185 +128,7 @@ class _CharityScreenState extends State<CharityScreen> {
                           padding: EdgeInsets.all(5),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Recent"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.update,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Recent",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("COVID-19"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.coronavirus,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "COVID-19",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () =>
-                                          _sortItem("Food Security"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.food_bank,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Food Security",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Children"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.child_care,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Children",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Education"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.school,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Education",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Animals"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.dog,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Animals",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                                Column(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      onPressed: () => _sortItem("Disaster"),
-                                      color: Colors.yellow[400],
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.emoticonCryOutline,
-                                            size: 35.0,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Disaster",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 3),
-                              ],
-                            ),
+                            child: genreDropDownList(),
                           ),
                         ),
                       ),
@@ -366,7 +186,7 @@ class _CharityScreenState extends State<CharityScreen> {
                     charitydata == null
                         ? Flexible(
                             child: Container(
-                                color: Colors.red[100],
+                                color: Colors.amber[100],
                                 child: Center(
                                   child: Shimmer.fromColors(
                                       baseColor: Colors.black,
@@ -384,10 +204,13 @@ class _CharityScreenState extends State<CharityScreen> {
                             child: GridView.count(
                               crossAxisCount: 2,
                               childAspectRatio:
-                                  (screenWidth / screenHeight) / 0.9,
+                                  (screenWidth / screenHeight) / 1.0,
                               children:
                                   List.generate(charitydata.length, (index) {
                                 return Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)
+                                  ),
                                     elevation: 10,
                                     child: Padding(
                                       padding:
@@ -454,6 +277,7 @@ class _CharityScreenState extends State<CharityScreen> {
                                               ),
                                             ],
                                           ),
+                                          SizedBox(height:9),
                                           MaterialButton(
                                               elevation: 5,
                                               shape: RoundedRectangleBorder(
@@ -595,201 +419,347 @@ class _CharityScreenState extends State<CharityScreen> {
   }
 
   Widget mainDrawer(BuildContext context) {
+    imageCache.clear();
     return Drawer(
-      child: ListView(
-        children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text(widget.user.name,
-                style: TextStyle(fontSize: 18.0, color: Colors.white)),
-            accountEmail: Text(widget.user.email,
-                style: TextStyle(fontSize: 18.0, color: Colors.white)),
-            otherAccountsPictures: <Widget>[
-              Align(
-                alignment: Alignment.topRight,
-                child: Text(widget.user.credit,
-                    style: TextStyle(fontSize: 10.0, color: Colors.white)),
+      child: Container(
+        decoration: BoxDecoration(
+          // shape: BoxShape.circle,
+          gradient: new LinearGradient(
+              colors: [
+                const Color(0xFFFBC02D),
+                const Color(0xFFFDD835),
+              ],
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp),
+        ),
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: [
+                      const Color(0xFFFBC02D),
+                      const Color(0xFFFDD835),
+                    ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 0.0),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp),
               ),
-            ],
-            currentAccountPicture: CircleAvatar(
-              backgroundColor:
-                  Theme.of(context).platform == TargetPlatform.android
-                      ? Colors.white
-                      : Colors.white,
-              child: Text(
-                widget.user.name.toString().substring(0, 1).toUpperCase(),
-                style: TextStyle(fontSize: 40.0, color: Colors.white),
+              accountName: Text(widget.user.name,
+                  style: TextStyle(fontSize: 18.0, color: Colors.black)),
+              accountEmail: Text(widget.user.email,
+                  style: TextStyle(fontSize: 16.0, color: Colors.black)),
+              otherAccountsPictures: <Widget>[
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Text(widget.user.credit,
+                      style: TextStyle(fontSize: 15.0, color: Colors.black)),
+                ),
+              ],
+              currentAccountPicture: CircleAvatar(
+                backgroundColor:
+                    Theme.of(context).platform == TargetPlatform.android
+                        ? Colors.white
+                        : Colors.white,
+                child: Text(
+                  widget.user.name.toString().substring(0, 1).toUpperCase(),
+                  style: TextStyle(fontSize: 40.0, color: Colors.white),
+                ),
+                backgroundImage: NetworkImage(
+                    "http://yitengsze.com/a_gifhope/profileimages/${widget.user.email}.jpg"),
               ),
-              backgroundImage: NetworkImage(
-                  "http://yitengsze.com/a_gifhope/profileimages/${widget.user.email}.jpg"),
+              onDetailsPressed: () => {
+                Navigator.pop(context),
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            ProfileScreen(user: widget.user)))
+              },
             ),
-            onDetailsPressed: () => {
-              Navigator.pop(context),
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          ProfileScreen(user: widget.user)))
-            },
-          ),
 
-          ListTile(
-              title: Text("My Profile",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              ProfileScreen(user: widget.user)),
-                    )
-                  }),
-
-          ListTile(
-              title: Text("My Purchase",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              PurchaseScreen(user: widget.user)),
-                    )
-                  }),
-
-          ListTile(
-              title: Text("Purchase History",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              PurchaseHistoryScreen(user: widget.user)),
-                    )
-                  }),
-
-          ListTile(
-              title: Text("Go To Donation List",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    //goToPaymentHistory(),
-                  }),
-
-          ListTile(
-              title: Text("Back to Product List",
-                  style: TextStyle(color: Colors.black)),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              MainScreen(user: widget.user)),
-                    )
-                  }),
-
-          ListTile(
-              title: Text("Log Out", style: TextStyle(color: Colors.black)),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => {
-                    _logout(),
-                  }),
-
-          //Admin Menu
-          Visibility(
-            visible: _isAdmin,
-            child: Column(
-              children: <Widget>[
-                Divider(
-                  height: 3,
-                  color: Colors.black,
-                ),
-                Center(
-                  child: Text("Seller Menu",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-                ListTile(
-                  title: Text("Manage Product Info",
-                      style: TextStyle(fontSize: 16)),
-                  trailing: Icon(Icons.arrow_forward),
-                  onTap: () => {
-                    Navigator.pop(context),
-                    Navigator.push(
+            ListTile(
+                title: Text("My Profile",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.account_circle, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                AdminProduct(user: widget.user)))
-                  },
-                ),
-                // ListTile(
-                //   title: Text("Sales History", style: TextStyle(fontSize: 16)),
-                //   trailing: Icon(Icons.arrow_forward),
-                //   // onTap: () => {
-                //   //   Navigator.pop(context),
-                //   //   Navigator.push(
-                //   //       context,
-                //   //       MaterialPageRoute(
-                //   //           builder: (BuildContext context) =>
-                //   //               AdminProduct(user: widget.user))
+                                ProfileScreen(user: widget.user)),
+                      )
+                    }),
 
-                //   //               )
-                //   // },
-                // ),
-                ListTile(
-                  title:
-                      Text("View Sales Report", style: TextStyle(fontSize: 16)),
-                  trailing: Icon(Icons.arrow_forward),
-                  // onTap: () => {
-                  //   Navigator.pop(context),
-                  //   Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //           builder: (BuildContext context) =>
-                  //               AdminProduct(user: widget.user))
+            ListTile(
+                title: Text("My Purchase",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.shopping_cart, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (BuildContext context) => PurchaseScreen(user: widget.user)
+                      ))
+                    }),
 
-                  //               )
-                  // },
-                ),
-                ListTile(
-                  title: Text("View Donation Report",
-                      style: TextStyle(fontSize: 16)),
-                  trailing: Icon(Icons.arrow_forward),
-                  // onTap: () => {
-                  //   Navigator.pop(context),
-                  //   Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //           builder: (BuildContext context) =>
-                  //               AdminProduct(user: widget.user))
+            ListTile(
+                title: Text("Purchase History",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.schedule, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (BuildContext context) => PurchaseHistoryScreen()))
+                    }),
 
-                  //               )
-                  // },
-                ),
-              ],
-            ),
-          ),
-        ],
+            ListTile(
+                title: Text("Go To Donation List",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.arrow_forward, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                CharityScreen(user: widget.user)),
+                      )
+                    }),
+
+            ListTile(
+                title: Text("Back to Product List",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.arrow_back, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (BuildContext context) => MainScreen())
+                      )
+                    }),
+
+            ListTile(
+                title: Text("Log Out",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.exit_to_app, color: Colors.black),
+                onTap: () => {
+                      _logout(),
+                    }),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget genreDropDownList(){
+    return Row(
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Padding(
+                padding:
+                    EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
+                child: TextButton(
+                  onPressed: () => _sortItem("Recent"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Icon(
+                        MdiIcons.update,
+                        size: 55.0,
+                        color: Colors.black,
+                      ),
+                      new Text(
+                        "Recent",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("COVID-19"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/covid19.png',
+                        height: 60,
+                        width: 50,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "COVID-19",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Food Security"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/food.png',
+                        height: 60,
+                        width: 75,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Food Security",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(
+          width: 3,
+        ),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Children"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/refugee.png',
+                        height: 65,
+                        width: 70,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Children",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(
+          width: 3,
+        ),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Education"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/education.png',
+                        height: 65,
+                        width: 75,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Education",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(
+          width: 3,
+        ),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Animals"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/animals.png',
+                        height: 70,
+                        width: 75,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Animals",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+        Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: TextButton(
+                  onPressed: () => _sortItem("Disaster"),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Image.asset(
+                        'assets/images/disaster.png',
+                        height: 75,
+                        width: 70,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      new Text(
+                        "Disaster",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 15.0),
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+        SizedBox(width: 3),
+      ],
     );
   }
 
@@ -897,7 +867,7 @@ class _CharityScreenState extends State<CharityScreen> {
       print(widget.user.email);
 
       showModalBottomSheet(
-          backgroundColor: Colors.red[100],
+          backgroundColor: Colors.amber[50],
           context: context,
           isScrollControlled: true,
           builder: (BuildContext builder) {
