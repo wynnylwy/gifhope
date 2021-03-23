@@ -173,6 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   )),
                               SizedBox(width: 25),
                               DropdownButton(
+                                  hint: Text('Select gender'),
                                   value: selectedGender,
                                   items: listGender.map((selectedGender) {
                                     return DropdownMenuItem(
@@ -309,6 +310,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   )),
                               SizedBox(width: 25),
                               DropdownButton(
+                                  hint: Text('Select identity'),
                                   value: selectedIdentity,
                                   items: listIdentity.map((selectedIdentity) {
                                     return DropdownMenuItem(

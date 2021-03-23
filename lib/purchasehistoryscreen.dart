@@ -74,7 +74,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                   SizedBox(height: 40, width: 20,),
 
                   Expanded(
-                    flex: 6,
+                    flex: 5,
                     child: RichText(
                       text: TextSpan(
                         text: "No.",
@@ -88,7 +88,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                       ),
                   ),
                   Expanded(
-                    flex: 20,
+                    flex: 22,
                     child: RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
@@ -104,7 +104,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                   ),
 
                  Expanded(
-                    flex: 15,
+                    flex: 13,
                     child: RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
@@ -162,85 +162,88 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                           return Padding(
                               padding: EdgeInsets.fromLTRB(15, 1, 15, 1),
                               child: InkResponse( 
-                                focusColor: Colors.blue[300],
-                                hoverColor: Colors.blue[300],
+                                focusColor: Colors.red[100],
+                                hoverColor: Colors.red[100],
                                 highlightColor: Colors.blue[300],
                                 borderRadius: BorderRadius.circular(20.0),
                                 onTap: () => setState(() {
 
                                   loadBookDetails(index);
                                 }),
-                                child: Container(
-                                  color: Colors.red,
-                                  child: Card(
-                                    elevation: 10,
-                                    child: Row( 
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Expanded(
-                                          flex: 2,
-                                          child:
-                                              Text((index + 1).toString() + ".",
-                                                 textAlign: TextAlign.center,
-                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 17
+                                child: Padding(
+                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: Container(
+                                    color: Colors.red,
+                                    child: Card(
+                                      elevation: 10,
+                                      child: Row( 
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 2,
+                                            child:
+                                                Text((index + 1).toString() + ".",
+                                                   textAlign: TextAlign.center,
+                                                   style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 17
 
-                                                  )),
-                                        ),
-                                        Expanded(
-                                          flex: 5,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
+                                                    )),
+                                          ),
+                                          Expanded(
+                                            flex: 5,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
 
-                                              Text(paymentdata[index]['orderid'],
-                                              style: TextStyle(
-                                                        fontSize: 17
-                                                      )),
-                                            ],
+                                                Text(paymentdata[index]['orderid'],
+                                                style: TextStyle(
+                                                          fontSize: 17
+                                                        )),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          flex: 5,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Text(
-                                                "RM " +
-                                                    paymentdata[index]['total'],
-                                                    style: TextStyle(
-                                                        fontSize: 17
-                                                      )
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 4,
-                                          child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Row(
-                                                children: <Widget>[
-                                                  Text(paymentdata[index]
-                                                      ['billid'],
-                                                      textAlign: TextAlign.center,
+                                          Expanded(
+                                            flex: 5,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                Text(
+                                                  "RM " +
+                                                      paymentdata[index]['total'],
                                                       style: TextStyle(
-                                                        fontSize: 18
-                                                      )),
-                                                ],
-                                              ),
-                                              Text(dateFormat
-                                                  .format(DateTime.parse(
-                                                paymentdata[index]['date'],
-                                              ))),
-                                            ],
+                                                          fontSize: 17
+                                                        )
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                          Expanded(
+                                            flex: 4,
+                                            child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Row(
+                                                  children: <Widget>[
+                                                    Text(paymentdata[index]
+                                                        ['billid'],
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 18
+                                                        )),
+                                                  ],
+                                                ),
+                                                Text(dateFormat
+                                                    .format(DateTime.parse(
+                                                  paymentdata[index]['date'],
+                                                ))),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

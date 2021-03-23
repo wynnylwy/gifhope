@@ -38,12 +38,13 @@ class _PurchaseDetailScreenState extends State<PurchaseDetailScreen> {
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                  const Color(0xFF3366FF),
-                  const Color(0xFF00CCFF),
+                  Colors.deepOrange[200],
+                  Colors.red[100],
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -56,10 +57,10 @@ class _PurchaseDetailScreenState extends State<PurchaseDetailScreen> {
                 fontFamily: 'Sofia',
                 fontWeight: FontWeight.bold,
                 fontSize: 30.0,
-                color: Colors.white)),
+                color: Colors.black)),
       ),
       body: Container(
-        color: Colors.blue[800],
+        color: Colors.red[100],
         child: Column(
           children: <Widget>[
             SizedBox(height: 15.0),
@@ -68,7 +69,7 @@ class _PurchaseDetailScreenState extends State<PurchaseDetailScreen> {
                     child: Container(
                         child: Center(
                     child: Shimmer.fromColors(
-                        baseColor: Colors.yellow[200],
+                        baseColor: Colors.black,
                         highlightColor: Colors.white,
                         child: Text(
                           titlecenter,
@@ -84,14 +85,14 @@ class _PurchaseDetailScreenState extends State<PurchaseDetailScreen> {
                         itemCount: purchasedetails == null ? 0 : purchasedetails.length,
                         itemBuilder: (context, index) {
                           return Container(
-                            height: screenHeight / 2.4,
+                            height: screenHeight / 2.6,  //height between card
                             width: screenWidth / 2.5,
                             child: Column(
                               children: <Widget>[
                                 Card(
-                                    elevation: 10,
+                                    elevation: 12,
                                     margin: EdgeInsets.fromLTRB(
-                                              10, 10, 10, 10),
+                                              10, 10, 10, 0),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(50.0),
@@ -267,10 +268,8 @@ class _PurchaseDetailScreenState extends State<PurchaseDetailScreen> {
                                                                     fontSize:
                                                                         18.0,
                                                                   )),
-                                                              color: Colors
-                                                                  .blue[500],
-                                                              textColor:
-                                                                  Colors.white,
+                                                              color: Colors.yellow[300],
+                                                              textColor: Colors.black,
                                                               elevation: 10,
                                                               onPressed: () => {
                                                                 buyAgain(index)
@@ -291,10 +290,8 @@ class _PurchaseDetailScreenState extends State<PurchaseDetailScreen> {
                                                                     fontSize:
                                                                         18.0,
                                                                   )),
-                                                              color: Colors
-                                                                  .blue[500],
-                                                              textColor:
-                                                                  Colors.white,
+                                                              color: Colors.yellow[300],
+                                                              textColor: Colors.black,
                                                               elevation: 10,
                                                               onPressed: () {
                                                                 Navigator.of(
