@@ -35,12 +35,13 @@ class _PaymentDonateScreen extends State<PaymentDonateScreen> {
    
         return Scaffold(
           appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.black),
             flexibleSpace: Container(
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
                     colors: [
-                      const Color(0xFFFF8A65),
-                      const Color(0xFFFFCA28),
+                      const Color(0xFFFDD835),
+                      const Color(0xFFFBC02D),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
@@ -53,7 +54,7 @@ class _PaymentDonateScreen extends State<PaymentDonateScreen> {
                     fontFamily: 'Sofia',
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
-                    color: Colors.white)),
+                    color: Colors.black)),
           ),
           body: Center(
             //be center

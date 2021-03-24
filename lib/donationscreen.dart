@@ -357,7 +357,7 @@ class _DonationScreenState extends State<DonationScreen> {
 
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Donation Updating...");
+    pr.style(message: "Donation updating...");
     pr.show();
     String urlLoadJobs =
         "https://yitengsze.com/a_gifhope/php/load_donation.php";

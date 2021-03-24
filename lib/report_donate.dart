@@ -241,7 +241,8 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
 
     if (res.body.contains("nodata")) {
       return false;
-    } else {
+    } 
+    else {
       Map<String, dynamic> map =
           json.decode(res.body); //json decode will return dynamic
       donateData = map["donate"].toList();
