@@ -244,7 +244,6 @@ class _CollectDonationTileScreenState extends State<CollectDonationTileScreen> {
 
   loadSalesDetails(int index) {
     SalesDonate salesDonate = new SalesDonate(
-      sellerid: salesdetails[index]['sellerid'],
       genre: salesdetails[index]['genre'],
       sales: salesdetails[index]['sales'],
       donate: salesdetails[index]['donate'],

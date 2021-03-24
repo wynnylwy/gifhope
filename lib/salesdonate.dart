@@ -1,9 +1,8 @@
 class SalesDonate{
-  String sellerid, genre, sales, donate;
+  String genre, sales, donate;
 
   SalesDonate(
     {
-      this.sellerid,
       this.genre, 
       this.sales,
       this.donate, 

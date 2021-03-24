@@ -256,7 +256,7 @@ List<charts.Series<CDonate, String>> dataList(List<dynamic> apiData) {
   List<CDonate> list = new List();
 
   for (int i = 0; i < apiData.length; i++) {
-    list.add(new CDonate(apiData[i]['genre'], apiData[i]['donate']));
+    list.add(new CDonate(apiData[i]['genre'], apiData[i]['donated']));
   }
 
   return [
@@ -264,7 +264,7 @@ List<charts.Series<CDonate, String>> dataList(List<dynamic> apiData) {
         id: 'Collected Donation',
         data: list,
         domainFn: (CDonate donate, _) => donate.genre,
-        measureFn: (CDonate donate, _) => int.parse(donate.donate),
+        measureFn: (CDonate donate, _) => double.parse(donate.donate),
         colorFn: (CDonate donate, _) =>
             charts.MaterialPalette.red.shadeDefault),
   ];
