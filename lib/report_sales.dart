@@ -189,8 +189,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                         if (snapshot.connectionState == ConnectionState.none ||
                             snapshot.hasData == false) {
                           return Center(child: CircularProgressIndicator());
-                        } 
-                        else if (snapshot.hasData == true &&
+                        } else if (snapshot.hasData == true &&
                             snapshot.data == false) {
                           return Column(
                             children: [
@@ -234,13 +233,26 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                               ),
                             ],
                           );
-                        } 
-                        else {
+                        } else {
                           return new charts.BarChart(
                             dataList(snapshot.data),
-                            vertical: true,
+                            vertical: false,
                             animate: true,
                             barGroupingType: charts.BarGroupingType.grouped,
+                            barRendererDecorator: new charts.BarLabelDecorator(
+                                insideLabelStyleSpec:
+                                    new charts.TextStyleSpec(fontSize: 18),
+                                outsideLabelStyleSpec:
+                                    new charts.TextStyleSpec(fontSize: 18)
+                            ),
+                            domainAxis: new charts.OrdinalAxisSpec(
+                                renderSpec: new charts.NoneRenderSpec()), //Hide x-axis
+                            primaryMeasureAxis: new charts.NumericAxisSpec(
+                                renderSpec: new charts.GridlineRendererSpec(
+                              labelStyle: new charts.TextStyleSpec(
+                                  fontSize: 15,                           //Edit y-axis
+                                  color: charts.MaterialPalette.black),
+                            )),
                             animationDuration: Duration(
                               microseconds: 2000,
                             ),
@@ -287,15 +299,17 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
           id: 'Product Sales',
           data: list,
           domainFn: (Sales sales, _) => sales.genre,
-          measureFn: (Sales sales, _) => int.parse(sales.totsales),
-          colorFn: (Sales sales, _) =>
-              charts.MaterialPalette.blue.shadeDefault),
+          measureFn: (Sales sales, _) => double.parse(sales.totsales),
+          colorFn: (Sales sales, _) => charts.MaterialPalette.blue.shadeDefault,
+          labelAccessorFn: (Sales sales, _) =>
+              '${sales.genre}: ${sales.totsales.toString()}'),
       new charts.Series<Sales, String>(
           id: 'Collected Donation',
           data: list,
           domainFn: (Sales sales, _) => sales.genre,
-          measureFn: (Sales sales, _) => int.parse(sales.donate),
-          colorFn: (Sales sales, _) => charts.MaterialPalette.red.shadeDefault),
+          measureFn: (Sales sales, _) => double.parse(sales.donate),
+          colorFn: (Sales sales, _) => charts.MaterialPalette.red.shadeDefault,
+          labelAccessorFn: (Sales sales, _) => '${sales.donate.toString()}'),
     ];
   }
 }

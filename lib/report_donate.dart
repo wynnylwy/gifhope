@@ -217,9 +217,23 @@ class _DonateReportScreenState extends State<DonateReportScreen> {
                         } else {
                           return new charts.BarChart(
                             dataList(snapshot.data),
-                            vertical: true,
+                            vertical: false,
                             animate: true,
                             barGroupingType: charts.BarGroupingType.grouped,
+                            barRendererDecorator: new charts.BarLabelDecorator(
+                                insideLabelStyleSpec:
+                                    new charts.TextStyleSpec(fontSize: 18),
+                                outsideLabelStyleSpec:
+                                    new charts.TextStyleSpec(fontSize: 18)
+                            ),
+                            domainAxis: new charts.OrdinalAxisSpec(
+                                renderSpec: new charts.NoneRenderSpec()), //Hide x-axis
+                            primaryMeasureAxis: new charts.NumericAxisSpec(
+                                renderSpec: new charts.GridlineRendererSpec(
+                              labelStyle: new charts.TextStyleSpec(
+                                  fontSize: 15,                           //Edit y-axis
+                                  color: charts.MaterialPalette.black),
+                            )),
                             animationDuration: Duration(
                               microseconds: 2000,
                             ),
@@ -265,7 +279,9 @@ List<charts.Series<CDonate, String>> dataList(List<dynamic> apiData) {
         data: list,
         domainFn: (CDonate donate, _) => donate.genre,
         measureFn: (CDonate donate, _) => double.parse(donate.donate),
-        colorFn: (CDonate donate, _) =>
-            charts.MaterialPalette.red.shadeDefault),
+        colorFn: (CDonate donate, _) => charts.MaterialPalette.red.shadeDefault,
+        labelAccessorFn: (CDonate donate, _) => '${donate.genre}: ${donate.donate.toString()}'
+      )
+        
   ];
 }
