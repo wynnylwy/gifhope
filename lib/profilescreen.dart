@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   fontFamily: 'Sofia',
                   fontWeight: FontWeight.bold,
                   fontSize: 30.0,
-                  color: Colors.white))
+                  color: Colors.black))
       ),
       body: Center(
         child: Column(

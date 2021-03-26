@@ -536,9 +536,12 @@ class _CharityScreenState extends State<CharityScreen> {
                 leading: Icon(Icons.arrow_back, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (BuildContext context) => MainScreen())
-                      )
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                MainScreen(user: widget.user)),
+                      ),
                     }),
 
             ListTile(

@@ -33,6 +33,7 @@ class _PaymentScreen extends State<PaymentScreen> {
    
         return Scaffold(
           appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.black),
             flexibleSpace: Container(
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
@@ -51,7 +52,7 @@ class _PaymentScreen extends State<PaymentScreen> {
                     fontFamily: 'Sofia',
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
-                    color: Colors.white)),
+                    color: Colors.black)),
           ),
           body: Center(
             //be center
