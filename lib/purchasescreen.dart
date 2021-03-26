@@ -14,7 +14,6 @@ import 'package:random_string/random_string.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'order.dart';
 import 'product.dart';
 import 'payment.dart';
 import 'mainscreen.dart';
@@ -138,7 +137,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                   : purchaseData.length + 2,
                               itemBuilder: (context, index) {
                                 if (index == purchaseData.length) {
-                                  return Container(
+                                  return Container(   //Delivery Option
                                       height: screenHeight / 3.0,
                                       width: screenWidth / 2.5,
                                       child: InkWell(
@@ -265,7 +264,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                 }
 
                                 if (index == purchaseData.length + 1) {
-                                  return Container(
+                                  return Container(  //Payment
                                     height: screenHeight / 3.2,
                                     child: Card(
                                       elevation: 5,
@@ -416,18 +415,17 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                   Flexible(
                                                     child: Column(
                                                       children: <Widget>[
-                                                        Text(
-                                                          purchaseData[index]
-                                                              ['name'],
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 16.0),
-                                                          maxLines: 3,
-                                                        ),
+                                                        Row(
+                                                             mainAxisAlignment:
+                                                                MainAxisAlignment.start,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                  purchaseData[index]['name'],
+                                                                  style: TextStyle(
+                                                                      fontSize:16.0,
+                                                                      fontWeight: FontWeight.bold),
+                                                                  maxLines: 3
+                                                        )]),
                                                         Row(
                                                              mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -461,8 +459,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                         SizedBox(height: 15),
                                                         Row(
                                                           mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
+                                                              MainAxisAlignment.start,
                                                           children: <Widget>[
                                                             Text(
                                                                 "Selected quantity: " +
@@ -483,10 +480,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                             Spacer(flex: 2),
                                                             Text(
                                                                 "RM " +
-                                                                    purchaseData[
-                                                                            index]
-                                                                        [
-                                                                        'yourprice'],
+                                                                    purchaseData[index]['yourprice'],
                                                                 style: TextStyle(
                                                                     fontWeight:
                                                                         FontWeight

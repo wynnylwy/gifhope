@@ -78,7 +78,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: size.height,
+                height: size.height * 1.1,
                 child: Stack(
                   children: <Widget>[
                     Expanded(
@@ -117,6 +117,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(height: 1.8, fontSize: 15),
                                 ),
+                                RichText(
+                                    textAlign: TextAlign.start,
+                                    text: TextSpan(
+                                        text: "!! We will donate",
+                                        style: TextStyle(color: Colors.black),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: " 20%",
+                                              style: TextStyle(
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.red)),
+                                          TextSpan(
+                                            text: " of profit to the charity event !!",
+                                            style: TextStyle(color: Colors.black),
+                                          )
+                                        ])),
                               ]),
                             ),
                             Padding(
@@ -267,23 +284,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           ),
                                         ),
                                         SizedBox(width: 15),
-                                        Container(
-                                          height: screenWidth / 1.9,
-                                          width: screenWidth / 2.0,
-                                          child: Padding(
-                                            padding: EdgeInsets.fromLTRB(
-                                                10, 5, 0, 5), //padding of pic
+                                        Padding(
+                                          padding: EdgeInsets.fromLTRB(50, 5, 2, 5),
+                                          child: Container(
+                                            height: screenWidth / 1.9,
+                                            width: screenWidth / 2.0,
+                                            child: Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  10, 5, 0, 5), //padding of pic
 
-                                            child: ClipRect(
-                                              child: CachedNetworkImage(
-                                                fit: BoxFit.cover,
-                                                imageUrl:
-                                                    "http://yitengsze.com/a_gifhope/productimages/${widget.product["id"]}.jpg",
-                                                placeholder: (context, url) =>
-                                                    new CircularProgressIndicator(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        new Icon(Icons.error),
+                                              child: ClipRect(
+                                                child: CachedNetworkImage(
+                                                  fit: BoxFit.cover,
+                                                  imageUrl:
+                                                      "http://yitengsze.com/a_gifhope/productimages/${widget.product["id"]}.jpg",
+                                                  placeholder: (context, url) =>
+                                                      new CircularProgressIndicator(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          new Icon(Icons.error),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -340,13 +360,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   void _addToPurchase(int numOfItem, String id) {
-
     if (widget.user.email.contains("unregistered")) {
       Toast.show("Please register first", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
-    
+
     try {
       int cquantity =
           int.parse(widget.product["quantity"]); //current available qty
