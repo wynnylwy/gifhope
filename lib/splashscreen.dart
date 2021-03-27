@@ -21,20 +21,61 @@ class _MyAppState extends State<MyApp> {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-     
       title: 'Gifhope',
       home: Scaffold(
-          body: Container(
-        child: Stack(
-          children: <Widget>[
-            Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage (
-                        image: AssetImage('assets/images/hand.png'),
-                        fit: BoxFit.fitHeight))),
-            Container(height: 150, child: ProgressIndicator())
-          ],
-        ),
+          body: Center(
+        child: TweenAnimationBuilder(
+            tween: Tween(begin: 0.0, end: 1.0),
+            duration: Duration(seconds: 3),
+            builder: (context, value, child) {
+              return Center(
+                child: Container(
+                  child: Stack(
+                    children: <Widget>[
+                      ShaderMask(
+                        shaderCallback: (rect) {
+                          return SweepGradient(
+                                  startAngle: 0.0,
+                                  endAngle: 3.14 * 2,
+                                  stops: [value, value],  //start & end stop value
+                                  center: Alignment.center,
+                                  colors: [Colors.red[400], Colors.grey]) //loading & base color
+                              .createShader(rect);
+                        },
+                        child: Center(
+                           child: Container(
+                              width: 330,
+                              height: 330,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                    fit: BoxFit.fitHeight,
+                                    image: AssetImage('assets/images/loading.png'),
+                                      ))
+                                   ),
+                        ),
+                      ),
+
+                      Center(
+                        child: Container(
+                          width: 320,
+                          height: 320,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: AssetImage('assets/images/hand.png')
+                            ),
+                          ),
+                         child: ProgressIndicator()
+                        ),
+                         
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
       )),
     );
   }
@@ -54,8 +95,7 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
   void initState() {
     super.initState();
     controller = AnimationController(
-        duration: const Duration(milliseconds: 200), 
-        vsync: this);
+        duration: const Duration(milliseconds: 200), vsync: this);
     animation = Tween(begin: 0.0, end: 1.0).animate(controller)
       ..addListener(() {
         setState(() {
@@ -80,18 +120,11 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
     return new Center(
       child: new Container(
           width: 300,
-          child: LinearProgressIndicator(
-            value: animation.value,
-            backgroundColor: Colors.red[500],
-            valueColor: new AlwaysStoppedAnimation<Color>(
-              Colors.yellow,
-            ),
-          )),
+          ),
     );
   }
 
-  void loadpref(BuildContext ctx) async
-  {
+  void loadpref(BuildContext ctx) async {
     print('Inside loadpred()');
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -99,53 +132,44 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
     String pass = (preferences.getString('pass') ?? '');
     print("Splash-> Preference: " + email + "/" + pass);
 
-    if (email.length > 5)
-    {
+    if (email.length > 5) {
       loginUser(email, pass, ctx);
-    }
-
-    else 
-    {
-      loginUser ("unregistered", "123456789", ctx);
+    } else {
+      loginUser("unregistered", "123456789", ctx);
     }
   }
 
-  Future <void> loginUser (String email, String pass, BuildContext ctx) async
-  {
-    await http.post("https://yitengsze.com/a_gifhope/php/login_user.php", body:{
+  Future<void> loginUser(String email, String pass, BuildContext ctx) async {
+    await http
+        .post("https://yitengsze.com/a_gifhope/php/login_user.php", body: {
       "email": email,
       "password": pass,
-    }).then((res){
+    }).then((res) {
       print(res.body);
 
       var string = res.body;
       List userdata = string.split(","); //split data by using ','
-      if (userdata [0].contains("success"))
-      {
-        User _user = new User ( //follow login_user.php arrange de
-          name: userdata[1],
-          email: email,
-          password: pass,  //pass 'pass' to user.password
-          phone: userdata[3],
-          credit: userdata[4],
-          datereg: userdata[5],
-          quantity: userdata[6]
-        );
+      if (userdata[0].contains("success")) {
+        User _user = new User(
+            //follow login_user.php arrange de
+            name: userdata[1],
+            email: email,
+            password: pass, //pass 'pass' to user.password
+            phone: userdata[3],
+            credit: userdata[4],
+            datereg: userdata[5],
+            quantity: userdata[6]);
 
         Navigator.push(
-          context, 
-          MaterialPageRoute(
-            builder: (BuildContext context) => MainScreen( 
-              user: _user)));
-      }
-
-      else 
-      {
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => MainScreen(user: _user)));
+      } else {
         Toast.show("Failed. Login as unregistered user ", context,
-                    duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         loginUser("unregistered@carvroom.com", "123456789", ctx);
       }
-    }).catchError((err){
+    }).catchError((err) {
       print(err);
     });
   }
