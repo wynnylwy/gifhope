@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'loginscreen.dart';
+import 'mainscreen.dart';
 import 'registerscreen.dart';
 import 'user.dart';
 import 'package:http/http.dart' as http;
@@ -27,6 +28,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   double screenHeight, screenWidth;
   final dateFormat = new DateFormat('yyyy-MM-dd HH:mm:ss');
   var parsedDate;
+  bool _showOldPass = false;
+  bool _showNewPass = false;
+  File _image;
+  String pathAsset = "assets/images/camera.jpg";
 
   @override
   void initState() {
@@ -43,24 +48,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         flexibleSpace: Container(
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                  colors: [
-                    Colors.deepOrange[200],
-                    Colors.red[100],
-                  ],
-                  begin: const FractionalOffset(0.0, 0.0),
-                  end: const FractionalOffset(1.0, 0.0),
-                  stops: [0.0, 1.0],
-                  tileMode: TileMode.clamp),
-            ),
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+                colors: [
+                  Colors.deepOrange[200],
+                  Colors.red[100],
+                ],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
           ),
+        ),
         title: Text('My Profile',
-              style: TextStyle(
-                  fontFamily: 'Sofia',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30.0,
-                  color: Colors.black))
+            style: TextStyle(
+                fontFamily: 'Sofia',
+                fontWeight: FontWeight.bold,
+                fontSize: 30.0,
+                color: Colors.black)),
+        leading: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MainScreen(
+                            user: widget.user,
+                          )));
+            }),
       ),
       body: Center(
         child: Column(
@@ -70,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: Colors.yellow[200],
               elevation: 5,
               child: Padding(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.fromLTRB(5, 10, 5, 20),
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -79,22 +94,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         GestureDetector(
                           onTap: _takePicture,
                           child: Container(
-                            height: screenHeight / 5.0,
+                            height: screenHeight / 4.8,
                             width: screenWidth / 3.5,
                             decoration: new BoxDecoration(
-                              shape: BoxShape.circle,
                               border: Border.all(color: Colors.black),
-                            ),
-                            child: CachedNetworkImage(
-                              fit: BoxFit.cover,
-                              imageUrl:
-                                  "http://yitengsze.com/a_gifhope/profileimages/${widget.user.email}.jpg",
-                              placeholder: (context, url) => new SizedBox(
-                                  height: 10,
-                                  width: 10,
-                                  child: CircularProgressIndicator()),
-                              errorWidget: (context, url, error) =>
-                                  new Icon(MdiIcons.cameraIris, size: 65),
+                              borderRadius: BorderRadius.circular(25),
+                              image: DecorationImage(
+                                image: _image == null
+                                    ? CachedNetworkImageProvider(
+                                            "http://yitengsze.com/a_gifhope/profileimages/${widget.user.email}.jpg",
+                                      )
+                                    : FileImage(_image),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -124,6 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             height: 20,
                                             child: Text(widget.user.name,
                                                 style: TextStyle(
+                                                    fontSize: 18,
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.black)))),
                                   ],
@@ -144,6 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             height: 20,
                                             child: Text(widget.user.email,
                                                 style: TextStyle(
+                                                    fontSize: 13,
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.black)))),
                                   ],
@@ -195,26 +209,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 2),
+                    SizedBox(height: 15),
                     Divider(
                       height: 2,
                       color: Colors.black,
                       thickness: 3,
                     ),
-                
                   ],
                 ),
               ),
             ),
             Container(
-              color: Colors.blue[400],
+              color: Colors.red[100],
               child: Center(
                   child: Text(
                 "MANAGE YOUR PROFILE",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 22,
                 ),
               )),
             ),
@@ -228,41 +241,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 shrinkWrap: true,
                 children: <Widget>[
                   MaterialButton(
-                      onPressed: changeName, 
+                      elevation: 10,
+                      height: 40,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      onPressed: changeName,
                       color: Colors.yellow[200],
                       child: Text("Change Your Name",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ))),
+                          style: TextStyle(
+                            fontSize: 18,
+                          ))),
+                  SizedBox(height: 15),
                   MaterialButton(
-                      onPressed: changePassword,
+                      elevation: 10,
+                      height: 40,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      onPressed: _changePasswordDialog,
                       color: Colors.yellow[200],
                       child: Text("Change Your Password",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ))),
+                          style: TextStyle(
+                            fontSize: 18,
+                          ))),
+                  SizedBox(height: 15),
                   MaterialButton(
-                      onPressed: changePhone, 
+                      elevation: 10,
+                      height: 40,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      onPressed: changePhone,
                       color: Colors.yellow[200],
                       child: Text("Change Your Phone",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ))),
+                          style: TextStyle(
+                            fontSize: 18,
+                          ))),
+                  SizedBox(height: 15),
                   MaterialButton(
-                      onPressed: goLogin, 
+                      elevation: 10,
+                      height: 40,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      onPressed: goLogin,
                       color: Colors.yellow[200],
                       child: Text("Go Login Screen",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ))),
+                          style: TextStyle(
+                            fontSize: 18,
+                          ))),
+                  SizedBox(height: 15),
                   MaterialButton(
+                      elevation: 10,
+                      height: 40,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
                       onPressed: goRegister,
                       color: Colors.yellow[200],
                       child: Text("Go Register New Account",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ))),
-                      
+                          style: TextStyle(
+                            fontSize: 18,
+                          ))),
                 ],
               ),
             ),
@@ -279,17 +315,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return;
     }
 
-    File image = await ImagePicker.pickImage(
+    _image = await ImagePicker.pickImage(
         source: ImageSource.camera, maxHeight: 400, maxWidth: 300);
 
-    if (image == null) {
+    if (_image == null) {
       Toast.show("Image is required to take", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     } else {
-      String base64Image = base64Encode(image.readAsBytesSync());
+      String base64Image = base64Encode(_image.readAsBytesSync());
       print(base64Image);
-      http.post("https://yitengsze.com/carVroom/php/upload_image.php", body: {
+      http.post("https://yitengsze.com/a_gifhope/php/upload_image.php", body: {
         "encoded_string": base64Image,
         "email": widget.user.email,
       }).then((res) {
@@ -306,13 +342,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }).catchError((err) {
         print(err);
       });
-    }
 
-    Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          ProfileScreen(user: widget.user)));
+      await DefaultCacheManager().removeFile(
+          'http://yitengsze.com/a_gifhope/profileimages/${widget.user.email}.jpg');
+    }
   }
 
   void changeName() {
@@ -402,7 +435,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void changePassword() {
+  void _changePasswordDialog() {
     if (widget.user.email.contains("unregistered")) {
       Toast.show("Please register to use this feature", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -436,13 +469,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 TextField(
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.black,
-                    ),
+                      color: Colors.black),
                     controller: oldPassController,
-                    obscureText: false,
+                    obscureText: !_showOldPass,
                     decoration: InputDecoration(
                       labelText: 'Old Password',
                       icon: Icon(Icons.lock, color: Colors.blue[200]),
+                      suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _showOldPass = !_showOldPass;
+                              });
+                            },
+                            child: Icon(_showOldPass
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                          ),
                     )),
                 TextField(
                     style: TextStyle(
@@ -450,10 +492,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       color: Colors.black,
                     ),
                     controller: newPassController,
-                    obscureText: false,
+                    obscureText: !_showNewPass,
                     decoration: InputDecoration(
                       labelText: 'New Password',
                       icon: Icon(Icons.lock, color: Colors.blue[200]),
+                      suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _showNewPass = !_showNewPass;
+                              });
+                            },
+                            child: Icon(_showNewPass
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                          ),
                     )),
               ],
             ),
@@ -477,7 +529,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return;
     }
 
-    if (oldPass.length <4 || newPass.length <4) {
+    if (oldPass.length < 4 || newPass.length < 4) {
       Toast.show("Password length must be 5 digits above", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
@@ -552,8 +604,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             actions: <Widget>[
               new FlatButton(
                   child: new Text("Yes", style: TextStyle(color: Colors.black)),
-                  onPressed: () =>
-                      updatePhone(phoneController.text)),
+                  onPressed: () => updatePhone(phoneController.text)),
               new FlatButton(
                   child: new Text("No", style: TextStyle(color: Colors.black)),
                   onPressed: () => {Navigator.of(context).pop()}),
@@ -581,8 +632,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Toast.show("Phone number changed successfully", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         return;
-      }
-      else {
+      } else {
         Toast.show("Phone number changed failed", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         return;
@@ -614,11 +664,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   )),
               actions: <Widget>[
                 new FlatButton(
-                    child:
-                        new Text("Yes", 
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black)),
+                    child: new Text("Yes",
+                        style: TextStyle(fontSize: 16.0, color: Colors.black)),
                     onPressed: () {
                       Navigator.of(context).pop();
                       Navigator.push(
@@ -627,16 +674,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               builder: (BuildContext context) =>
                                   LoginScreen()));
                     }),
-
                 new FlatButton(
-                    child: new Text("No", 
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black)),
+                    child: new Text("No",
+                        style: TextStyle(fontSize: 16.0, color: Colors.black)),
                     onPressed: () => {Navigator.of(context).pop()})
               ]);
         });
-    
   }
 
   void goRegister() {
@@ -655,7 +698,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   )),
               content: new Text("Are you sure?",
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 18,
                     color: Colors.black,
                   )),
               actions: <Widget>[
@@ -671,10 +714,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   RegisterScreen()));
                     }),
                 new FlatButton(
-                    child: new Text("No", style: TextStyle(color: Colors.black)),
+                    child:
+                        new Text("No", style: TextStyle(color: Colors.black)),
                     onPressed: () => {Navigator.of(context).pop()})
               ]);
         });
-    
   }
 }

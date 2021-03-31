@@ -14,6 +14,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'detailsscreen.dart';
+import 'donationhistory.dart';
 import 'loginscreen.dart';
 import 'product.dart';
 import 'purchasescreen.dart';
@@ -461,6 +462,20 @@ class _MainScreenState extends State<MainScreen> {
                 onTap: () => {
                       Navigator.pop(context),
                       goToPaymentHistory(),
+                    }),
+
+            ListTile(
+                title: Text("Donation History",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.schedule, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                DonationHistoryScreen(user: widget.user)),
+                      )
                     }),
 
             ListTile(

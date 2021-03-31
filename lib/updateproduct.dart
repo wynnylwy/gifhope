@@ -512,7 +512,7 @@ class _UpdateProductState extends State<UpdateProduct> {
 
   void updateProduct()async{
     if (nameEditingController.text.length < 3) {
-      Toast.show("Please enter car name", context,
+      Toast.show("Please enter product name", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }

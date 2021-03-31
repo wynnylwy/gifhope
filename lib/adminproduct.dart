@@ -2,12 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:gifhope/detailsscreen.dart';
-import 'package:gifhope/sellerdetailsscreen.dart';
-import 'package:gifhope/user.dart';
-import 'package:gifhope/updateproduct.dart';
-import 'package:gifhope/newproduct.dart';
-import 'package:gifhope/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:toast/toast.dart';
@@ -16,10 +10,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'sellerdetailsscreen.dart';
+import 'user.dart';
+import 'updateproduct.dart';
+import 'newproduct.dart';
+import 'product.dart';
 import 'report_donate.dart';
 import 'report_sales.dart';
-import 'updateproduct.dart';
-
 class AdminProduct extends StatefulWidget {
   final User user;
 
