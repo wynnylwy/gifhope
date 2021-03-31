@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'loginscreen.dart';
 import 'mainscreen.dart';
@@ -28,8 +27,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   double screenHeight, screenWidth;
   final dateFormat = new DateFormat('yyyy-MM-dd HH:mm:ss');
   var parsedDate;
-  bool _showOldPass = false;
-  bool _showNewPass = false;
   File _image;
   String pathAsset = "assets/images/camera.jpg";
 
@@ -471,20 +468,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fontSize: 15,
                       color: Colors.black),
                     controller: oldPassController,
-                    obscureText: !_showOldPass,
+                    obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'Old Password',
                       icon: Icon(Icons.lock, color: Colors.blue[200]),
-                      suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _showOldPass = !_showOldPass;
-                              });
-                            },
-                            child: Icon(_showOldPass
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                          ),
                     )),
                 TextField(
                     style: TextStyle(
@@ -492,20 +479,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       color: Colors.black,
                     ),
                     controller: newPassController,
-                    obscureText: !_showNewPass,
+                    obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'New Password',
                       icon: Icon(Icons.lock, color: Colors.blue[200]),
-                      suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _showNewPass = !_showNewPass;
-                              });
-                            },
-                            child: Icon(_showNewPass
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                          ),
                     )),
               ],
             ),
