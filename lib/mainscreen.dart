@@ -14,7 +14,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'detailsscreen.dart';
-import 'donationhistory.dart';
+import 'donationhistoryscreen.dart';
 import 'loginscreen.dart';
 import 'product.dart';
 import 'purchasescreen.dart';
@@ -203,13 +203,14 @@ class _MainScreenState extends State<MainScreen> {
                         : Expanded(
                             child: GridView.count(
                               crossAxisCount: 2,
-                              childAspectRatio: (screenWidth / screenHeight) / 0.9,
+                              childAspectRatio:
+                                  (screenWidth / screenHeight) / 0.9,
                               children:
                                   List.generate(productdata.length, (index) {
                                 return Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)
-                                  ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
                                     elevation: 10,
                                     child: Padding(
                                       padding:
@@ -458,7 +459,7 @@ class _MainScreenState extends State<MainScreen> {
             ListTile(
                 title: Text("Purchase History",
                     style: TextStyle(color: Colors.black, fontSize: 16)),
-                leading: Icon(Icons.schedule, color: Colors.black),
+                leading: Icon(Icons.receipt_long_sharp, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       goToPaymentHistory(),
@@ -467,15 +468,10 @@ class _MainScreenState extends State<MainScreen> {
             ListTile(
                 title: Text("Donation History",
                     style: TextStyle(color: Colors.black, fontSize: 16)),
-                leading: Icon(Icons.schedule, color: Colors.black),
+                leading: Icon(Icons.receipt_long, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                DonationHistoryScreen(user: widget.user)),
-                      )
+                      goToDonationHistory(),
                     }),
 
             ListTile(
@@ -484,12 +480,7 @@ class _MainScreenState extends State<MainScreen> {
                 leading: Icon(Icons.arrow_forward, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                CharityScreen(user: widget.user)),
-                      )
+                      goToDonationList(),
                     }),
 
             ListTile(
@@ -819,6 +810,44 @@ class _MainScreenState extends State<MainScreen> {
           MaterialPageRoute(
               builder: (BuildContext context) =>
                   PurchaseHistoryScreen(user: widget.user)));
+    }
+  }
+
+  goToDonationHistory() async {
+    if (widget.user.email.contains("unregistered")) {
+      Toast.show("Please register first", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    } else if (widget.user.email.contains("seller@gifhope.com")) {
+      Toast.show("Seller Mode", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    } else {
+      await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) =>
+                DonationHistoryScreen(user: widget.user)),
+      );
+    }
+  }
+
+  goToDonationList() async {
+    if (widget.user.email.contains("unregistered")) {
+      Toast.show("Please register first", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    } else if (widget.user.email.contains("seller@gifhope.com")) {
+      Toast.show("Seller Mode", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    } else {
+      await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) =>
+                CharityScreen(user: widget.user)),
+      );
     }
   }
 

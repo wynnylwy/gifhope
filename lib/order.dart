@@ -1,5 +1,5 @@
 class Order{
-  String total, orderid, billid, datebook; 
+  String total, orderid, billid, dateOrder; 
 
   Order
   (
@@ -7,7 +7,7 @@ class Order{
       this.total,
       this.orderid,
       this.billid,
-      this.datebook,
+      this.dateOrder,
     }
   );
 }

@@ -23,11 +23,10 @@ import 'paymentdonate.dart';
 
 class DonationScreen extends StatefulWidget {
   final User user;
-  final Charity charity;
   // final Order book;
   // final String id;
 
-  const DonationScreen({Key key, this.user, this.charity}) : super(key: key);
+  const DonationScreen({Key key, this.user}) : super(key: key);
 
   @override
   _DonationScreenState createState() => _DonationScreenState();

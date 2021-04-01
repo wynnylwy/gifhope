@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:gifhope/adminproduct.dart';
 
 import 'package:gifhope/mainscreen.dart';
 import 'package:gifhope/profilescreen.dart';
@@ -19,6 +18,7 @@ import 'package:shimmer/shimmer.dart';
 
 import 'package:gifhope/user.dart';
 
+import 'donationhistoryscreen.dart';
 import 'donationscreen.dart';
 import 'loginscreen.dart';
 import 'purchasehistoryscreen.dart';
@@ -509,11 +509,25 @@ class _CharityScreenState extends State<CharityScreen> {
             ListTile(
                 title: Text("Purchase History",
                     style: TextStyle(color: Colors.black, fontSize: 16)),
-                leading: Icon(Icons.schedule, color: Colors.black),
+                leading: Icon(Icons.receipt_long_sharp, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       Navigator.push(context, MaterialPageRoute(
                         builder: (BuildContext context) => PurchaseHistoryScreen()))
+                    }),
+                    
+            ListTile(
+                title: Text("Donation History",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                leading: Icon(Icons.receipt_long, color: Colors.black),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                DonationHistoryScreen(user: widget.user)),
+                      )
                     }),
 
             ListTile(
@@ -1143,11 +1157,22 @@ class _CharityScreenState extends State<CharityScreen> {
             return AlertDialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20))),
-              title: new Text("Donate to " + charitydata[index]['name'],
+              title: new RichText(
+                text: TextSpan(
+                  text: "Donate to ",
                   style: TextStyle(
-                      // fontFamily: 'Bellota',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan( text: charitydata[index]['name'], 
+                              style: TextStyle( 
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                ))]
+                ),
+              ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -1298,7 +1323,9 @@ class _CharityScreenState extends State<CharityScreen> {
         }).catchError((err) {
           print(err);
         });
-      } else {
+      } 
+      
+      else {
         Toast.show("Not added to Donation", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         return;

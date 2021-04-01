@@ -4,20 +4,20 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'donate.dart';
+import 'donationdetailsscreen.dart';
 import 'user.dart';
-import 'order.dart';
-import 'package:gifhope/purchasedetailscreen.dart';
 
-class PurchaseHistoryScreen extends StatefulWidget {
+class DonationHistoryScreen extends StatefulWidget {
   final User user;
 
-  const PurchaseHistoryScreen({Key key, this.user}) : super(key: key);
+  const DonationHistoryScreen({Key key, this.user}) : super(key: key);
 
   @override
-  _PurchaseHistoryScreenState createState() => _PurchaseHistoryScreenState();
+  _DonationHistoryScreenState createState() => _DonationHistoryScreenState();
 }
 
-class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
+class _DonationHistoryScreenState extends State<DonationHistoryScreen> {
   List paymentdata;
   List bookdetails;
 
@@ -28,7 +28,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
 
   void initState() {
     super.initState();
-    _loadPaymentHistory();
+    _loadPaymentDonateHistory();
   }
 
   Widget build(BuildContext context) {
@@ -47,8 +47,8 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                  Colors.deepOrange[200],
-                  Colors.red[100],
+                  const Color(0xFFFDD835),
+                  const Color(0xFFFBC02D),
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -56,7 +56,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                 tileMode: TileMode.clamp),
           ),
         ),
-        title: Text('Purchase History',
+        title: Text('Donation History',
             style: TextStyle(
                 fontFamily: 'Sofia',
                 fontWeight: FontWeight.bold,
@@ -65,7 +65,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
       ),
       body: Center(
         child: Container(
-          color: Colors.red[50],
+          color: Colors.amber[100],
           child: Column(
           children: <Widget>[
             Row(
@@ -92,7 +92,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                     child: RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
-                        text: "Order ID",
+                        text: "Donate ID",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
@@ -162,18 +162,18 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                           return Padding(
                               padding: EdgeInsets.fromLTRB(15, 1, 15, 1),
                               child: InkResponse( 
-                                focusColor: Colors.red[100],
-                                hoverColor: Colors.red[100],
+                                focusColor: Colors.amber[100],
+                                hoverColor: Colors.amber[100],
                                 highlightColor: Colors.blue[300],
                                 borderRadius: BorderRadius.circular(20.0),
                                 onTap: () => setState(() {
 
-                                  loadBookDetails(index);
+                                  loadDonateDetails(index);
                                 }),
                                 child: Padding(
                                   padding: EdgeInsets.only(bottom: 10),
                                   child: Container(
-                                    color: Colors.red,
+                                    color: Colors.amber[600],
                                     child: Card(
                                       elevation: 10,
                                       child: Row( 
@@ -197,7 +197,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
 
-                                                Text(paymentdata[index]['orderid'],
+                                                Text(paymentdata[index]['donateid'],
                                                 style: TextStyle(
                                                           fontSize: 17
                                                         )),
@@ -227,8 +227,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                                               children: <Widget>[
                                                 Row(
                                                   children: <Widget>[
-                                                    Text(paymentdata[index]
-                                                        ['billid'],
+                                                    Text(paymentdata[index]['billid'],
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           fontSize: 18
@@ -260,9 +259,9 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
   }
 
   // check got previous pymt record or not
-  Future<void> _loadPaymentHistory() async {
+  Future<void> _loadPaymentDonateHistory() async {
     String urlLoadJobs =
-        "https://yitengsze.com/a_gifhope/php/load_paymentHistory.php";
+        "https://yitengsze.com/a_gifhope/php/load_paymentDonateHistory.php";
 
     await http.post(urlLoadJobs, body: {
       "email": widget.user.email,
@@ -276,7 +275,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
       } else {
         setState(() {
           var extractdata = json.decode(res.body);
-          paymentdata = extractdata["payment"];
+          paymentdata = extractdata["paymentdonate"];
         });
       }
     }).catchError((err) {
@@ -284,20 +283,20 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
     });
   }
 
-  loadBookDetails(int index) {
-    Order pay = new Order(
+  loadDonateDetails(int index) {
+    Donate donate = new Donate(
       billid: paymentdata[index]['billid'],
-      orderid: paymentdata[index]['orderid'],
+      donateid: paymentdata[index]['donateid'],
       total: paymentdata[index]['total'],
-      dateOrder: paymentdata[index]['date'],
+      dateDonate: paymentdata[index]['date'],
     );
 
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => PurchaseDetailScreen(
+            builder: (BuildContext context) => DonationDetailScreen(
                   user: widget.user,
-                  book: pay,
+                  donate: donate,
                 )));
   }
 }
