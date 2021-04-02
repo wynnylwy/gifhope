@@ -85,7 +85,7 @@ if ($signed === $data['x_signature'])
                     
                     while ($row = $salesresult -> fetch_assoc ())
                     {
-                        $sellerid = $row["SELLERID"];
+                        
                         $soldsales = $row["SOLD"];
                         $pricesales = $row["PRICE"];
                          
@@ -100,29 +100,25 @@ if ($signed === $data['x_signature'])
                     if ($salesexist-> num_rows > 0)
                     {
                         
-                          $salesrow = "UPDATE z_sales SET TOTSALES= '$totsales' WHERE GENRE='$genre'";
                           
                         $salesdonaterow = "UPDATE z_salesdonation SET SALES= '$sales', DONATE = $donate WHERE GENRE='$genre'";
-                        //  $donaterow = "UPDATE z_collecteddonate SET TOTDONATE= '$totdonate' WHERE GENRE='$genre'";
+                        
+                       
                     } 
                     
-                    else {
+                    else 
+                    {
+                       
+                        
+                         $salesdonaterow = "INSERT INTO z_salesdonation (GENRE,SALES, DONATE) VALUES ('$genre','$sales', '$donate')";
                          
-                         $salesrow = "INSERT INTO z_sales (SELLERID,GENRE,TOTSALES) VALUES ('$sellerid', '$genre','$totsales')";
-                         $salesdonaterow = "INSERT INTO z_salesdonation (SELLERID,GENRE,SALES, DONATE) VALUES ('$sellerid', '$genre','$sales', '$donate')";
-                        //  $donaterow = "INSERT INTO z_collecteddonate (SELLERID,GENRE,TOTDONATE) VALUES ('$sellerid', '$genre','$totdonate')";
                     }
-                    
-                    $conn->query($salesrow);
+                   
                     $conn->query($salesdonaterow);
-                    
-                    // $conn->query($donaterow);
                     
                     $totsales=0;
                     $sales=0;
                     $donate=0;
-                    
-                    //$totdonate=0;
                     
                     $donatereceipt = $amount * 0.2;
                 }
@@ -141,7 +137,7 @@ if ($signed === $data['x_signature'])
             $conn->query($sqlinsertShopperOrder);
         }
         
-        echo '<br><br><body><div><h2><br><br><center>Receipt</center></h1><table border=1 width=80% align=center><tr><td>Order ID</td><td>'.$orderid.'</td></tr><tr><td>Receipt ID</td><td>'.$receiptid.'</td></tr><tr><td>Email to </td><td>'.$userid. ' </td></tr><td>Amount </td><td>RM '.$amount.'</td></tr><td>Donate </td><td>RM '.$donatereceipt.'</td></tr><tr><td>Payment Status </td><td>'.$paidstatus.'</td></tr><tr><td>Date </td><td>'.date("d/m/Y").'</td></tr><tr><td>Time </td><td>'.date("h:i a").'</td></tr></table><br><p><center>Press back button to return to Gifhope</center></p></div></body>';
+        echo '<br><br><body><div><h2><br><br><center>Receipt</center></h1><table border=1 width=80% align=center><tr><td>Order ID</td><td>'.$orderid.'</td></tr><tr><td>Receipt ID</td><td>'.$receiptid.'</td></tr><tr><td>Email to </td><td>'.$userid. ' </td></tr><td>Amount </td><td>RM '.$amount.'</td></tr><td>Donated </td><td>RM '.$donatereceipt.'</td></tr><tr><td>Payment Status </td><td>'.$paidstatus.'</td></tr><tr><td>Date </td><td>'.date("d/m/Y").'</td></tr><tr><td>Time </td><td>'.date("h:i a").'</td></tr></table><br><p><center>Thanks for shopping!<br>Please press back button to return to Gifhope</center></p></div></body>';
        
     }
     

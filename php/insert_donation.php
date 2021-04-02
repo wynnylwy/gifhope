@@ -42,7 +42,7 @@ if ($conn->query($sqlinsert) === true)
     }
     
     $printdonate = $donate;
-    echo "success,".$printdonate;
+    echo "success,$printdonate,$qtydonate";
 }
 else
 {

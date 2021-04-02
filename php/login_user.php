@@ -15,13 +15,28 @@ if ($resultq->num_rows > 0)
     }
 }
 
+//-----------------------------------------------------------------------//
+
+$sqldonate = "SELECT * FROM z_donation WHERE EMAIL = '$email'";
+
+$resultDonate = $conn->query($sqldonate);
+$donation = 0;
+if ($resultDonate->num_rows > 0) 
+{
+    while ($rowDonate = $resultDonate ->fetch_assoc()){
+        $donation = $rowDonate["QTYDONATE"] + $donation;
+    }
+}
+
+//-----------------------------------------------------------------------//
+
 $sql = "SELECT * FROM z_user WHERE EMAIL = '$email' AND PASSWORD = '$password'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) 
 {
     while ($row = $result ->fetch_assoc())
     {
-        echo $data = "success,".$row["NAME"].",".$row["EMAIL"].",".$row["CONTACT"].", ".$row["IDENTITY"].", ".$row["DATEREG"].",".$quantity;
+      echo $data ="success,".$row["NAME"].",".$row["EMAIL"].",".$row["CONTACT"].",".$row["IDENTITY"].",".$row["DATEREG"].",$quantity,$donation";
     }
 }
 else

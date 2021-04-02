@@ -2,7 +2,13 @@
 error_reporting(0);
 include_once ("dbconnect.php");
 
-$sql = "SELECT * FROM z_salesdonation";
+$selectedMonth = $_POST['selectedMonth'];
+
+if (isset($selectedMonth)){
+    
+  $sql = "SELECT GENRE, DONATED FROM z_donated WHERE MONTHNAME(DATE)= '$selectedMonth'";
+    
+}
 
 $result = $conn->query($sql);
 
@@ -12,10 +18,8 @@ if ($result->num_rows > 0)
     while ($row = $result->fetch_assoc())
     {
         $donatelist = array();
-        $donatelist["sellerid"] = $row["SELLERID"];
         $donatelist["genre"] = $row["GENRE"];
-        $donatelist["sales"] = $row["SALES"];
-        $donatelist["donate"] = $row["DONATE"];
+        $donatelist["donated"] = $row["DONATED"];
        
         array_push($response["donate"], $donatelist);
     }

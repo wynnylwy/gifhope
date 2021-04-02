@@ -18,7 +18,6 @@ if ($result->num_rows > 0)
     while ($row = $result->fetch_assoc())
     {
         $saleslist = array();
-        $saleslist["sellerid"] = $row["SELLERID"];
         $saleslist["genre"] = $row["GENRE"];
         $saleslist["sales"] = $row["SALES"];
         $saleslist["donate"] = $row["DONATE"];
