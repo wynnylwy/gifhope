@@ -4,7 +4,7 @@ include_once ("dbconnect.php");
 $userid = $_GET['userid'];
 $mobile = $_GET['mobile'];
 $amount = $_GET['amount'];
-$bookid = $_GET['bookid'];
+$orderid = $_GET['orderid'];
 
 $data = array(
             'id' => $_GET['billplz']['id'],
@@ -43,44 +43,101 @@ if ($signed === $data['x_signature'])
 {
     if ($paidstatus == "Success")
     {
-        $sqlbooking = "SELECT BOOKING.PRODID, BOOKING.CQUANTITY, CAR.PRICE FROM BOOKING INNER JOIN CAR ON BOOKING.PRODID = CAR.ID  WHERE BOOKING.EMAIL = '$userid'";
-        $bookingresult = $conn->query($sqlbooking);
-        if ($bookingresult-> num_rows > 0)
+        $sqlpurchase = "SELECT z_purchase.PRODID, z_purchase.CQUANTITY, z_purchase.GENRE, z_product.PRICE FROM z_purchase INNER JOIN z_product ON z_purchase.PRODID = z_product.ID  WHERE z_purchase.EMAIL = '$userid'";
+        $purchaseresult = $conn->query($sqlpurchase);
+        if ($purchaseresult-> num_rows > 0)
         {
-            while ($row = $bookingresult->fetch_assoc())
+             
+            while ($row = $purchaseresult->fetch_assoc())
             {
                 $prodid = $row["PRODID"];
-                $cquantity = $row["CQUANTITY"];
-                $pr = $row["PRICE"];
-                $sqlinsertbookhistory = "INSERT INTO BOOKHISTORY (EMAIL,BOOKID,BILLID,CARID,CQUANTITY, PRICE) VALUES ('$userid', '$bookid', '$receiptid', '$prodid', '$cquantity', '$pr')";
-                $conn->query($sqlinsertbookhistory);
+                $cquantity = $row["CQUANTITY"];   
+               $genre = $row["GENRE"];
                 
-                $selectcar = "SELECT * FROM CAR WHERE ID = '$prodid'";
-                $carresult = $conn->query($selectcar);
-                if ($carresult-> num_rows > 0)
+                $pr = $row["PRICE"];
+                $sqlinsertpurchasehistory = "INSERT INTO z_purchasehistory (EMAIL,ORDERID,BILLID,PRODID,CQUANTITY, PRICE) VALUES ('$userid', '$orderid', '$receiptid', '$prodid', '$cquantity', '$pr')";
+                $conn->query($sqlinsertpurchasehistory);
+                
+            //----------------------------------------------------------------//     
+                $selectproduct = "SELECT * FROM z_product WHERE ID = '$prodid'";
+                $productresult = $conn->query($selectproduct);
+                if ($productresult-> num_rows > 0)
                 {
-                    while ($row = $carresult -> fetch_assoc ())
+                    while ($row = $productresult -> fetch_assoc ())
                     {
-                        $carquantity = $row["QUANTITY"];
-                        $prevsold = $rowp["SOLD"];
-                        $newquantity = $carquantity - $cquantity;
+                        $productquantity = $row["QUANTITY"];
+                        $prevsold = $row["SOLD"];
+                        $newquantity = $productquantity - $cquantity;
                         $newsold = $prevsold + $cquantity;
-                        $sqlupdatequantity = "UPDATE CAR SET QUANTITY = '$newquantity', SOLD = '$newsold' WHERE ID = '$prodid'";
+                        $sqlupdatequantity = "UPDATE z_product SET QUANTITY = '$newquantity', SOLD = '$newsold' WHERE ID = '$prodid'";
                         $conn->query($sqlupdatequantity);
                     }
                 }
+                
+                
+            //----------------------------------------------------------------//
+            
+            $selectsales = "SELECT * from z_product where genre='$genre'";
+            $salesresult = $conn->query($selectsales);
+            
+                if ($salesresult-> num_rows > 0)
+                {
+                    
+                    while ($row = $salesresult -> fetch_assoc ())
+                    {
+                        
+                        $soldsales = $row["SOLD"];
+                        $pricesales = $row["PRICE"];
+                         
+                        $totsales = ($pricesales*$soldsales) + $totsales;
+                        
+                        $sales = $totsales; 
+                        $donate = $sales * 0.2;
+                    }
+                    
+                    $checksalesexist = "SELECT * from z_salesdonation where genre='$genre' LIMIT 1";
+                    $salesexist = $conn->query($checksalesexist);
+                    if ($salesexist-> num_rows > 0)
+                    {
+                        
+                          
+                        $salesdonaterow = "UPDATE z_salesdonation SET SALES= '$sales', DONATE = $donate WHERE GENRE='$genre'";
+                        
+                       
+                    } 
+                    
+                    else 
+                    {
+                       
+                        
+                         $salesdonaterow = "INSERT INTO z_salesdonation (GENRE,SALES, DONATE) VALUES ('$genre','$sales', '$donate')";
+                         
+                    }
+                   
+                    $conn->query($salesdonaterow);
+                    
+                    $totsales=0;
+                    $sales=0;
+                    $donate=0;
+                    
+                    $donatereceipt = $amount * 0.2;
+                }
             }
             
-            $sqldeletebooking = "DELETE FROM BOOKING WHERE EMAIL = '$userid'";
-            $sqlinsert = "INSERT INTO PAYMENT (BOOKID,BILLID,USERID,TOTAL) VALUES ('$bookid', '$receiptid', '$userid', '$amount')";
-            $sqlinsertCustomer = "INSERT INTO CUSTOMERORDER (EMAIL,BILLID,CARID,CQUANTITY) VALUES ('$userid', '$receiptid', '$prodid', '$cquantity')";
+            
+            //-----------------------OUT WHILE--------------------------------//
+            
+            
+            $sqldeletebooking = "DELETE FROM z_purchase WHERE EMAIL = '$userid'";
+            $sqlinsert = "INSERT INTO z_payment (ORDERID,BILLID,USERID,TOTAL) VALUES ('$orderid', '$receiptid', '$userid', '$amount')";
+            $sqlinsertShopperOrder = "INSERT INTO z_shopperorder (EMAIL,BILLID,PRODID,CQUANTITY) VALUES ('$userid', '$receiptid', '$prodid', '$cquantity')";
             
             $conn->query($sqldeletebooking);
             $conn->query($sqlinsert);
-            $conn->query($sqlinsertCustomer);
+            $conn->query($sqlinsertShopperOrder);
         }
         
-        echo '<br><br><body><div><h2><br><br><center>Receipt</center></h1><table border=1 width=80% align=center><tr><td>Book ID</td><td>'.$bookid.'</td></tr><tr><td>Receipt ID</td><td>'.$receiptid.'</td></tr><tr><td>Email to </td><td>'.$userid. ' </td></tr><td>Amount </td><td>RM '.$amount.'</td></tr><tr><td>Payment Status </td><td>'.$paidstatus.'</td></tr><tr><td>Date </td><td>'.date("d/m/Y").'</td></tr><tr><td>Time </td><td>'.date("h:i a").'</td></tr></table><br><p><center>Press back button to return to carVroom</center></p></div></body>';
+        echo '<br><br><body><div><h2><br><br><center>Receipt</center></h1><table border=1 width=80% align=center><tr><td>Order ID</td><td>'.$orderid.'</td></tr><tr><td>Receipt ID</td><td>'.$receiptid.'</td></tr><tr><td>Email to </td><td>'.$userid. ' </td></tr><td>Amount </td><td>RM '.$amount.'</td></tr><td>Donated </td><td>RM '.$donatereceipt.'</td></tr><tr><td>Payment Status </td><td>'.$paidstatus.'</td></tr><tr><td>Date </td><td>'.date("d/m/Y").'</td></tr><tr><td>Time </td><td>'.date("h:i a").'</td></tr></table><br><p><center>Thanks for shopping!<br>Please press back button to return to Gifhope</center></p></div></body>';
        
     }
     

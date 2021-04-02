@@ -17,9 +17,9 @@ $data = array (
             'mobile' => $mobile,
             'name' => $name,
             'amount' => $amount * 100,
-            'description' => 'Payment for order ID'.$oderid,
+            'description' => 'Payment for donate ID'.$oderid,
             'callback_url' => "http://yitengsze.com/a_gifhope/return_url",
-            'redirect_url' => "http://yitengsze.com/a_gifhope/php/payment_update.php?userid=$email&mobile=$mobile&amount=$amount&orderid=$orderid"
+            'redirect_url' => "http://yitengsze.com/a_gifhope/php/paymentDonate_update.php?userid=$email&mobile=$mobile&amount=$amount&orderid=$orderid"
         );
         
 $process = curl_init($host );

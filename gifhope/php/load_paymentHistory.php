@@ -4,7 +4,7 @@ include_once ("dbconnect.php");
 $email = $_POST['email'];
 
 if (isset($email)){
-   $sql = "SELECT * FROM PAYMENT WHERE USERID = '$email' ";
+   $sql = "SELECT * FROM z_payment WHERE USERID = '$email' ";
 }
 
 $result = $conn->query($sql);
@@ -15,7 +15,7 @@ if ($result->num_rows > 0)
     while ($row = $result->fetch_assoc())
     {
         $paymentlist = array();
-        $paymentlist["bookid"] = $row["BOOKID"];
+        $paymentlist["orderid"] = $row["ORDERID"];
         $paymentlist["billid"] = $row["BILLID"];
         $paymentlist["total"] = $row["TOTAL"];
         $paymentlist["date"] = $row["DATE"];
