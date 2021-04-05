@@ -16,16 +16,13 @@ import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'charity.dart';
-import 'order.dart';
 import 'payment.dart';
 import 'mainscreen.dart';
 import 'paymentdonate.dart';
 
 class DonationScreen extends StatefulWidget {
   final User user;
-  // final Order book;
-  // final String id;
-
+  
   const DonationScreen({Key key, this.user}) : super(key: key);
 
   @override

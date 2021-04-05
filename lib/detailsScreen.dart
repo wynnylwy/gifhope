@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gifhope/mainscreen.dart';
-import 'package:gifhope/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,7 +10,6 @@ import 'package:gifhope/user.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'product.dart';
 
 class DetailsScreen extends StatefulWidget {
   final Map<String, dynamic> product;

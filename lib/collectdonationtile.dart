@@ -5,9 +5,6 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'order.dart';
-import 'package:gifhope/purchasedetailscreen.dart';
-
 import 'salesdonate.dart';
 
 class CollectDonationTileScreen extends StatefulWidget {

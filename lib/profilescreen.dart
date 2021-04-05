@@ -439,8 +439,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return;
     }
 
-    if (widget.user.email.contains("admin@carvroom.com")) {
-      Toast.show("Admin mode", context,
+    if (widget.user.email.contains("seller@gifhope.com")) {
+      Toast.show("Seller Mode", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }

@@ -39,10 +39,8 @@ class _CharityScreenState extends State<CharityScreen> {
   bool _visible = false;
   String curtype = "Recent";
   String donatequantity = "0";
-   String numOfItem = "0";
+  String numOfItem = "0";
   int quantity = 1;
-
-  bool _isAdmin = false;
   String amount;
   String titlecenter = "Charity data is not found";
 
@@ -57,11 +55,7 @@ class _CharityScreenState extends State<CharityScreen> {
     super.initState();
     _loadCharityData();
     _loadDonationQuantity();
-    refreshKey = GlobalKey<RefreshIndicatorState>();
-
-    if (widget.user.email == "charityadmin@gifhope.com") {
-      _isAdmin = true;
-    }
+    refreshKey = GlobalKey<RefreshIndicatorState>();    
   }
 
   Widget build(BuildContext context) {

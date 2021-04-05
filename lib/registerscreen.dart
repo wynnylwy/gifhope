@@ -86,17 +86,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   autovalidate: autoValidate,
                   child: Column(
                     children: <Widget>[
-                      // Align(
-                      //   alignment: Alignment.center,
-                      //   child: Text(
-                      //     "Sign Up",
-                      //     style: TextStyle(
-                      //       color: Colors.black,
-                      //       fontSize: 26,
-                      //       fontWeight: FontWeight.w600,
-                      //     ),
-                      //   ),
-                      // ),
 
                       TextFormField(
                           controller: _idEditingController,

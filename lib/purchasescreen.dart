@@ -222,7 +222,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                                 "Home Delivery "),
                                                           ],
                                                         ),
-                                                        FlatButton(
+                                                        MaterialButton(
                                                           color: Colors.blue,
                                                           onPressed: () => {
                                                             _loadMapDialog()

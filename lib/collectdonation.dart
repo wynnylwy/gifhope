@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:toast/toast.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:share/share.dart';
 
-import 'collectdonationtile.dart';
 import 'salesdonate.dart';
 
 class CollectDonationScreen extends StatefulWidget {
@@ -126,27 +123,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                     Flexible(
                                                       child: Column(
                                                         children: <Widget>[
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                "Seller ID: ",
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize:
-                                                                        16),
-                                                              ),
-                                                              Text(
-                                                                salesdetails[
-                                                                        index][
-                                                                    'sellerid'],
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        16),
-                                                              ),
-                                                            ],
-                                                          ),
+                                                          
                                                           SizedBox(height: 3),
                                                           Row(
                                                             children: [
