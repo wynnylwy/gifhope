@@ -323,7 +323,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                                                 MainAxisAlignment
                                                                     .end,
                                                             children: <Widget>[
-                                                              FlatButton(
+                                                              TextButton(
                                                                 onPressed: () =>
                                                                     {
                                                                   _deleteDonation(

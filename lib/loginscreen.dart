@@ -49,7 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-          resizeToAvoidBottomPadding: false,
+          resizeToAvoidBottomInset:false,
+         // resizeToAvoidBottomPadding: false,
           backgroundColor: Colors.yellow[100],
           body: Stack(
             children: <Widget>[

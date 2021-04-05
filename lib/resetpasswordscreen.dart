@@ -29,7 +29,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset:false,
+      //resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.yellow[100],
       body: Stack(
               children: <Widget>

@@ -21,7 +21,8 @@ class _ForgetpasswordScreenState extends State<ForgetpasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset:false,
+      //resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.yellow[100],
       body: Stack(children: <Widget>[
         pageTitle(),

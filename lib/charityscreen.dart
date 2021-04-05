@@ -533,7 +533,7 @@ class _CharityScreenState extends State<CharityScreen> {
             ListTile(
                 title: Text("Go To Donation List",
                     style: TextStyle(color: Colors.black, fontSize: 16)),
-                leading: Icon(Icons.arrow_forward, color: Colors.black),
+                leading: Icon(Icons.volunteer_activism, color: Colors.black),
                 onTap: () => {
                       Navigator.pop(context),
                       Navigator.push(

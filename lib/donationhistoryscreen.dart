@@ -21,7 +21,7 @@ class _DonationHistoryScreenState extends State<DonationHistoryScreen> {
   List paymentdata;
   List bookdetails;
 
-  String titlecenter = "Loading purchase history...";
+  String titlecenter = "Loading donation history...";
   final dateFormat = new DateFormat('dd-MM-yyyy hh:mm a');
   var parsedDate;
   double screenHeight, screenWidth;
@@ -270,7 +270,7 @@ class _DonationHistoryScreenState extends State<DonationHistoryScreen> {
       if (res.body.contains("nodata")) {
         setState(() {
           paymentdata = null;
-          titlecenter = "No Payment Record";
+          titlecenter = "No Donation Record";
         });
       } else {
         setState(() {
