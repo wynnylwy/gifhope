@@ -158,7 +158,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     }
 
     if (value.length < 5) {
-      return 'Password length must be 5 digits above';
+      return 'Password length must be 5 digits or above';
     }
     return null;
   }
@@ -171,7 +171,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
     if (form.validate()) {
       form.save();
-      http.post("https://yitengsze.com/carVroom/php/reset_password.php", body: {
+      http.post("https://yitengsze.com/a_gifhope/php/reset_password.php", body: {
         "email": email,
         "password": password,
       }).then((res) {

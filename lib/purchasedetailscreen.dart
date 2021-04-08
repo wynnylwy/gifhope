@@ -352,12 +352,21 @@ class _PurchaseDetailScreenState extends State<PurchaseDetailScreen> {
             return AlertDialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20.0))),
-              title: new Text(
-                "Purchase for " + purchasedetails[index]['name'],
-                style: TextStyle(
-                  fontFamily: 'Bellota',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+              title: new RichText(
+                text: TextSpan(
+                  text: "Purchase for " ,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan( text: purchasedetails[index]['name'], 
+                              style: TextStyle( 
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                ))
+                ]
                 ),
               ),
               content: Column(
