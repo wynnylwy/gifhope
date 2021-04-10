@@ -25,7 +25,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   List productdata;
   // Map index = widget.product.key;
 
-  String titlecenter = "Product data is not found";
+  String titlecenter = "Loading product...";
   int numOfItem = 1;
   double screenHeight, screenWidth;
 
@@ -236,7 +236,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 )))
                         : Container(
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
+                              padding: const EdgeInsets.fromLTRB(20, 20, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
@@ -255,7 +255,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
                                   SizedBox(height: 10),
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 2,
+                                    padding: EdgeInsets.fromLTRB(0.5, 0, 2,
                                         10), //padding of row price & pic
                                     child: Row(
                                       children: <Widget>[
@@ -282,26 +282,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           ),
                                         ),
                                         SizedBox(width: 15),
-                                        Padding(
-                                          padding: EdgeInsets.fromLTRB(50, 5, 2, 5),
-                                          child: Container(
-                                            height: screenWidth / 1.9,
-                                            width: screenWidth / 2.0,
-                                            child: Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  10, 5, 0, 5), //padding of pic
+                                        Container(
+                                          height: screenWidth / 1.9,
+                                          width: screenWidth / 2.0,
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 5, 0, 5), //padding of pic
 
-                                              child: ClipRect(
-                                                child: CachedNetworkImage(
-                                                  fit: BoxFit.cover,
-                                                  imageUrl:
-                                                      "http://yitengsze.com/a_gifhope/productimages/${widget.product["id"]}.jpg",
-                                                  placeholder: (context, url) =>
-                                                      new CircularProgressIndicator(),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          new Icon(Icons.error),
-                                                ),
+                                            child: ClipRect(
+                                              child: CachedNetworkImage(
+                                                fit: BoxFit.cover,
+                                                imageUrl:
+                                                    "http://yitengsze.com/a_gifhope/productimages/${widget.product["id"]}.jpg",
+                                                placeholder: (context, url) =>
+                                                    new CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        new Icon(Icons.error),
                                               ),
                                             ),
                                           ),

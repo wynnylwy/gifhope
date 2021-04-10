@@ -24,7 +24,7 @@ class SellerDetailsScreen extends StatefulWidget {
 
 class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
   List productdata;
-  String titlecenter = "Product data is not found";
+  String titlecenter = "Loading product...";
   int numOfItem = 1;
   double screenHeight, screenWidth;
 

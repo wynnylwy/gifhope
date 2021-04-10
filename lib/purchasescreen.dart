@@ -964,7 +964,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                   "-" +
                   dateFormat.format(now) +
                   randomAlphaNumeric(6);
-
+              String dateOrder = dateFormat.format(now);
               print(orderid);
 
               Navigator.push(
@@ -974,6 +974,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                             user: widget.user,
                             val: _totalPayment.toStringAsFixed(2),
                             orderid: orderid,
+                            dateOrder: dateOrder,
                           ))).then((result) {
                 Navigator.of(context).pop();
               });

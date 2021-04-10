@@ -38,7 +38,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
   String donatequantity = "0";
   String numOfItem = "0";
   int quantity = 1;
-  String titlecenter = "Charity data is not found";
+  String titlecenter = "Loading charity events...";
 
   @override
   void initState() {
@@ -486,7 +486,7 @@ class _CharityAdminMainScreenState extends State<CharityAdminMainScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  CollectDonationTileScreen()))
+                                  CollectDonationTileScreen(user: widget.user)))
                     }),
             ListTile(
                 title: Text("View Sales Report",

@@ -42,7 +42,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
   String curtype = "Recent";
   String donatequantity = "0";
   int quantity = 1;
-  String titlecenter = "Charity data is not found";
+  String titlecenter = "Loading charity events...";
   var _tapPosition;
 
   @override
@@ -515,7 +515,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  CollectDonationTileScreen()))
+                                  CollectDonationTileScreen(user:widget.user)))
                     }),
             ListTile(
                 title: Text("View Sales Report",
@@ -604,7 +604,6 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
           .post(urlLoadJobs, body: {
             "name": eventname.toString(),
           })
-          .timeout(const Duration(seconds: 3))
           .then((res) {
             print(res.body);
             if (res.body.contains("nodata")) {
@@ -934,7 +933,7 @@ class _CharityAdminManageScreenState extends State<CharityAdminManageScreen> {
     await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => CollectDonationTileScreen()));
+            builder: (BuildContext context) => CollectDonationTileScreen(user: widget.user)));
   }
 
   Future<void> _viewSalesReport() async {

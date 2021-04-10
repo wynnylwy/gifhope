@@ -7,17 +7,21 @@ import 'package:shimmer/shimmer.dart';
 import 'package:share/share.dart';
 
 import 'salesdonate.dart';
+import 'user.dart';
 
 class CollectDonationScreen extends StatefulWidget {
   final SalesDonate collect;
+  final User user;
 
-  const CollectDonationScreen({Key key, this.collect}) : super(key: key);
+  const CollectDonationScreen({Key key, this.collect, this.user}) : super(key: key);
 
   @override
   _CollectDonationScreenState createState() => _CollectDonationScreenState();
 }
 
 class _CollectDonationScreenState extends State<CollectDonationScreen> {
+  
+  User user; 
   List salesdetails;
   List sellerInfo;
   String titlecenter = "Loading collect donation...";
@@ -35,6 +39,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
 
   void initState() {
     super.initState();
+    user = widget.user;
     _loadSalesDetails();
   }
 
@@ -277,10 +282,9 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
 
                                                                       beforeText = beforeText2;
 
-                                                                      String sellerReceipt = salesdetails[index]['sellerid'];
                                                                       String genreReceipt = salesdetails[index]['genre'];
                                                                       String donateValue = salesdetails[index]['donate'];
-                                                                      getSellerInfo(sellerReceipt,genreReceipt,donateValue);
+                                                                      goToShare(user, genreReceipt,donateValue);
                                                                     }
                                                                   }),
                                                                 },
@@ -420,7 +424,6 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
         String urlLoadJobs =
             "https://yitengsze.com/a_gifhope/php/update_salesDonation.php";
         http.post(urlLoadJobs, body: {
-          "sellerid": salesdetails[index]['sellerid'],
           "genre": salesdetails[index]['genre'],
           "sales": salesdetails[index]['sales'],
           "donate": salesdetails[index]['donate'],
@@ -456,45 +459,22 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
     }
   }
 
-  Future<void> getSellerInfo(
-      String sellerReceipt, String genreReceipt, String donateValue) async {
-    String urlLoadJobs =
-        "https://yitengsze.com/a_gifhope/php/get_sellerInfo.php";
-    http.post(urlLoadJobs, body: {
-      "sellerid": sellerReceipt,
-    }).then((res) {
-      print(res.body);
-      if (res.body.contains("nodata")) {
-        setState(() {
-          sellerInfo = null;
-        });
-      } else {
-        setState(() {
-          var extractdata = json.decode(res.body);
-          sellerInfo = extractdata["seller"];
+  Future<void> goToShare (User user, String genreReceipt, String donateValue){
 
-          share(context, sellerInfo, genreReceipt, donateValue);
-        });
+      if (donateValue != '0' || donateValue != null){
+        share(context, user, genreReceipt, donateValue);
       }
-    }).catchError((err) {
-      print(err);
-    });
+      else{
+        print("Error");
+      }
   }
 
-  Future<void> share(BuildContext context, List sellerInfo, String genreReceipt,
-      String donateValue) async {
-    Map sellerInfoMap = sellerInfo.asMap();
-    String sellerID = sellerInfoMap[0]["sellerid"];
-    String sellerName = sellerInfoMap[0]["name"];
-    String sellerEmail = sellerInfoMap[0]["email"];
-    String sellerPhone = sellerInfoMap[0]["contact"];
-
+  Future<void> share(BuildContext context, User user, String genreReceipt, String donateValue) async {
+    
     final RenderBox box = context.findRenderObject();
-    final String text1 =
-        "Your sales have been deducted for 20% as the donation to Gifhope sucessfully!";
-    final String text2 =
-        " Here's your receipt \n Seller ID: $sellerID \n Name: $sellerName \n Phone: $sellerPhone \n Email: $sellerEmail \n Genre: $genreReceipt \n Amount: RM $donateValue \n THANK YOU! ";
 
+    final String text1 = "Donation Success";
+    final String text2 = " Your sales have been deducted for 20% sucessfully as the donation to Gifhope! \nEvents you donated to: \n Genre: $genreReceipt \n Amount: RM $donateValue \n\n For inquiries, you may contact: \n Name: ${widget.user.name} \n Contact: ${widget.user.phone} \n Email: ${widget.user.email} \n\n THANK YOU! ";
     await Share.share(
       text2,
       subject: text1,

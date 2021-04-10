@@ -352,12 +352,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return;
     }
 
-    if (widget.user.email.contains("admin@carvroom.com")) {
-      Toast.show("Admin mode", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-
     TextEditingController nameController = TextEditingController();
 
     showDialog(
@@ -410,7 +404,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ReCase rc = new ReCase(name);
     String rcName = rc.titleCase.toString();
     print(rcName); //capitalize title name
-    http.post("https://yitengsze.com/carVroom/php/update_profile.php", body: {
+    http.post("https://yitengsze.com/a_gifhope/php/update_profile.php", body: {
       "email": widget.user.email,
       "name": rcName,
     }).then((res) {
@@ -435,12 +429,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _changePasswordDialog() {
     if (widget.user.email.contains("unregistered")) {
       Toast.show("Please register to use this feature", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-
-    if (widget.user.email.contains("seller@gifhope.com")) {
-      Toast.show("Seller Mode", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -512,7 +500,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return;
     }
 
-    http.post("https://yitengsze.com/carVroom/php/update_profile.php", body: {
+    http.post("https://yitengsze.com/a_gifhope/php/update_profile.php", body: {
       "email": widget.user.email,
       "oldpassword": oldPass,
       "newpassword": newPass,
@@ -539,12 +527,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void changePhone() {
     if (widget.user.email.contains("unregistered")) {
       Toast.show("Please register to use this feature", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-
-    if (widget.user.email.contains("admin@carvroom.com")) {
-      Toast.show("Admin mode", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -590,14 +572,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
   }
 
-  updatePhone(String phone) {
-    if (phone == "" || phone == null || phone.length < 9) {
+updatePhone(String phone) {
+    if (phone == "" || phone == null) {
       Toast.show("Please enter your new phone number", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
 
-    http.post("https://yitengsze.com/carVroom/php/update_profile.php", body: {
+    if ( phone.length < 9) {
+      Toast.show("Please enter more than 9 digits", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
+
+    http.post("https://yitengsze.com/a_gifhope/php/update_profile.php", body: {
       "email": widget.user.email,
       "phone": phone,
     }).then((res) {

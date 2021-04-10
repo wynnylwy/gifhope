@@ -8,8 +8,8 @@ import 'user.dart';
 
 class PaymentScreen extends StatefulWidget {
   final User user;
-  final String orderid, val;
-  PaymentScreen({this.user, this.orderid, this.val, });
+  final String orderid, val, dateOrder;
+  PaymentScreen({this.user, this.orderid, this.val,this.dateOrder });
 
   @override
   _PaymentScreen createState() => _PaymentScreen();
@@ -18,7 +18,7 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreen extends State<PaymentScreen> {
   Completer<WebViewController> _controller = Completer<WebViewController>();
   User user;
-  String orderid, val;
+  String orderid, val, dateOrder;
 
   @override
   void initState() {
@@ -26,6 +26,7 @@ class _PaymentScreen extends State<PaymentScreen> {
     user = widget.user;
     orderid = widget.orderid;
     val = widget.val;
+    dateOrder = widget.dateOrder;
   }
  
   @override
@@ -66,7 +67,8 @@ class _PaymentScreen extends State<PaymentScreen> {
                               '&mobile=' + widget.user.phone +
                               '&name=' + widget.user.name +
                               '&amount=' + widget.val +
-                              '&orderid=' + widget.orderid,
+                              '&orderid=' + widget.orderid +
+                              '&selectedMonth=' + widget.dateOrder,
                       javascriptMode: JavascriptMode.unrestricted,
                       onWebViewCreated: (WebViewController webViewController) {
                         _controller.complete(webViewController);

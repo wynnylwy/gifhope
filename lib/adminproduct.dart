@@ -36,7 +36,7 @@ class _AdminProductState extends State<AdminProduct> {
   String cartquantity = "0";
   int quantity = 1;
   var _tapPosition;
-  String titlecenter = "Product data is not found";
+  String titlecenter = "Loading product...";
 
   @override
   void initState() {
@@ -174,7 +174,7 @@ class _AdminProductState extends State<AdminProduct> {
                                   baseColor: Colors.black,
                                   highlightColor: Colors.white,
                                   child: Text(
-                                    "Product data not found",
+                                    titlecenter,
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Mogra',

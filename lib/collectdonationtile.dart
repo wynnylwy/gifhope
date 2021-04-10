@@ -6,9 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'salesdonate.dart';
+import 'user.dart';
 
 class CollectDonationTileScreen extends StatefulWidget {
-  const CollectDonationTileScreen({Key key}) : super(key: key);
+  final User user;
+  const CollectDonationTileScreen({Key key, this.user}) : super(key: key);
 
   @override
   _CollectDonationTileScreenState createState() =>
@@ -17,7 +19,6 @@ class CollectDonationTileScreen extends StatefulWidget {
 
 class _CollectDonationTileScreenState extends State<CollectDonationTileScreen> {
   List salesdetails;
-
   String titlecenter = "Loading collect donation...";
   final dateFormat = new DateFormat('dd-MM-yyyy hh:mm a');
   var parsedDate;
@@ -251,6 +252,7 @@ class _CollectDonationTileScreenState extends State<CollectDonationTileScreen> {
         MaterialPageRoute(
             builder: (BuildContext context) => CollectDonationScreen(
                   collect: salesDonate,
+                  user: widget.user,
                 )));
 
     _loadSalesTile();

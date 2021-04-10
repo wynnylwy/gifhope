@@ -11,6 +11,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
 
+import 'admincharity.dart';
 import 'charity.dart';
 import 'user.dart';
 
@@ -98,26 +99,37 @@ class _UpdateCharityState extends State<UpdateCharity> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-                colors: [
-                  const Color(0xFF3366FF),
-                  const Color(0xFF00CCFF),
-                ],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp),
+                    iconTheme: IconThemeData(color: Colors.black),
+            flexibleSpace: Container(
+              decoration: new BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: [
+                      const Color(0xFFFDD835),
+                      const Color(0xFFFBC02D),
+                    ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 0.0),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp),
+              ),
+            ),
+            title: Text('Update Charity',
+                style: TextStyle(
+                    fontFamily: 'Sofia',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26.0,
+                    color: Colors.black)),
+            leading: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CharityAdminManageScreen(
+                            user: widget.user,
+                          )));
+            }),
           ),
-        ),
-        title: Text('Update Charity',
-            style: TextStyle(
-                fontFamily: 'Sofia',
-                fontWeight: FontWeight.bold,
-                fontSize: 30.0,
-                color: Colors.white)),
-      ),
       body: Container(
         //pic container
         alignment: Alignment.topCenter,
@@ -298,7 +310,7 @@ class _UpdateCharityState extends State<UpdateCharity> {
                                               width: 70,
                                               height: 45,
                                               child: RaisedButton(
-                                                color: Colors.blue[100],
+                                                color: Colors.amber[100],
                                                 child: Text( 
                                                   startDate,
                                                   style:
@@ -332,7 +344,7 @@ class _UpdateCharityState extends State<UpdateCharity> {
                                               width: 70,
                                               height: 45,
                                               child: RaisedButton(
-                                                color: Colors.blue[100],
+                                                color: Colors.amber[100],
                                                 child: Text(
                                                   endDate,
                                                   style:
@@ -415,7 +427,7 @@ class _UpdateCharityState extends State<UpdateCharity> {
                                               width: 70,
                                               height: 45,
                                               child: RaisedButton(
-                                                color: Colors.blue[100],
+                                                color: Colors.amber[100],
                                                 child: Text( 
                                                   startTime,
                                                   style:
@@ -448,7 +460,7 @@ class _UpdateCharityState extends State<UpdateCharity> {
                                               width: 70,
                                               height: 45,
                                               child: RaisedButton(
-                                                color: Colors.blue[100],
+                                                color: Colors.amber[100],
                                                 child: Text(
                                                   endTime,
                                                   style:
@@ -718,7 +730,7 @@ class _UpdateCharityState extends State<UpdateCharity> {
                                   fontSize: 17,
                                 ),
                               ),
-                              color: Colors.yellow[200],
+                              color: Colors.amber[100],
                               textColor: Colors.black,
                               elevation: 10,
                               onPressed: updateEventDialog,
@@ -735,7 +747,7 @@ class _UpdateCharityState extends State<UpdateCharity> {
                                   fontSize: 17,
                                 ),
                               ),
-                              color: Colors.yellow[200],
+                              color: Colors.amber[100],
                               textColor: Colors.black,
                               elevation: 10,
                               onPressed: () {
@@ -932,7 +944,7 @@ class _UpdateCharityState extends State<UpdateCharity> {
               ],
         androidUiSettings: AndroidUiSettings(
           toolbarTitle: 'Cropper',
-          toolbarColor: Colors.blue[600],
+          toolbarColor: Colors.amber[300],
           toolbarWidgetColor: Colors.black,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
