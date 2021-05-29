@@ -117,7 +117,7 @@ class _PaymentDonateScreen extends State<PaymentDonateScreen> {
 
     final String text1 = " Appreciation Notice";
    // final String text2 = " Your sales have been deducted for 20% as the donation to the charity events held in Gifhope mobile application. \n\n Here's your receipt \n Name: ${widget.user.name} \n Contact: ${widget.user.phone} \n Email: ${widget.user.email} \n Order id: ${widget.donateid} \n Amount: RM ${widget.val} \n THANK YOU! ";
-     final String text2 =" Thanks for making the donation in the Gifhope mobile application. \n\n Here's your receipt \n Name: ${widget.user.name} \n Contact: ${widget.user.phone} \n Email: ${widget.user.email} \n Order id: ${widget.donateid} \n Amount: RM ${widget.val} \n THANK YOU! ";
+     final String text2 =" Thanks for making the donation in the Givehope mobile application. \n\n Here's your receipt \n Name: ${widget.user.name} \n Contact: ${widget.user.phone} \n Email: ${widget.user.email} \n Order id: ${widget.donateid} \n Amount: RM ${widget.val} \n THANK YOU! ";
 
     await Share.share(
       text2,

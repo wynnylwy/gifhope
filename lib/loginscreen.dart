@@ -255,7 +255,7 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            "Welcome To Gifhope",
+            "Welcome To Givehope",
             style: TextStyle(
               fontSize: 32,
               color: Colors.black,

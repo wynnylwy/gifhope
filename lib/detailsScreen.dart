@@ -79,8 +79,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 height: size.height * 1.1,
                 child: Stack(
                   children: <Widget>[
-                    Expanded(
-                      child: Container(
+                    Column(
+                      children: <Widget> [
+                        Container(
                         margin: EdgeInsets.only(
                             top: size.height * 0.3), //stack height
                         padding: EdgeInsets.only(
@@ -215,11 +216,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             ),
                           ],
                         ),
-                      ),
+                      )],
                     ),
                     productdata == null
-                        ? Flexible(
-                            child: Container(
+                        ? Stack(
+                            children: [ Container(
                                 color: Colors.red[100],
                                 child: Center(
                                   child: Shimmer.fromColors(
@@ -233,7 +234,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             fontSize: 25.0,
                                             fontWeight: FontWeight.bold),
                                       )),
-                                )))
+                                ))])
                         : Container(
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(20, 20, 0, 10),

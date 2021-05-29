@@ -11,7 +11,7 @@
     
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="gifhope"
+        android:label="givehope"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
     <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyAFtvH_WfN91xacp5RYFKgiZl0My88CGpw"/>

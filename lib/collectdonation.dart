@@ -276,9 +276,10 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
                                                                     } 
                                                                     else   //pressed send
                                                                     {
-                                                                      calcDonationText = true;
+                                                                      
+                                                                      sendDonationReceiptText = true;
+                                                                      calcDonationText = false;
                                                                       collectDonationText = false;
-                                                                      sendDonationReceiptText = false;
 
                                                                       beforeText = beforeText2;
 
@@ -474,7 +475,7 @@ class _CollectDonationScreenState extends State<CollectDonationScreen> {
     final RenderBox box = context.findRenderObject();
 
     final String text1 = "Donation Success";
-    final String text2 = " Your sales have been deducted for 20% sucessfully as the donation to Gifhope! \nEvents you donated to: \n Genre: $genreReceipt \n Amount: RM $donateValue \n\n For inquiries, you may contact: \n Name: ${widget.user.name} \n Contact: ${widget.user.phone} \n Email: ${widget.user.email} \n\n THANK YOU! ";
+    final String text2 = " Your sales have been deducted for 20% sucessfully as the donation to Givehope! \nEvents you donated to: \n Genre: $genreReceipt \n Amount: RM $donateValue \n\n For inquiries, you may contact: \n Name: ${widget.user.name} \n Contact: ${widget.user.phone} \n Email: ${widget.user.email} \n\n THANK YOU! ";
     await Share.share(
       text2,
       subject: text1,

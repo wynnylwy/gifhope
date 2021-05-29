@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Gifhope',
+      title: 'Givehope',
       home: Scaffold(
           body: Center(
         child: TweenAnimationBuilder(
